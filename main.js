@@ -124,6 +124,7 @@ Chest.prototype.update = function() {
       this.open = false;
       this.animation.elapsedTime = 0;
       this.wasOpened = true;
+
   }
 }
 function Redhead(game, x, y, spritesheet) {
