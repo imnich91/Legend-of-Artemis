@@ -528,7 +528,7 @@ OrcBowman.prototype.update = function () {
 
 AM.queueDownload("./img/forestBackground.jpg");
 //AM.queueDownload("./img/Orc.png");
-AM.queueDownload("./img/Chest.png");
+AM.queueDownload("./img/chest.png");
 AM.queueDownload("./img/TronWithBow.png");
 AM.queueDownload("./img/redhead.png");
 AM.queueDownload("./img/skeleton.png");
@@ -543,7 +543,7 @@ AM.downloadAll(function () {
     gameEngine.start();
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/forestBackground.jpg")));
-    gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/Chest.png")));
+    gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/chest.png")));
     //gameEngine.addEntity(new OrcBowman(gameEngine, AM.getAsset("./img/Orc.png")));
     gameEngine.addEntity(new OrcBowman(gameEngine, AM.getAsset("./img/TronWithBow.png")));
     var redhead = new Redhead(gameEngine, 500, 500,  AM.getAsset("./img/redhead.png"));
