@@ -534,6 +534,7 @@ AM.queueDownload("./img/redhead.png");
 AM.queueDownload("./img/skeleton.png");
 
 
+
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
     var ctx = canvas.getContext("2d");
