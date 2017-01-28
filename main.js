@@ -52,11 +52,6 @@ Animation.prototype.isDone = function () {
     return (this.elapsedTime >= this.totalTime);
 }
 
-// var set = false;
-// window.onload = function() {
-//   set = true;
-// };
-
 Animation.prototype.setFrames = function (frames) {
   this.frames = frames;
   this.sheetWidth = frames;
@@ -102,31 +97,29 @@ function Chest(game, spritesheet) {
   this.game = game;
 }
 
-// Chest.prototype.draw = function() {
-//   // while(!set) {
-//   //
-//   // }
-//   if(this.open && !this.wasOpened) {
-//       this.animation.currFrame = 0;
-//       this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0, true);
-//   } else if(this.wasOpened) {
-//     this.animation.drawSpecifcFrame(this.ctx, this.x, this.y, 3, 0);
-//   }else {
-//       this.animation.drawFrame(0, this.ctx, this.x, this.y, 0, false);
-//   }
-// }
-//
-// Chest.prototype.update = function() {
-//   if(this.game.chars["KeyC"] || this.game.chars["KeyL"]) {
-//     this.open = true;
-//   }
-//   if (this.animation.isDone()) {
-//       this.open = false;
-//       this.animation.elapsedTime = 0;
-//       this.wasOpened = true;
-//
-//   }
-// }
+Chest.prototype.draw = function() {
+  if(this.open && !this.wasOpened) {
+      this.animation.currFrame = 0;
+      this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 0, true);
+  } else if(this.wasOpened) {
+    this.animation.drawSpecifcFrame(this.ctx, this.x, this.y, 3, 0);
+  }else {
+      this.animation.drawFrame(0, this.ctx, this.x, this.y, 0, false);
+  }
+}
+
+Chest.prototype.update = function() {
+  if(this.game.chars["KeyC"] || this.game.chars["KeyL"]) {
+    this.open = true;
+  }
+  if (this.animation.isDone()) {
+      this.open = false;
+      this.animation.elapsedTime = 0;
+      this.wasOpened = true;
+
+  }
+}
+
 function Redhead(game, x, y, spritesheet) {
     this.animation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 2);
     this.x = x;
@@ -142,8 +135,6 @@ function Redhead(game, x, y, spritesheet) {
     this.leftFaceing = true;
     this.paceing = true;
     this.direction = 'up';
-
-
 }
 
 Redhead.prototype.draw = function () {
@@ -528,7 +519,7 @@ OrcBowman.prototype.update = function () {
 
 AM.queueDownload("./img/forestBackground.jpg");
 //AM.queueDownload("./img/Orc.png");
-//AM.queueDownload("./img/Chest.png");
+AM.queueDownload("./img/chest.png");
 AM.queueDownload("./img/TronWithBow.png");
 AM.queueDownload("./img/redhead.png");
 AM.queueDownload("./img/skeleton.png");
@@ -544,7 +535,7 @@ AM.downloadAll(function () {
     gameEngine.start();
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/forestBackground.jpg")));
-    //gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/Chest.png")));
+    gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/chest.png")));
     //gameEngine.addEntity(new OrcBowman(gameEngine, AM.getAsset("./img/Orc.png")));
     gameEngine.addEntity(new OrcBowman(gameEngine, AM.getAsset("./img/TronWithBow.png")));
     var redhead = new Redhead(gameEngine, 500, 500,  AM.getAsset("./img/redhead.png"));
