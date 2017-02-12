@@ -540,7 +540,7 @@ AM.downloadAll(function () {
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 1550, 400));
 
     //gameEngine.addEntity(new OrcBowman(gameEngine, AM.getAsset("./img/Orc.png")));
-    gameEngine.addEntity(new Artemis(gameEngine, AM.getAsset("./img/characters/TronWithBow.png")));
+    gameEngine.addEntity(new OrcBowman(gameEngine, AM.getAsset("./img/characters/TronWithBow.png")));
     var redhead = new Redhead(gameEngine, 100, 380,  AM.getAsset("./img/characters/redhead.png"));
     redhead.paceing = false;
     redhead.jumping = true;
