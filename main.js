@@ -52,6 +52,10 @@ Animation.prototype.isDone = function () {
     return (this.elapsedTime >= this.totalTime);
 }
 
+Animation.prototype.setScale = function(scale) {
+    this.scale = scale;
+}
+
 Animation.prototype.setFrames = function (frames) {
   this.frames = frames;
   this.sheetWidth = frames;
@@ -89,10 +93,10 @@ Background.prototype.update = function () {
 
 
 
-function Chest(game, spritesheet) {
-  this.animation = new Animation(spritesheet, 47, 38, 3.5, 0.2, 3.5, false, 1.5);
-  this.x = 100;
-  this.y = 480;
+function Chest(game, spritesheet, x, y, scale) {
+  this.animation = new Animation(spritesheet, 47, 38, 3.5, 0.2, 3.5, false, scale);
+  this.x = x;
+  this.y = y;
   this.ctx = game.ctx;
   this.game = game;
 }
@@ -121,7 +125,7 @@ Chest.prototype.update = function() {
 }
 
 function Redhead(game, x, y, spritesheet) {
-    this.animation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 2);
+    this.animation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 1);
     this.x = x;
     this.y = y;
     this.speed = 100;
@@ -255,7 +259,7 @@ Redhead.prototype.moveLeft = function() {
 }
 
 function Skeleton(game, x, y, spritesheet) {
-    this.animation = new Animation(spritesheet, 64, 64, 9, 0.2, 9, true, 2);
+    this.animation = new Animation(spritesheet, 64, 64, 9, 0.2, 9, true, 1);
     this.x = x;
     this.y = y;
     this.speed = 50;
@@ -382,16 +386,16 @@ Skeleton.prototype.moveLeft = function() {
 }
 
 function OrcBowman(game, spritesheet) {
-  this.walkAnimation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 1.5);
-  this.magicAnimation = new Animation(spritesheet, 64, 64, 6.5, 0.1, 6.5, false, 1.5);
-  this.shootRightAnimation = new Animation(spritesheet, 64, 64, 12.5, 0.1, 12.5, false, 1.5);
-  this.shootLeftAnimation = new Animation(spritesheet, 64, 64, 12.5, 0.1, 12.5, false, 1.5);
-  this.upAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1.5);
-  this.jumpAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1.5)
+  this.walkAnimation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 1);
+  this.magicAnimation = new Animation(spritesheet, 64, 64, 6.5, 0.1, 6.5, false, 1);
+  this.shootRightAnimation = new Animation(spritesheet, 64, 64, 12.5, 0.1, 12.5, false, 1);
+  this.shootLeftAnimation = new Animation(spritesheet, 64, 64, 12.5, 0.1, 12.5, false, 1);
+  this.upAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1);
+  this.jumpAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1)
 
   this.spritesheet = spritesheet;
-  this.x = 0;
-  this.y = 480;
+  this.x = 20;
+  this.y = 2005;
   this.speed = 150;
   this.ctx = game.ctx;
   this.game = game;
@@ -517,8 +521,8 @@ OrcBowman.prototype.update = function () {
   if(this.x > 1650) this.x = -230;
 }
 
-AM.queueDownload("./img/backgrounds/forestBackground.jpg");
-AM.queueDownload("./img/characters/Orc.png");
+AM.queueDownload("./img/backgrounds/finished level 1.png");
+//AM.queueDownload("./img/characters/Orc.png");
 AM.queueDownload("./img/extras/chest.png");
 AM.queueDownload("./img/characters/TronWithBow.png");
 AM.queueDownload("./img/characters/redhead.png");
@@ -535,44 +539,48 @@ AM.downloadAll(function () {
     gameEngine.init(ctx);
     gameEngine.start();
 
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/backgrounds/forestBackground.jpg")));
-    gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 460, 400));
-    gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 1550, 400));
+    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/backgrounds/finished level 1.png")));
+    gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6300, 1387, 2));
+    gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 80, 1482, 2));
+    gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 35, 462, 1));
+    gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
+
+
 
     //gameEngine.addEntity(new OrcBowman(gameEngine, AM.getAsset("./img/Orc.png")));
     gameEngine.addEntity(new OrcBowman(gameEngine, AM.getAsset("./img/characters/TronWithBow.png")));
-    var redhead = new Redhead(gameEngine, 100, 380,  AM.getAsset("./img/characters/redhead.png"));
-    redhead.paceing = false;
-    redhead.jumping = true;
-    var redhead2 = new Redhead(gameEngine, 600, 380, AM.getAsset("./img/characters/redhead.png"))
-    var redhead3 = new Redhead(gameEngine, 900, 380,  AM.getAsset("./img/characters/redhead.png"))
-    redhead3.paceing = false;
-    redhead3.spearing = true;
+    var redhead = new Redhead(gameEngine, 720, 1877,  AM.getAsset("./img/characters/redhead.png"));
+    redhead.paceing = true;
+    redhead.jumping = false;
+    //var redhead2 = new Redhead(gameEngine, 600, 380, AM.getAsset("./img/characters/redhead.png"))
+    //var redhead3 = new Redhead(gameEngine, 900, 380,  AM.getAsset("./img/characters/redhead.png"))
+    //redhead3.paceing = false;
+    //redhead3.spearing = true;
 
-    var skeleton = new Skeleton(gameEngine, 1200, 380,  AM.getAsset("./img/characters/skeleton.png"));
-    skeleton.paceing = false;
-    skeleton.jumping = true;
-    var skeleton2 = new Skeleton(gameEngine, 1500, 380, AM.getAsset("./img/characters/skeleton.png"))
-    skeleton2.swinging = true;
-    skeleton2.paceing = false;
+    //var skeleton = new Skeleton(gameEngine, 1200, 380,  AM.getAsset("./img/characters/skeleton.png"));
+    //skeleton.paceing = false;
+    //skeleton.jumping = true;
+    //var skeleton2 = new Skeleton(gameEngine, 1500, 380, AM.getAsset("./img/characters/skeleton.png"))
+    //skeleton2.swinging = true;
+    //skeleton2.paceing = false;
 
-    var skeleton3 = new Skeleton(gameEngine, 2000, 380,  AM.getAsset("./img/characters/skeleton.png"))
-    skeleton3.paceing = false;
-    skeleton3.spearing = true;
+    //var skeleton3 = new Skeleton(gameEngine, 2000, 380,  AM.getAsset("./img/characters/skeleton.png"))
+    //skeleton3.paceing = false;
+    //skeleton3.spearing = true;
 
-    var orc1 = new OrcBowman(gameEngine, 2500, 380, AM.getAsset("./img/characters/Orc.png"));
-    orc1.pacing = true;
-    orc1.jumping = false;
-
-
-
+    // var orc1 = new Skeleton(gameEngine, 600, 1880, AM.getAsset("./img/characters/Orc.png"));
+    // orc1.pacing = true;
+    // orc1.jumping = false;
+    //
+    //
+    //
     gameEngine.addEntity(redhead);
-    gameEngine.addEntity(redhead2);
-    gameEngine.addEntity(redhead3);
-
-    gameEngine.addEntity(skeleton);
-    gameEngine.addEntity(skeleton2);
-    gameEngine.addEntity(skeleton3);
+    // gameEngine.addEntity(redhead2);
+    // gameEngine.addEntity(redhead3);
+    //
+    // gameEngine.addEntity(skeleton);
+    // gameEngine.addEntity(skeleton2);
+    // gameEngine.addEntity(skeleton3);
 
 
     // gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png")));
