@@ -10,11 +10,6 @@ window.requestAnimFrame = (function () {
 })();
 
 function GameEngine() {
-    this.entities = [];
-    this.chars = [];
-    this.ctx = null;
-    this.surfaceWidth = null;
-    this.surfaceHeight = null;
     this.space = false;
     this.left = false;
     this.right = false;
@@ -23,12 +18,36 @@ function GameEngine() {
     this.magic = false;
     this.interract = false;
     this.up = false;
+
+
+    this.entities = [];
+    this.ctx = null;
+    this.surfaceWidth = null;
+    this.surfaceHeight = null;
+    this.worldWidth = 6400;
+    this.worldHeight = 2130;
+    this.chars = [];
+    this.FPS = 30;
+    this.INTERVAL = 1000/this.FPS; //milliseconds
+    this.STEP = this.INTERVAL/1000 //seconds
+
 }
 
-GameEngine.prototype.init = function (ctx) {
+
+GameEngine.prototype.init = function (ctx, backgroundImage) {
     this.ctx = ctx;
     this.surfaceWidth = this.ctx.canvas.width;
     this.surfaceHeight = this.ctx.canvas.height;
+    //create a camera object as a property of the game engine
+    this.camera = new GameEngine.Camera(0, 0, this.surfaceWidth, 
+                                              this.surfaceHeight, 
+                                              this.worldWidth, 
+                                              this.worldHeight);
+
+    //create a background object as a property of the game engine
+    this.background = new GameEngine.Background(this.surfaceWidth,
+                                  this.surfaceHeight,
+                                  backgroundImage);
     this.timer = new Timer();
     this.startInput();
     console.log('game initialized');
@@ -63,18 +82,96 @@ GameEngine.prototype.startInput = function () {
     console.log('Input started');
 }
 
+// GameEngine.prototype.startInput = function () {
+//     console.log('Starting input');
+
+//     var getXandY = function (e) {
+//         var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;
+//         var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;
+
+//         if (x < 1024) {
+//             x = Math.floor(x / 32);
+//             y = Math.floor(y / 32);
+//         }
+
+//         return { x: x, y: y };
+//     }
+
+//     var that = this;
+
+//     // event listeners are added here
+
+//     this.ctx.canvas.addEventListener("click", function (e) {
+//         that.click = getXandY(e);
+//         // console.log(e);
+//         // console.log("Left Click Event - X,Y " + e.clientX + ", " + e.clientY);
+//     }, false);
+
+//     this.ctx.canvas.addEventListener("contextmenu", function (e) {
+//         that.click = getXandY(e);
+//         // console.log(e);
+//         // console.log("Right Click Event - X,Y " + e.clientX + ", " + e.clientY);
+//         e.preventDefault();
+//     }, false);
+
+//     this.ctx.canvas.addEventListener("mousemove", function (e) {
+//         //console.log(e);
+//         that.mouse = getXandY(e);
+//     }, false);
+
+//     this.ctx.canvas.addEventListener("mousewheel", function (e) {
+//         // console.log(e);
+//         that.wheel = e;
+//         // console.log("Click Event - X,Y " + e.clientX + ", " + e.clientY + " Delta " + e.deltaY);
+//     }, false);
+
+//     this.ctx.canvas.addEventListener("keydown", function (e) {
+//         // console.log(e);
+//         // console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
+//         // console.log(e.keyCode);
+//         that.chars[e.keyCode] = true;
+//         // console.log(that.chars[e.keyCode]);
+//     }, false);
+
+//     this.ctx.canvas.addEventListener("keypress", function (e) {
+//         if (e.code === "KeyD") that.d = true;
+        
+//         that.chars[e.code] = true;
+//         // console.log(that.chars[e.code]);
+//         // console.log("Key Pressed Event - Char " + e.charCode + " Code " + e.keyCode);
+//     }, false);
+
+//     this.ctx.canvas.addEventListener("keyup", function (e) {
+//         // console.log(e);
+//         // console.log("Key Up Event - Char " + e.code + " Code " + e.keyCode);
+//         that.chars[e.keyCode] = false;
+//     }, false);
+
+//     // console.log('Input started');
+// }
+
+
 GameEngine.prototype.addEntity = function (entity) {
     console.log('added entity');
     this.entities.push(entity);
 }
 
+
 GameEngine.prototype.draw = function () {
     this.ctx.clearRect(0, 0, this.surfaceWidth, this.surfaceHeight);
     this.ctx.save();
+    //draw the game background to the canvas
+    this.background.draw(this.ctx, this.camera.xView, this.camera.yView);
+    // console.log("camera x:" + this.camera.xView + "camera y" + this.camera.yView);
     for (var i = 0; i < this.entities.length; i++) {
         this.entities[i].draw(this.ctx);
     }
     this.ctx.restore();
+}
+
+GameEngine.prototype.follow = function() {
+    var player = this.entities[0];
+    this.camera.follow(player, this.surfaceWidth/2, this.surfaceHeight/2);
 }
 
 GameEngine.prototype.update = function () {
@@ -85,18 +182,20 @@ GameEngine.prototype.update = function () {
 
         entity.update();
     }
+    //update the camera after the character move/update its position
+    this.camera.update();
 }
 
 GameEngine.prototype.loop = function () {
     this.clockTick = this.timer.tick();
-    this.update();
-    this.draw();
     this.space = false;
     this.down = false;
     this.melee = false;
     this.magic = false;
     this.interract = false;
     this.up = false;
+    this.update();
+    this.draw();
 }
 
 function Timer() {
