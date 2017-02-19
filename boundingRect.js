@@ -1,4 +1,4 @@
-function BoundingRect(x, y, width, height, ctx) {
+function BoundingRect(x, y, width, height, game) {
   this.x = x;
   this.y = y;
   this.width = width;
@@ -7,13 +7,15 @@ function BoundingRect(x, y, width, height, ctx) {
   this.right = this.x + this.width;
   this.top = this.y;
   this.bottom = this.y + this.height;
-  this.ctx = ctx;
+  this.game = game;
   this.current = false;
+  this.step = game.STEP;
+  this.camera = game.camera;
 
   this.drawRect = function() {
-    this.ctx.rect(this.x, this.y, this.width, this.height);
-    this.ctx.stroke();
-    this.ctx.clearRect(this.x, this.y, this.width,this.height);
+    this.game.ctx.rect(this.x - this.camera.xView, this.y - this.camera.yView, this.width, this.height);
+    this.game.ctx.stroke();
+    this.game.ctx.clearRect(this.x - this.camera.xView, this.y - this.camera.yView, this.width,this.height);
    }
 
    this.updateLoc = function(x, y){

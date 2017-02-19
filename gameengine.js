@@ -18,9 +18,8 @@ function GameEngine() {
     this.magic = false;
     this.interract = false;
     this.up = false;
-
-
     this.entities = [];
+    this.platforms = [];
     this.ctx = null;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
@@ -39,9 +38,9 @@ GameEngine.prototype.init = function (ctx, backgroundImage) {
     this.surfaceWidth = this.ctx.canvas.width;
     this.surfaceHeight = this.ctx.canvas.height;
     //create a camera object as a property of the game engine
-    this.camera = new GameEngine.Camera(0, 0, this.surfaceWidth, 
-                                              this.surfaceHeight, 
-                                              this.worldWidth, 
+    this.camera = new GameEngine.Camera(0, 0, this.surfaceWidth,
+                                              this.surfaceHeight,
+                                              this.worldWidth,
                                               this.worldHeight);
 
     //create a background object as a property of the game engine
@@ -80,6 +79,43 @@ GameEngine.prototype.startInput = function () {
     }, false);
 
     console.log('Input started');
+
+
+
+    this.ctx.canvas.addEventListener("keydown", function (e) {
+        // console.log(e);
+        // console.log(e.code)
+        if (e.code === "Space") that.space = true;
+        else if (e.code === "ArrowRight") that.right = true;
+        else if (e.code === "ArrowLeft") that.left = true;
+        else if (e.code === "KeyS") that.s = true;
+        console.log(e.code);
+        e.preventDefault();
+
+        // console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
+    }, false);
+
+    this.ctx.canvas.addEventListener("keypress", function (e) {
+
+      // console.log(e.code);
+      if (e.code === "Space") that.space = true;
+      else if (e.code === "ArrowRight") that.right = true;
+      else if (e.code === "ArrowLeft") that.left = true;
+      else if (e.code === "KeyS") that.s = true;
+
+      e.preventDefault();
+        // console.log(e);
+        // console.log("Key Pressed Event - Char " + e.charCode + " Code " + e.keyCode);
+    }, false);
+
+    this.ctx.canvas.addEventListener("keyup", function (e) {
+        // console.log(e);
+        if (e.code === "ArrowRight") that.right = false;
+        if (e.code === "ArrowLeft") that.left = false;
+        e.preventDefault();
+        // console.log("Key Up Event - Char " + e.code + " Code " + e.keyCode);
+    }, false);
+
 }
 
 // GameEngine.prototype.startInput = function () {
@@ -135,7 +171,7 @@ GameEngine.prototype.startInput = function () {
 
 //     this.ctx.canvas.addEventListener("keypress", function (e) {
 //         if (e.code === "KeyD") that.d = true;
-        
+
 //         that.chars[e.code] = true;
 //         // console.log(that.chars[e.code]);
 //         // console.log("Key Pressed Event - Char " + e.charCode + " Code " + e.keyCode);
@@ -154,6 +190,10 @@ GameEngine.prototype.startInput = function () {
 GameEngine.prototype.addEntity = function (entity) {
     console.log('added entity');
     this.entities.push(entity);
+}
+
+GameEngine.prototype.addPlatform = function (platform) {
+  this.platforms.push(platform);
 }
 
 
@@ -188,14 +228,15 @@ GameEngine.prototype.update = function () {
 
 GameEngine.prototype.loop = function () {
     this.clockTick = this.timer.tick();
+    this.update();
+    this.draw();
     this.space = false;
+    this.s = false;
     this.down = false;
     this.melee = false;
     this.magic = false;
     this.interract = false;
     this.up = false;
-    this.update();
-    this.draw();
 }
 
 function Timer() {

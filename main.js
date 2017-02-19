@@ -1,5 +1,7 @@
 var AM = new AssetManager();
 
+
+
 function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
     this.spriteSheet = spriteSheet;
     this.frameWidth = frameWidth;
@@ -73,7 +75,6 @@ Animation.prototype.isDone = function () {
     return (this.elapsedTime >= this.totalTime);
 }
 
-
 Animation.prototype.setScale = function(scale) {
     this.scale = scale;
 }
@@ -95,9 +96,16 @@ Animation.prototype.drawSpecifcFrame = function(ctx, x, y, row, col) {
                this.frameHeight * this.scale);
 }
 
+Animation.prototype.drawSpecificFrame = function (ctx, x, y , row, col) {
 
-
-
+  ctx.drawImage(this.spriteSheet,
+               col * this.frameWidth,
+               row * this.frameHeight,  // source from sheet
+               this.frameWidth, this.frameHeight,
+               x, y,
+               this.frameWidth * this.scale,
+               this.frameHeight * this.scale);
+}
 
 // function Background(game, spritesheet) {
 //     this.x = 0;
@@ -160,7 +168,7 @@ function OrcBowman(game, spritesheet) {
 
 OrcBowman.prototype.draw = function () {
     // this.walkAnimation.drawFrame(this.game.clockTick, this.ctx,
-    // (this.x-this.width/2) - this.camera.xView, 
+    // (this.x-this.width/2) - this.camera.xView,
     // (this. y-this.height/2) - this.camera.yView,
     //  11, true);
     // this.right = false;
@@ -168,71 +176,71 @@ OrcBowman.prototype.draw = function () {
 
   if(this.right && this.lastPressed === "right") {
     this.walkAnimation.drawFrame(this.game.clockTick,
-    this.ctx, 
-        (this.x-this.width/2) - this.camera.xView, 
+    this.ctx,
+        (this.x-this.width/2) - this.camera.xView,
         (this. y-this.height/2) - this.camera.yView,
           11, true);
     this.right = false;
     this.animating = false;
   } else if(this.left && this.lastPressed === "left") {
-    this.walkAnimation.drawFrame(this.game.clockTick, 
-        this.ctx, 
-        (this.x-this.width/2) - this.camera.xView, 
+    this.walkAnimation.drawFrame(this.game.clockTick,
+        this.ctx,
+        (this.x-this.width/2) - this.camera.xView,
         (this. y-this.height/2) - this.camera.yView
         , 9, true);
     this.left = false;
     this.animating = false;
   } else if(this.down && this.lastPressed === "down") {
-      this.magicAnimation.drawFrame(this.game.clockTick, 
-      this.ctx, 
-        (this.x-this.width/2) - this.camera.xView, 
-        (this. y-this.height/2) - this.camera.yView, 
+      this.magicAnimation.drawFrame(this.game.clockTick,
+      this.ctx,
+        (this.x-this.width/2) - this.camera.xView,
+        (this. y-this.height/2) - this.camera.yView,
          2, true);
   } else if(this.melee && this.lastPressed === "melee") {
     if(this.currDirection === 11) {
       this.shootRightAnimation.drawFrame(this.game.clockTick,
-      this.ctx, 
-        (this.x-this.width/2) - this.camera.xView, 
-        (this. y-this.height/2) - this.camera.yView, 
+      this.ctx,
+        (this.x-this.width/2) - this.camera.xView,
+        (this. y-this.height/2) - this.camera.yView,
          19, true);
     } else {
-      this.shootRightAnimation.drawFrame(this.game.clockTick, this.ctx, 
-        (this.x-this.width/2) - this.camera.xView, 
-        (this. y-this.height/2) - this.camera.yView, 
+      this.shootRightAnimation.drawFrame(this.game.clockTick, this.ctx,
+        (this.x-this.width/2) - this.camera.xView,
+        (this. y-this.height/2) - this.camera.yView,
          17, true);
     }
   }
   else if(!this.animating){
     if(this.lastPressed === "right" || this.lastPressed === "melee") {
-      this.walkAnimation.drawFrame(0, this.ctx, 
-        (this.x-this.width/2) - this.camera.xView, 
-        (this. y-this.height/2) - this.camera.yView, 
+      this.walkAnimation.drawFrame(0, this.ctx,
+        (this.x-this.width/2) - this.camera.xView,
+        (this. y-this.height/2) - this.camera.yView,
          this.currDirection, false);
     } else if(this.lastPressed === "left" || this.lastPressed === "melee"){
-      this.walkAnimation.drawFrame(0, 
-      this.ctx, 
-        (this.x-this.width/2) - this.camera.xView, 
-        (this. y-this.height/2) - this.camera.yView, 
+      this.walkAnimation.drawFrame(0,
+      this.ctx,
+        (this.x-this.width/2) - this.camera.xView,
+        (this. y-this.height/2) - this.camera.yView,
          this.currDirection, false);
     } else if(this.lastPressed === "down") {
-      this.magicAnimation.drawSpecifcFrame(this.ctx, 
-        (this.x-this.width/2) - this.camera.xView, 
+      this.magicAnimation.drawSpecifcFrame(this.ctx,
+        (this.x-this.width/2) - this.camera.xView,
         (this. y-this.height/2) - this.camera.yView,
          0, 2);
     } else if(this.lastPressed === "melee" && this.currDirection === "right") {
       this.shootRightAnimation.drawSpecifcFrame(
-      this.ctx, 
-        (this.x-this.width/2) - this.camera.xView, 
+      this.ctx,
+        (this.x-this.width/2) - this.camera.xView,
         (this. y-this.height/2) - this.camera.yView,
          13, 19);
     } else if(this.lastPressed === "up") {
-      this.upAnimation.drawSpecifcFrame(this.ctx, 
-        (this.x-this.width/2) - this.camera.xView, 
+      this.upAnimation.drawSpecifcFrame(this.ctx,
+        (this.x-this.width/2) - this.camera.xView,
         (this. y-this.height/2) - this.camera.yView, 0, 0);
     }
     else {
-      this.walkAnimation.drawFrame(0, this.ctx, 
-        (this.x-this.width/2) - this.camera.xView, 
+      this.walkAnimation.drawFrame(0, this.ctx,
+        (this.x-this.width/2) - this.camera.xView,
         (this. y-this.height/2) - this.camera.yView,
          this.currDirection, false);
     }
@@ -315,172 +323,7 @@ OrcBowman.prototype.update = function () {
 
 
 
-function Chest(game, spritesheet, x, y, scale) {
-  this.animation = new Animation(spritesheet, 47, 38, 3.5, 0.2, 3.5, false, scale);
-  this.x = x;
-  this.y = y;
-  this.ctx = game.ctx;
-  this.game = game;
-  this.camera = game.camera;
-}
 
-Chest.prototype.draw = function() {
-  if(this.open && !this.wasOpened) {
-      this.animation.currFrame = 0;
-      this.animation.drawFrame(this.game.clockTick, this.ctx, this.x - this.camera.xView , this.y - this.camera.yView, 0, true);
-  } else if(this.wasOpened) {
-    this.animation.drawSpecifcFrame(this.ctx, this.x - this.camera.xView, this.y - this.camera.yView, 3, 0);
-  }else {
-      this.animation.drawFrame(0, this.ctx, this.x - this.camera.xView, this.y - this.camera.yView, 0, false);
-  }
-}
-
-Chest.prototype.update = function() {
-  if(this.game.chars["KeyC"] || this.game.chars["KeyL"]) {
-    this.open = true;
-  }
-  if (this.animation.isDone()) {
-      this.open = false;
-      this.animation.elapsedTime = 0;
-      this.wasOpened = true;
-
-  }
-}
-
-function Redhead(game, x, y, spritesheet) {
-    this.animation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 1);
-    this.x = x;
-    this.y = y;
-    this.speed = 100;
-    this.game = game;
-    this.ctx = game.ctx;
-    this.up = true;
-    this.down = false;
-    this.jumping = false;
-    this.spearing = false;
-    this.rightFaceing = false;
-    this.leftFaceing = true;
-    this.paceing = true;
-    this.direction = 'up';
-    this.camera = game.camera;
-}
-
-Redhead.prototype.draw = function () {
-
-    if (this.paceing) this.pace();
-
-    if (this.jumping) {
-      this.jump();
-    }
-
-    if (this.spearing) {
-      this.spear();
-    }
-}
-
-Redhead.prototype.update = function () {
-
-    // if (this.game.space) {
-    //   this.jumping = true;
-    // }
-
-    // console.log(this.jumping)
-
-    // if (this.game.right) {
-    //   this.moveRight();
-    // }
-    //
-    // if (this.game.left) {
-    //   this.moveLeft();
-    // }
-    //
-    if (this.jumping) {
-      this.jump();
-    }
-}
-
-Redhead.prototype.spear = function() {
-
-  if (this.rightFaceing) {
-    this.animation.setFrames(8);
-    this.animation.drawFrame(this.game.clockTick, this.ctx, tthis.x - this.camera.xView , this.y - this.camera.yView, 7, true)
-  } else {
-    this.animation.setFrames(8);
-    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x - this.camera.xView , this.y - this.camera.yView, 5, true)
-  }
-}
-
-Redhead.prototype.jump = function() {
-
-  this.animation.setFrames(1);
-  this.animation.drawFrame(this.game.clockTick, this.ctx, this.x - this.camera.xView , this.y - this.camera.yView, 6, true);
-
-
-    if (this.up) {
-        this.y -= 2
-        if (this.y == 300) {
-          this.up = false;
-          this.down = true;
-        }
-    } else if (this.down) {
-        this.y += 2
-        if (this.y >= 500) {
-          this.y = 500;
-          this.down  = false;
-          this.up = true;
-          this.jumping = true;
-          // this.jumping = false;
-      }
-    }
-  }
-
-  // Redhead.prototype.jump2 = function() {
-  //
-  //   this.animation.setFrames(1);
-  //   this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 6);
-  //
-  //
-  //     if (this.direction === 'up') {
-  //         this.y -= 5;
-  //         if (this.y <= 300) {
-  //           this.direction = 'down';
-  //         }
-  //     } else if (this.direction === 'down') {
-  //         this.y += 5;
-  //         if (this.y >= 500) {
-  //           this.y = 500;
-  //           this.direction = 'up'
-  //           this.jumping = false;
-  //       }
-  //     }
-  //   }
-
-Redhead.prototype.pace = function() {
-
-  if (this.leftFaceing) {
-      this.moveLeft()
-      if (this.x <= 350) {
-        this.leftFaceing = false;
-        this.rightFaceing = true;
-      }
-  } else if (this.rightFaceing) {
-    this.moveRight()
-    if (this.x >= 500) {
-      this.rightFaceing = false;
-      this.leftFaceing = true;
-    }
-  }
-}
-
-Redhead.prototype.moveRight = function() {
-    this.x += this.game.clockTick * this.speed;
-    this.animation.drawFrame(this.game.clockTick, this.ctx, this.x - this.camera.xView , this.y - this.camera.yView, 11, true)
-  }
-
-Redhead.prototype.moveLeft = function() {
-  this.x -= this.game.clockTick * this.speed;
-  this.animation.drawFrame(this.game.clockTick, this.ctx, this.x - this.camera.xView , this.y - this.camera.yView, 9, true)
-}
 
 function Skeleton(game, x, y, spritesheet) {
     this.animation = new Animation(spritesheet, 64, 64, 9, 0.2, 9, true, 1);
@@ -616,7 +459,6 @@ Skeleton.prototype.moveLeft = function() {
 AM.queueDownload("./img/backgrounds/finished level 1.png");
 //main character image
 AM.queueDownload("./img/characters/TronWithBow.png")
-AM.queueDownload("./img/Tron.png");
 AM.queueDownload("./img/extras/chest.png");
 AM.queueDownload("./img/characters/redhead.png");
 AM.queueDownload("./img/characters/skeleton.png");
@@ -629,30 +471,56 @@ AM.downloadAll(function () {
     // gameEngine.init(ctx, AM.getAsset("./img/backgrounds/town_background.jpg"));
     gameEngine.init(ctx, AM.getAsset("./img/backgrounds/finished level 1.png"));
     gameEngine.start();
-    gameEngine.addEntity(new OrcBowman(gameEngine, AM.getAsset("./img/characters/TronWithBow.png")));
-    // gameEngine.addEntity(new GameEngine.Camera(0, 0, gameEngine.surfaceWidth, 
-    //                                                  gameEngine.surfaceHeight, 
-    //                                                  gameEngine.worldWidth, 
-    //                                                  gameEngine.worldHeight, 
+
+    var redhead = new Redhead(gameEngine, 50, 2067-13-46, AM.getAsset("./img/characters/redhead.png"));
+    gameEngine.addEntity(redhead);
+
+    // gameEngine.addEntity(new OrcBowman(gameEngine, AM.getAsset("./img/characters/TronWithBow.png")));
+    // gameEngine.addEntity(new GameEngine.Camera(0, 0, gameEngine.surfaceWidth,
+    //                                                  gameEngine.surfaceHeight,
+    //                                                  gameEngine.worldWidth,
+    //                                                  gameEngine.worldHeight,
     //                                                  AM.getAsset("./img/town_background.jpg")));
     // gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/town_background.jpg")));
-    // gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png")));
-    // gameEngine.addEntity(new Cheetah(gameEngine, AM.getAsset("./img/runningcat.png")));
     // gameEngine.addEntity(new Guy(gameEngine, AM.getAsset("./img/guy.jpg")));
     // gameEngine.addEntity(new tronMainCharacter(gameEngine, AM.getAsset("./img/characters/TronWithBow.png")));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6300, 1387, 2));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 80, 1482, 2));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 35, 462, 1));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
-    var redhead = new Redhead(gameEngine, 720, 1877,  AM.getAsset("./img/characters/redhead.png"));
-    redhead.paceing = true;
-    redhead.jumping = false;
-    gameEngine.addEntity(redhead);
+    // var redhead = new Redhead(gameEngine, 720, 1877,  AM.getAsset("./img/characters/redhead.png"), ctx);
+    // redhead.paceing = true;
+    // redhead.jumping = false;
+    // gameEngine.addEntity(redhead);
+
+
+
+    var startingPlatform = new BoundingRect(0, 2067, 260, 63, gameEngine);
+    startingPlatform.current = true;
+    redhead.currentPlatform = startingPlatform;
+
+
+    gameEngine.addPlatform(startingPlatform);
+    gameEngine.addPlatform(new BoundingRect(260, 2005, 130, 65, gameEngine));
+    gameEngine.addPlatform(new BoundingRect(388, 1940, 503, 187, gameEngine));
+    gameEngine.addPlatform(new BoundingRect(1140, 1940, 606, 187, gameEngine));
+    gameEngine.addPlatform(new BoundingRect(1755, 2004, 768, 125, gameEngine));
+    gameEngine.addPlatform(new BoundingRect(1123, 1810, 26, 318, gameEngine));
+    gameEngine.addPlatform(new BoundingRect(1730, 1810, 26, 208, gameEngine));
+    gameEngine.addPlatform(new BoundingRect(3046, 2067, 540, 61, gameEngine));
+    gameEngine.addPlatform(new BoundingRect(3583, 2067, 712, 28, gameEngine));
+    gameEngine.addPlatform(new BoundingRect(4291, 2067, 312, 61, gameEngine));
+    gameEngine.addPlatform(new BoundingRect(5572, 1940, 55, 55, gameEngine));
+    gameEngine.addPlatform(new BoundingRect(5829, 1940, 55, 55, gameEngine));
+    gameEngine.addPlatform(new BoundingRect(6118, 1940, 282, 55, gameEngine));
+
+    // gameEngine.addPlatform(new BoundingRect(2500, 2004, 440, 55, gameEngine));
+
     gameEngine.follow();
-    
+
     // var camera = new GameEngine.Camera(0, 0, gameEngine.surfaceWidth,
-    //                                      gameEngine.surfaceHeight, 
-    //                                      gameEngine.worldWidth, 
+    //                                      gameEngine.surfaceHeight,
+    //                                      gameEngine.worldWidth,
     //                                      gameEngine.worldHeight);
 
     console.log("All Done!");
