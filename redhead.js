@@ -85,7 +85,7 @@ Redhead.prototype.collideBottom = function(platform) {
 
 Redhead.prototype.draw = function () {
 
-  //  this.boundingRect.drawRect();
+   this.boundingRect.drawRect();
 
   if (this.spearing) {
     this.spear();
@@ -112,17 +112,15 @@ Redhead.prototype.update = function () {
     this.previousLoc.updateLoc(this.boundingRect.x, this.boundingRect.y);
     this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
 
-    this.cX = (this.x) - this.camera.xView;
+    this.cX = (this.x ) - this.camera.xView;
     this.cY = (this. y) - this.camera.yView;
 
     if (this.game.space) {
-      console.log("gothere");
       if (!this.falling)
         this.jumping = true;
     } else if (this.game.s) {
       this.paceing = false;
       this.spearing = true;
-
     }
 
     if (this.game.right) {
@@ -132,48 +130,45 @@ Redhead.prototype.update = function () {
       this.leftFaceing = false;
       this.newXLocation = this.x;
 
-
-
     } else if (this.game.left) {
       this.paceing = false;
       this.walking = true;
       this.leftFaceing = true;
       this.rightFaceing = false;
       this.newXLocation = this.x;
-
     }
 
-for (var i = 0; i < this.game.platforms.length; i ++) {
-  var platform = this.game.platforms[i];
+  for (var i = 0; i < this.game.platforms.length; i ++) {
+    var platform = this.game.platforms[i];
 
-  if (this.collide(platform)) {
+    if (this.collide(platform)) {
 
-    if(this.collideBottom(platform) ) {
-      this.y = platform.bottom - this.yAdjust;
-      this.falling = true;
-      this.jumping = false;
-    }
-    else if (this.collideTop(platform)) {
-      this.newPlatform = true;
-      this.currentPlatform = platform;
-
-    }
-    else if (this.collideLeft(platform)) {
-      this.x = platform.right - this.xAdjust;
-      this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
-      if (this.paceing) {
-        this.leftFaceing = false;
-        this.rightFaceing = true;
+      if(this.collideBottom(platform) ) {
+        this.y = platform.bottom - this.yAdjust;
+        this.falling = true;
+        this.jumping = false;
       }
-    }
-    else if (this.collideRight(platform)) {
-      this.x = platform.left - this.xAdjust - this.boundingRect.width;
-      this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
-      if (this.paceing) {
-        this.leftFaceing = true;
-        this.rightFaceing = false;
+      else if (this.collideTop(platform)) {
+        this.newPlatform = true;
+        this.currentPlatform = platform;
+
       }
-    }
+      else if (this.collideLeft(platform)) {
+        this.x = platform.right - this.xAdjust;
+        this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+        if (this.paceing) {
+          this.leftFaceing = false;
+          this.rightFaceing = true;
+        }
+      }
+      else if (this.collideRight(platform)) {
+        this.x = platform.left - this.xAdjust - this.boundingRect.width;
+        this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+        if (this.paceing) {
+          this.leftFaceing = true;
+          this.rightFaceing = false;
+        }
+      }
   }
 
   if (this.boundingRect.left > this.currentPlatform.right
@@ -182,9 +177,7 @@ for (var i = 0; i < this.game.platforms.length; i ++) {
         this.falling = true;
       }
   }
-
 }
-
 
 Redhead.prototype.spear = function() {
 
@@ -229,10 +222,9 @@ Redhead.prototype.fall = function() {
 
   if (WALKINGOFFPLATFORM === 0) {
     this.y = this.y-1;
-    WALKINGOFFPLATFORM ++;
+    WALKINGOFFPLATFORM ++;  
   } else {
     this.y += GRAVITY * this.jumpAnimation.elapsedTime;
-    WALKINGOFFPLATFORM = 0;
   }
 
   this.jumpAnimation.elapsedTime += this.game.clockTick;
@@ -249,6 +241,7 @@ Redhead.prototype.fall = function() {
       this.newPlatform = false;
       this.currentPlatform.current = true;
       this.falling = false;
+      WALKINGOFFPLATFORM = 0;
     }
 } else {
     var newGround = DEATH;
@@ -258,6 +251,7 @@ Redhead.prototype.fall = function() {
       this.y = newGround;
       this.falling = false;
       this.jumping = false;
+      WALKINGOFFPLATFORM = 0;
     }
   }
 }
