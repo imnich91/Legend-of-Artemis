@@ -1,6 +1,7 @@
 var GRAVITY = 20;
 var DEATH = 2500;
 var WALKINGOFFPLATFORM = 0;
+var JUMPHEIGHT = 220;
 
 function OrcBowman(game, spritesheet) {
   this.walkAnimation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 1);
@@ -179,6 +180,8 @@ OrcBowman.prototype.update = function () {
   this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
 
   this.checkPlatformCollisions();
+  this.checkEnemyCollisions();
+
 
       // check left boundary
       if(this.x + this.xAdjust < 0) {
@@ -201,33 +204,54 @@ OrcBowman.prototype.update = function () {
 
 }
 
+
+
 OrcBowman.prototype.collide = function(other) {
-  return this.boundingRect.left < other.right // left side collision
-  && this.boundingRect.right  > other.left // right side collision
-  && this.boundingRect.bottom > other.top //
-  && this.boundingRect.top < other.bottom;
+  return this.boundingRect.left < other.boundingRect.right // left side collision
+  && this.boundingRect.right  > other.boundingRect.left // right side collision
+  && this.boundingRect.bottom > other.boundingRect.top //
+  && this.boundingRect.top < other.boundingRect.bottom;
 }
 
-OrcBowman.prototype.collideLeft = function(platform) {
+OrcBowman.prototype.collideLeft = function(other) {
   return this.boundingRect.left < this.previousLoc.left
-  && this.boundingRect.right > platform.right;
+  && this.boundingRect.right > other.boundingRect.right;
 }
 
-OrcBowman.prototype.collideRight = function(platform) {
+OrcBowman.prototype.collideRight = function(other) {
   return this.boundingRect.right > this.previousLoc.right
-  && this.boundingRect.left < platform.left;
+  && this.boundingRect.left < other.boundingRect.left;
 }
 
-OrcBowman.prototype.collideTop = function(platform) {
+OrcBowman.prototype.collideTop = function(other) {
   return this.boundingRect.top > this.previousLoc.top
-  && platform.top > this.previousLoc.bottom;
+  && other.boundingRect.top > this.previousLoc.bottom;
 }
 
-OrcBowman.prototype.collideBottom = function(platform) {
+OrcBowman.prototype.collideBottom = function(other) {
   return this.boundingRect.bottom < this.previousLoc.bottom
-  && this.previousLoc.left < platform.right
-  && this.previousLoc.right > platform.left;
+  && this.previousLoc.left < other.boundingRect.right
+  && this.previousLoc.right > other.boundingRect.left;
 }
+
+OrcBowman.prototype.checkEnemyCollisions = function() {
+
+  for (var i = 0; i < this.game.entities.length; i ++) {
+    var entity = this.game.entities[i];
+
+    if(entity.constructor.name === "Redhead") {
+      if (this.collide(entity)) {
+        if (this.collideLeft(entity)) {
+          this.x = entity.boundingRect.right - this.xAdjust;
+          this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+        } else if (this.collideRight(entity)) {
+          this.x = entity.boundingRect.left - this.xAdjust - this.boundingRect.width;
+          this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+        }
+      }
+    }
+  }
+};
 
 OrcBowman.prototype.checkPlatformCollisions = function () {
 
@@ -235,9 +259,8 @@ OrcBowman.prototype.checkPlatformCollisions = function () {
     var platform = this.game.platforms[i];
 
     if (this.collide(platform)) {
-
       if(this.collideBottom(platform) ) {
-        this.y = platform.bottom - this.yAdjust;
+        this.y = platform.boundingRect.bottom - this.yAdjust;
         this.falling = true;
         this.jumping = false;
       }
@@ -246,18 +269,18 @@ OrcBowman.prototype.checkPlatformCollisions = function () {
         this.currentPlatform = platform;
       }
       else if (this.collideLeft(platform)) {
-        this.x = platform.right - this.xAdjust;
+        this.x = platform.boundingRect.right - this.xAdjust;
         this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
       }
       else if (this.collideRight(platform)) {
-        this.x = platform.left - this.xAdjust - this.boundingRect.width;
+        this.x = platform.boundingRect.left - this.xAdjust - this.boundingRect.width;
         this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
       }
     }
 
-    if (this.boundingRect.left > this.currentPlatform.right
-        || this.boundingRect.right < this.currentPlatform.left) {
-          this.currentPlatform.current = false;
+    if (this.boundingRect.left > this.currentPlatform.boundingRect.right
+        || this.boundingRect.right < this.currentPlatform.boundingRect.left) {
+          this.currentPlatform.isCurrent = false;
           this.falling = true;
         }
     }
@@ -276,7 +299,7 @@ OrcBowman.prototype.jump = function() {
 
   var jumpDistance = this.jumpAnimation.elapsedTime / this.jumpAnimation.totalTime;
 
-  var totalHeight = 200;
+  var totalHeight = JUMPHEIGHT;
 
   if (jumpDistance > 0.5)
       jumpDistance = 1 - jumpDistance;
@@ -287,7 +310,7 @@ OrcBowman.prototype.jump = function() {
   this.y = this.ground - height;
 
   if (this.newPlatform) {
-    var newGround = this.currentPlatform.y - this.boundingRect.height - this.yAdjust;
+    var newGround = this.currentPlatform.boundingRect.y - this.boundingRect.height - this.yAdjust;
 
     if (this.y >= newGround) {
       this.ground = newGround;
@@ -295,7 +318,7 @@ OrcBowman.prototype.jump = function() {
       this.jumpAnimation.elapsedTime = 0;
       this.y = this.ground;
       this.newPlatform = false;
-      this.currentPlatform.current = true;
+      this.currentPlatform.isCurrent = true;
       this.falling = false;
     }
 
@@ -336,7 +359,7 @@ OrcBowman.prototype.fall = function() {
   this.jumpAnimation.elapsedTime += this.game.clockTick;
 
   if (this.newPlatform) {
-    var newGround = this.currentPlatform.y - this.boundingRect.height - this.yAdjust;
+    var newGround = this.currentPlatform.boundingRect.y - this.boundingRect.height - this.yAdjust;
 
     if (this.y >= newGround) {
       this.ground = newGround;
@@ -344,7 +367,7 @@ OrcBowman.prototype.fall = function() {
       this.jumpAnimation.elapsedTime = 0;
       this.y = this.ground;
       this.newPlatform = false;
-      this.currentPlatform.current = true;
+      this.currentPlatform.isCurrent = true;
       this.falling = false;
       WALKINGOFFPLATFORM = 0;
     }

@@ -8,7 +8,6 @@ function BoundingRect(x, y, width, height, game) {
   this.top = this.y;
   this.bottom = this.y + this.height;
   this.game = game;
-  this.current = false;
   this.step = game.STEP;
   this.camera = game.camera;
 
