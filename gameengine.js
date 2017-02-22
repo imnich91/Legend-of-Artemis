@@ -204,7 +204,7 @@ GameEngine.prototype.draw = function () {
     //draw the game background to the canvas
     this.background.draw(this.ctx, this.camera.xView, this.camera.yView);
     // console.log("camera x:" + this.camera.xView + "camera y" + this.camera.yView);
-    for (var i = 0; i < this.entities.length; i++) {
+    for (var i = this.entities.length - 1; i >= 0; i--) {
         this.entities[i].draw(this.ctx);
     }
     this.ctx.restore();

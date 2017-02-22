@@ -247,6 +247,10 @@ AM.downloadAll(function () {
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 80, 1482, 2));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 35, 462, 1));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
+    gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 770, 1905, 1));
+
+
+    // gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
     // var redhead = new Redhead(gameEngine, 720, 1877,  AM.getAsset("./img/characters/redhead.png"), ctx);
     // redhead.paceing = true;
     // redhead.jumping = false;
