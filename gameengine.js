@@ -187,6 +187,18 @@ GameEngine.prototype.startInput = function () {
 //     // console.log('Input started');
 // }
 
+GameEngine.prototype.removeTheUnit = function(marker) {
+    //console.log(index);
+    var target = marker;
+    //console.log("initial: " + this.entities.length);
+    for(i = 2; i < this.entities.length; i++) {
+      if(this.entities[i].marker === target) {
+        this.entities.splice(i, 1);
+      }
+    }
+    //console.log("updated: " + this.entities.length);
+    this.update(this.entities.length);
+}
 
 GameEngine.prototype.addEntity = function (entity) {
     console.log('added entity');
