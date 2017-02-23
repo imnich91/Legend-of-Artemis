@@ -15,6 +15,9 @@ function Redhead(game, x, y, spritesheet) {
     this.x = x;
     this.y = y;
 
+    this.startX = x;
+    this.startY = y;
+
     this.ground = y;
     this.newXLocation = x;
     this.speed = 100;
@@ -80,7 +83,7 @@ Redhead.prototype.collideBottom = function(other) {
 
 Redhead.prototype.draw = function () {
 
-  //  this.boundingRect.drawRect();
+   // this.boundingRect.drawRect();
 
   if (this.spearing) {
     this.spear();
@@ -112,6 +115,14 @@ Redhead.prototype.update = function () {
 
     this.checkPlatformCollisions();
     this.checkArtemisCollision();
+
+
+    if(this.y >= DEATH) {
+        this.x = this.startX;
+        this.y = this.startY - this.yAdjust - this.boundingRect.height;
+        this.ground = this.startY - this.yAdjust - this.boundingRect.height;
+        this.falling = false;
+    }
 
     // if (this.game.space) {
     //   if (!this.falling)

@@ -20,6 +20,10 @@ function OrcBowman(game, spritesheet) {
   this.spritesheet = spritesheet;
   this.x = 20;
   this.y = 2067-this.yAdjust - this.boundingRect.height;
+
+  this.startX = this.x;
+  this.startY = this.y;
+
   this.ground = this.y;
   this.speed = 350;
   this.ctx = game.ctx;
@@ -200,6 +204,14 @@ OrcBowman.prototype.update = function () {
         this.x = this.game.worldWidth - this.width + this.xAdjust;
         // console.log("char boundary x : " + this.x);
     }
+
+    if (this.y >= DEATH) {
+      this.x = this.startX;
+      this.y = this.startY;
+      this.ground = this.startY;
+    }
+
+      
 
 
 }
