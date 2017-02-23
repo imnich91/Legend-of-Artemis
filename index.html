@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Game Project Shell</title>
+    <link rel="stylesheet" type="text/css" href="./CSS/gameStyle.css">
     <script type="text/javascript" src="./gameengine.js"></script>
     <script type="text/javascript" src="./assetmanager.js"></script>
     <script type="text/javascript" src="./camerasystem.js"></script>
@@ -18,6 +19,22 @@
     <script type="text/javascript" src="./main.js"></script>
 </head>
 <body>
-    <canvas id="gameWorld" tabindex="1" width="800" height="700" style="border: 1px solid brown; background: lightskyblue"></canvas>
+    <div id="gamecontainer">
+        <canvas id="gameWorld" tabindex="1" width="800" height="600">
+        </canvas>
+        <img src="./img/extras/heart.png" id="heart" alt="heart">
+        <!-- <div id="hplabel">HP</div> -->
+        <div class ="healthbar">
+            <div id="health">
+                <div id="label">50%</div>
+            </div>
+        </div>
+        <img src="./img/extras/energy.png" id="magic" alt="heart">
+        <div class ="magicbar">
+            <div id="mana">
+                <div id="manalabel">100%</div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
