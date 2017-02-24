@@ -372,7 +372,7 @@ AM.downloadAll(function () {
 
 
     // temporary for testing
-    gameEngine.addPlatform(new Platform(new BoundingRect(2500, 2004, 440, 55, gameEngine)));
+    //gameEngine.addPlatform(new Platform(new BoundingRect(2500, 2004, 440, 55, gameEngine)));
 
 
     var artemis = new  OrcBowman(gameEngine, AM.getAsset("./img/characters/TronWithBow.png"));

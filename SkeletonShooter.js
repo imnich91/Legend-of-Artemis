@@ -1,6 +1,6 @@
 var GRAVITY = 20;
 var DEATH = 2500;
-var FOLLOWDISTANCE = 260;
+var SHOOTDISTANCE = 300;
 
 
 function SkeletonShooter(game, x, y, spritesheet) {
@@ -125,31 +125,6 @@ SkeletonShooter.prototype.update = function () {
         this.ground = this.startY - this.yAdjust - this.boundingRect.height;
         this.falling = false;
     }
-
-    // if (this.game.space) {
-    //   if (!this.falling)
-    //     this.jumping = true;
-    // } else if (this.game.s) {
-    //   this.paceing = false;
-    //   this.shooting = true;
-    // }
-    //
-    // if (this.game.right) {
-    //   this.paceing = false;
-    //   this.walking = true;
-    //   this.rightFaceing = true;
-    //   this.leftFaceing = false;
-    //   this.newXLocation = this.x;
-    //
-    // } else if (this.game.left) {
-    //   this.paceing = false;
-    //   this.walking = true;
-    //   this.leftFaceing = true;
-    //   this.rightFaceing = false;
-    //   this.newXLocation = this.x;
-    // }
-
-
 }
 
 SkeletonShooter.prototype.checkArtemisCollision = function() {
@@ -159,9 +134,7 @@ SkeletonShooter.prototype.checkArtemisCollision = function() {
   var myMiddle = this.boundingRect.left + (this.boundingRect.width / 2);
   var hisMiddle = artemis.boundingRect.left + (artemis.boundingRect.width / 2);
 
-  if (Math.abs(myMiddle - hisMiddle) < this.boundingRect.width + 300) {
-    this.shooting = true;
-  } else if (Math.abs(myMiddle - hisMiddle) <= FOLLOWDISTANCE) {
+  if (Math.abs(myMiddle - hisMiddle) <= SHOOTDISTANCE) {
     if (myMiddle - hisMiddle > 0) {
       this.leftFaceing = true;
       this.rightFaceing = false;
@@ -172,7 +145,8 @@ SkeletonShooter.prototype.checkArtemisCollision = function() {
     this.pacing = false;
     this.walking = true;
     this.newXLocation = this.x;
-    this.following = true;
+    //this.following = true;
+    this.shooting = true;
   } else {
     this.walking = false;
     this.paceing = true;
@@ -230,19 +204,13 @@ SkeletonShooter.prototype.checkPlatformCollisions = function() {
 
 SkeletonShooter.prototype.shoot = function() {
   var artemis = this.game.entities[0];
-  if (this.rightFaceing && (artemis.x > this.x)) {
-    // this.shootAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 7);
-    this.shootAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 19, true);
 
-  } else if (this.rightFaceing && (artemis.x < this.x)) {
-    // this.shootAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 5);
-    this.shootAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 17, true);
-
-  } else if (!this.rightFaceing && (artemis.x > this.x)) {
+  if(this.rightFaceing) {
     this.shootAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 19, true);
-  } else {
+  } else if(this.leftFaceing) {
     this.shootAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 17, true);
   }
+
   //adding the arrow obj
   if(this.shootAnimation.currentFrame() === 9 && !this.shooted) {
     var marker = new Date().getUTCMilliseconds(); //assign a unique ID number for each arrow
@@ -259,132 +227,132 @@ SkeletonShooter.prototype.shoot = function() {
   if (this.shootAnimation.isDone()) {
     this.shooting = false;
     this.shootAnimation.elapsedTime = 0;
-    this.paceing = true;
+    //this.paceing = true;
   }
 }
 
-SkeletonShooter.prototype.fall = function() {
-
-  this.paceing = false;
-  var currframe = this.animation.currentFrame();
-
-  if (this.rightFaceing) {
-    if (this.shooting){
-      this.shoot()
-    } else {
-      // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 11, currframe);
-      this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 11, currframe);
-    }
-
-  } else if (this.leftFaceing) {
-      if (this.shooting) {
-        this.shoot()
-      } else {
-        // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 9, currframe);
-        this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 9, currframe);
-      }
-  }
-
-  this.y += GRAVITY * this.jumpAnimation.elapsedTime;
-  this.jumpAnimation.elapsedTime += this.game.clockTick;
-
-  if (this.newPlatform) {
-    var newGround = this.currentPlatform.boundingRect.y - this.boundingRect.height - this.yAdjust;
-
-    if (this.y >= newGround) {
-      this.ground = newGround;
-      this.jumping = false;
-      this.jumpAnimation.elapsedTime = 0;
-      this.paceing = true;
-      this.y = this.ground;
-      this.newPlatform = false;
-      this.currentPlatform.isCurrent = true;
-      this.falling = false;
-    }
-} else {
-    var newGround = DEATH;
-    if (this.y >= newGround) {
-      this.jumpAnimation.elapsedTime = 0;
-      this.paceing = true;
-      this.y = newGround;
-      this.falling = false;
-      this.jumping = false;
-    }
-  }
-}
-
-
-SkeletonShooter.prototype.jump = function() {
-
-  this.jumpAnimation.elapsedTime += this.game.clockTick;
-  this.paceing = false;
-  var currframe = this.animation.currentFrame();
-
-  if (this.rightFaceing) {
-    if (this.shooting){
-      this.shoot()
-    } else {
-      // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 11, currframe);
-      this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 11, currframe);
-    }
-
-  } else if (this.leftFaceing) {
-      if (this.shooting) {
-        this.shoot()
-      } else {
-        // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 9, currframe);
-        this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 9, currframe);
-      }
-  }
-
-  var jumpDistance = this.jumpAnimation.elapsedTime / this.jumpAnimation.totalTime;
-
-  var totalHeight = 200;
-
-  if (jumpDistance > 0.5)
-      jumpDistance = 1 - jumpDistance;
-
-  var height = jumpDistance * 2 * totalHeight;
-  var height = totalHeight*(-4 * (jumpDistance * jumpDistance - jumpDistance));
-
-  this.y = this.ground - height;
-
-  if (this.newPlatform) {
-    var newGround = this.currentPlatform.boundingRect.y - this.boundingRect.height - this.yAdjust;
-
-    if (this.y >= newGround) {
-      this.ground = newGround;
-      this.jumping = false;
-      this.jumpAnimation.elapsedTime = 0;
-      this.paceing = true;
-      this.y = this.ground;
-      this.newPlatform = false;
-      this.currentPlatform.isCurrent = true;
-      this.falling = false;
-    }
-
-  } else if (this.falling) {
-        var newGround = DEATH;
-
-        if (this.y >= newGround) {
-          this.ground = newGround;
-          this.jumping = false;
-          this.jumpAnimation.elapsedTime = 0;
-          this.paceing = true;
-          this.y = this.ground;
-          this.newPlatform = false;
-          this.falling = false;
-
-        }
-
-  }  else if (this.y >= this.ground) {
-      this.jumping = false;
-      this.jumpAnimation.elapsedTime = 0;
-      this.paceing = true;
-      this.y = this.ground;
-  }
-
-}
+// SkeletonShooter.prototype.fall = function() {
+//
+//   this.paceing = false;
+//   var currframe = this.animation.currentFrame();
+//
+//   if (this.rightFaceing) {
+//     if (this.shooting){
+//       this.shoot()
+//     } else {
+//       // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 11, currframe);
+//       this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 11, currframe);
+//     }
+//
+//   } else if (this.leftFaceing) {
+//       if (this.shooting) {
+//         this.shoot()
+//       } else {
+//         // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 9, currframe);
+//         this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 9, currframe);
+//       }
+//   }
+//
+//   this.y += GRAVITY * this.jumpAnimation.elapsedTime;
+//   this.jumpAnimation.elapsedTime += this.game.clockTick;
+//
+//   if (this.newPlatform) {
+//     var newGround = this.currentPlatform.boundingRect.y - this.boundingRect.height - this.yAdjust;
+//
+//     if (this.y >= newGround) {
+//       this.ground = newGround;
+//       this.jumping = false;
+//       this.jumpAnimation.elapsedTime = 0;
+//       this.paceing = true;
+//       this.y = this.ground;
+//       this.newPlatform = false;
+//       this.currentPlatform.isCurrent = true;
+//       this.falling = false;
+//     }
+// } else {
+//     var newGround = DEATH;
+//     if (this.y >= newGround) {
+//       this.jumpAnimation.elapsedTime = 0;
+//       this.paceing = true;
+//       this.y = newGround;
+//       this.falling = false;
+//       this.jumping = false;
+//     }
+//   }
+// }
+//
+//
+// SkeletonShooter.prototype.jump = function() {
+//
+//   this.jumpAnimation.elapsedTime += this.game.clockTick;
+//   this.paceing = false;
+//   var currframe = this.animation.currentFrame();
+//
+//   if (this.rightFaceing) {
+//     if (this.shooting){
+//       this.shoot()
+//     } else {
+//       // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 11, currframe);
+//       this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 11, currframe);
+//     }
+//
+//   } else if (this.leftFaceing) {
+//       if (this.shooting) {
+//         this.shoot()
+//       } else {
+//         // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 9, currframe);
+//         this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 9, currframe);
+//       }
+//   }
+//
+//   var jumpDistance = this.jumpAnimation.elapsedTime / this.jumpAnimation.totalTime;
+//
+//   var totalHeight = 200;
+//
+//   if (jumpDistance > 0.5)
+//       jumpDistance = 1 - jumpDistance;
+//
+//   var height = jumpDistance * 2 * totalHeight;
+//   var height = totalHeight*(-4 * (jumpDistance * jumpDistance - jumpDistance));
+//
+//   this.y = this.ground - height;
+//
+//   if (this.newPlatform) {
+//     var newGround = this.currentPlatform.boundingRect.y - this.boundingRect.height - this.yAdjust;
+//
+//     if (this.y >= newGround) {
+//       this.ground = newGround;
+//       this.jumping = false;
+//       this.jumpAnimation.elapsedTime = 0;
+//       this.paceing = true;
+//       this.y = this.ground;
+//       this.newPlatform = false;
+//       this.currentPlatform.isCurrent = true;
+//       this.falling = false;
+//     }
+//
+//   } else if (this.falling) {
+//         var newGround = DEATH;
+//
+//         if (this.y >= newGround) {
+//           this.ground = newGround;
+//           this.jumping = false;
+//           this.jumpAnimation.elapsedTime = 0;
+//           this.paceing = true;
+//           this.y = this.ground;
+//           this.newPlatform = false;
+//           this.falling = false;
+//
+//         }
+//
+//   }  else if (this.y >= this.ground) {
+//       this.jumping = false;
+//       this.jumpAnimation.elapsedTime = 0;
+//       this.paceing = true;
+//       this.y = this.ground;
+//   }
+//
+// }
 
 SkeletonShooter.prototype.pace = function() {
 

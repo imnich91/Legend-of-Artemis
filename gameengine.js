@@ -130,7 +130,7 @@ GameEngine.prototype.removeTheUnit = function(marker) {
       }
     }
     //console.log("updated: " + this.entities.length);
-    this.update(this.entities.length);
+    //this.update(this.entities.length);
 }
 
 GameEngine.prototype.addEntity = function (entity) {
@@ -175,7 +175,6 @@ GameEngine.prototype.update = function () {
 
     for (var i = 0; i < entitiesCount; i++) {
         var entity = this.entities[i];
-
         entity.update();
     }
 
