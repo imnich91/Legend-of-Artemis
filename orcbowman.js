@@ -277,20 +277,8 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
       }
 
     } else if(entity.constructor.name === "arrowObj") {
-        // if (this.collideLeft(entity)) {
-        //     console.log("collision left");
-        //     entity.needToRemove = false;
-        // }
-        //
-        // if (this.collideRight(entity)) {
-        //     console.log("collision right");
-        //     entity.needToRemove = false;
-        // }
         if (this.collide(entity)) {
-          console.log("got here");
           entity.needToRemove = false;
-
-
         }
       }
   }

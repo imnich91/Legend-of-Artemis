@@ -80,10 +80,10 @@ arrowObj.prototype.update = function () {
     }
 
     if (this.flyingLeft) {
-      this.boundingRect.updateLoc(this.x + this.xAdjust, this.y);
+      this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
 
     } else {
-      this.boundingRect.updateLoc(this.x + this.xAdjust * 2.5, this.y);
+      this.boundingRect.updateLoc(this.x + this.xAdjust * 2.5, this.y + this.yAdjust);
     }
 
 
