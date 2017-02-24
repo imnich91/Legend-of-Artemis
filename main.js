@@ -75,6 +75,8 @@ Animation.prototype.drawSpecificFrame = function (ctx, x, y , row, col) {
 }
 
 
+
+// basic class for the platforms
 function Platform(boundingRect) {
   this.boundingRect = boundingRect;
   this.isCurrent = false;
@@ -370,7 +372,7 @@ AM.downloadAll(function () {
 
 
     // temporary for testing
-    //gameEngine.addPlatform(new Platform(new BoundingRect(2500, 2004, 440, 55, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2500, 2004, 440, 55, gameEngine)));
 
 
     var artemis = new  OrcBowman(gameEngine, AM.getAsset("./img/characters/TronWithBow.png"));
@@ -403,15 +405,6 @@ AM.downloadAll(function () {
     skeleton.currentPlatform = skull1SP;
     gameEngine.addEntity(skeleton);
 
-
-    // gameEngine.addEntity(new GameEngine.Camera(0, 0, gameEngine.surfaceWidth,
-    //                                                  gameEngine.surfaceHeight,
-    //                                                  gameEngine.worldWidth,
-    //                                                  gameEngine.worldHeight,
-    //                                                  AM.getAsset("./img/town_background.jpg")));
-    // gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/town_background.jpg")));
-    // gameEngine.addEntity(new Guy(gameEngine, AM.getAsset("./img/guy.jpg")));
-    // gameEngine.addEntity(new tronMainCharacter(gameEngine, AM.getAsset("./img/characters/TronWithBow.png")));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6300, 1387, 2));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 80, 1482, 2));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 35, 462, 1));
@@ -436,11 +429,6 @@ AM.downloadAll(function () {
 
     gameEngine.follow();
     gameEngine.start();
-
-    // var camera = new GameEngine.Camera(0, 0, gameEngine.surfaceWidth,
-    //                                      gameEngine.surfaceHeight,
-    //                                      gameEngine.worldWidth,
-    //                                      gameEngine.worldHeight);
 
     console.log("All Done!");
 });

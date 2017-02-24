@@ -209,11 +209,13 @@ OrcBowman.prototype.update = function () {
         this.x = 0 - this.xAdjust;
         // console.log("boundary x : " + this.x);
     }
-    // //check top boundary
-    // if(this.y - this.height/2 < 0) {
-    //     this.y = this.height/2;
-    //     // console.log("top boundary y : " + this.y);
-    // }
+    //check top boundary
+    if(this.y + this.yAdjust < 0) {
+      this.y = -this.yAdjust;
+      this.falling = true;
+      this.jumping = false;
+        // console.log("top boundary y : " + this.y);
+    }
 
     //check right boundary
     if(this.x + this.width - this.xAdjust >  this.game.worldWidth) {

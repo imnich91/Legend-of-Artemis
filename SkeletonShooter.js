@@ -237,6 +237,7 @@ SkeletonShooter.prototype.shoot = function() {
   } else if (this.rightFaceing && (artemis.x < this.x)) {
     // this.shootAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 5);
     this.shootAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 17, true);
+
   } else if (!this.rightFaceing && (artemis.x > this.x)) {
     this.shootAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 19, true);
   } else {
@@ -245,7 +246,7 @@ SkeletonShooter.prototype.shoot = function() {
   //adding the arrow obj
   if(this.shootAnimation.currentFrame() === 9 && !this.shooted) {
     var marker = new Date().getUTCMilliseconds(); //assign a unique ID number for each arrow
-    var arrow = new arrowObj(this.game, AM.getAsset("./img/characters/redhead.png"), this.x, this.y, marker);
+    var arrow = new arrowObj(this.game, this, AM.getAsset("./img/arrow_skeleton.png"), this.x, this.y, marker);
     this.game.addEntity(arrow);
     this.shooted = true;
     console.log("Shooted");
