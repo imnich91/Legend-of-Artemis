@@ -6,6 +6,8 @@ var JUMPHEIGHT = 220;
 function OrcBowman(game, spritesheet) {
   this.walkAnimation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 1);
   this.magicAnimation = new Animation(spritesheet, 64, 64, 6.5, 0.1, 6.5, false, 1);
+  this.attackRightAnimation = new Animation(AM.getAsset("./img/characters/ArtemisAttack.png"),192, 189, 5.5, 0.08, 5.5, false, 1);
+  this.attackLeftAnimation = new Animation(AM.getAsset("./img/characters/ArtemisAttack.png"), 192, 182, 5.5, 0.08, 5.5, false, 1);
   this.shootRightAnimation = new Animation(spritesheet, 64, 64, 12.5, 0.1, 12.5, false, 1);
   this.shootLeftAnimation = new Animation(spritesheet, 64, 64, 12.5, 0.1, 12.5, false, 1);
   this.upAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1);
@@ -14,6 +16,8 @@ function OrcBowman(game, spritesheet) {
 
   this.xAdjust = 21;
   this.yAdjust = 13;
+  this.yAttackAdjust = 55;
+  this.xAttackAdjust = 66;
   this.boundingRect = new BoundingRect(20 + this.xAdjust, 2067 + this.yAdjust, 22, 46, game);
   this.previousLoc = new BoundingRect(20 + this.xAdjust, 2067 + this.yAdjust, 22, 46, game);
 
@@ -97,16 +101,16 @@ OrcBowman.prototype.draw = function () {
          2, true);
   } else if(this.melee && this.lastPressed === "melee") {
     if(this.currDirection === 11) {
-      this.shootRightAnimation.drawFrame(this.game.clockTick,
+      this.attackRightAnimation.drawFrame(this.game.clockTick,
       this.ctx,
-        this.x - this.camera.xView,
-        this.y - this.camera.yView,
-         19, true);
+        this.x - this.camera.xView - this.xAttackAdjust,
+        this.y - this.camera.yView - this.yAttackAdjust,
+         3, true);
     } else {
-      this.shootRightAnimation.drawFrame(this.game.clockTick, this.ctx,
-        this.x - this.camera.xView,
-        this.y - this.camera.yView,
-         17, true);
+      this.attackLeftAnimation.drawFrame(this.game.clockTick, this.ctx,
+        this.x - this.camera.xView - this.xAttackAdjust,
+        this.y - this.camera.yView - this.yAttackAdjust,
+         1, true);
     }
   } else if(!this.animating){
     if(this.lastPressed === "right" || this.lastPressed === "melee") {
@@ -128,10 +132,10 @@ OrcBowman.prototype.draw = function () {
         document.getElementById('mana').style.width = "50%";
         document.getElementById('manalabel').innerHTML = "50%";
     } else if(this.lastPressed === "melee" && this.currDirection === "right") {
-       this.shootRightAnimation.drawSpecificFrame(this.ctx,
+       this.attackRightAnimation.drawSpecificFrame(this.ctx,
          this.x - this.camera.xView,
          this.y - this.camera.yView,
-          19, 13);
+          24, 13);
     } else if(this.lastPressed === "up") {
       this.upAnimation.drawSpecificFrame(this.ctx,
         this.x - this.camera.xView,
@@ -184,13 +188,13 @@ OrcBowman.prototype.update = function () {
       this.down = false;
       this.animating = false;
   }
-  if (this.shootRightAnimation.isDone()) {
-      this.shootRightAnimation.elapsedTime = 0;
+  if (this.attackRightAnimation.isDone()) {
+      this.attackRightAnimation.elapsedTime = 0;
       this.melee = false;
       this.animating = false;
   }
-  if (this.shootLeftAnimation.isDone()) {
-      this.shootLeftAnimation.elapsedTime = 0;
+  if (this.attackLeftAnimation.isDone()) {
+      this.attackLeftAnimation.elapsedTime = 0;
       this.melee = false;
       this.animating = false;
   }
@@ -201,10 +205,11 @@ OrcBowman.prototype.update = function () {
   this.checkPlatformCollisions();
   this.checkEnemyCollisions();
   this.checkMovingPlatformCollisions();
+  this.withinRange();
 
 
       // check left boundary
-      if(this.x + this.xAdjust < 0) {
+    if(this.x + this.xAdjust < 0) {
         // console.log("before boundary x : " + this.x);
         this.x = 0 - this.xAdjust;
         // console.log("boundary x : " + this.x);
@@ -218,7 +223,6 @@ OrcBowman.prototype.update = function () {
     //check right boundary
     if(this.x + this.width - this.xAdjust >  this.game.worldWidth) {
         this.x = this.game.worldWidth - this.width + this.xAdjust;
-        // console.log("char boundary x : " + this.x);
     }
 
     if (this.y >= DEATH) {
@@ -227,12 +231,7 @@ OrcBowman.prototype.update = function () {
       this.ground = this.startY;
     }
 
-
-
-
 }
-
-
 
 OrcBowman.prototype.collide = function(other) {
   return this.boundingRect.left < other.boundingRect.right // left side collision
@@ -267,14 +266,37 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
   for (var i = 0; i < this.game.entities.length; i ++) {
     var entity = this.game.entities[i];
 
-    if(entity.constructor.name === "Redhead") {
+    if(entity.constructor.name === "Redhead" || entity.constructor.name === "SkeletonShooter") {
       if (this.collide(entity)) {
         if (this.collideLeft(entity)) {
-          this.x = entity.boundingRect.right - this.xAdjust;
-          this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+            this.x = entity.boundingRect.right - this.xAdjust;
+            this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+
         } else if (this.collideRight(entity)) {
-          this.x = entity.boundingRect.left - this.xAdjust - this.boundingRect.width;
-          this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+            this.x = entity.boundingRect.left - this.xAdjust - this.boundingRect.width;
+            this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+        }
+      }
+    }
+  }
+};
+
+OrcBowman.prototype.withinRange = function() {
+
+  for (var i = 0; i < this.game.entities.length; i ++) {
+    var entity = this.game.entities[i];
+
+    if(entity.constructor.name === "Redhead" || entity.constructor.name === "SkeletonShooter") {
+      if (this.x - entity.x > 0 && Math.abs(this.x - entity.x) <= 50) {
+        if(this.down && this.magicAnimation.currentFrame() == 5) {
+          entity.x -= 100;
+          entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
+        }
+      } else if(this.x - entity.x < 0 && Math.abs(this.x - entity.x) <= 50) {
+        if(this.down && this.magicAnimation.currentFrame() == 5) {
+          entity.x += 100;
+          entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
+
         }
       }
     }

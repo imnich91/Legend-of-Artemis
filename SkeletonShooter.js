@@ -248,7 +248,6 @@ SkeletonShooter.prototype.shoot = function() {
     var arrow = new arrowObj(this.game, AM.getAsset("./img/characters/redhead.png"), this.x, this.y, marker);
     this.game.addEntity(arrow);
     this.shooted = true;
-    console.log("Shooted");
     myAudio = new Audio('./se/bowFire.mp3');
     myAudio.play();
   } else if(this.shootAnimation.currentFrame() > 10) {
