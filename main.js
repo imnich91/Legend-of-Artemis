@@ -133,6 +133,7 @@ function Platform(boundingRect) {
   this.isCurrent = false;
 }
 
+
 // AM.queueDownload("./img/backgrounds/town_background.jpg");
 AM.queueDownload("./img/backgrounds/finished level 1.png");
 //main character image
@@ -202,6 +203,156 @@ AM.downloadAll(function () {
     gameEngine.addPlatform(new Platform(new BoundingRect(470, 1160, 1092, 31, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(0, 1076, 474, 53, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(422, 1096, 52, 95, gameEngine)));
+
+    //SKY TILES _________________________________________________________________________
+    gameEngine.addPlatform(new Platform(new BoundingRect(0, 272, 1088, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(0, 465, 32, 232, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(32, 497, 64, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(128, 530, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(192, 530, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(256, 530, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(320, 530, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(384, 530, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(448, 530, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(512, 530, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(576, 530, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(640, 530, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2496, 946, 190, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2432, 626, 320, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2720, 882, 128, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2848, 754, 96, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2815, 721, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2784, 689, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2751, 657, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1983, 466, 64, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2048, 434, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2083, 402, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2113, 370, 608, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2176, 242, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2528, 274, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2592, 242, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2657, 210, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2751, 178, 128, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2720, 402, 96, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3105, 562, 96, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3201, 593, 32, 10, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2914, 690, 192, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3168, 1010, 192, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(5568, 178, 224, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(5376, 369, 320, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3073, 849, 224, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3328, 882, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3393, 913, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3456, 978, 192, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3263, 242, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3296, 209, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3329, 178, 128, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3457, 146, 224, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3328, 626, 128, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3488, 496, 64, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3361, 753, 288, 10, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3648, 722, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3680, 690, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3714, 658, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3648, 786, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3680, 817, 288, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3967, 850, 672, 10, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3617, 403, 384, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3873, 625, 513, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(4128, 467, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(4192, 144, 128, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(4394, 594, 96, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(4480, 562, 64, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(4514, 754, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(4576, 466, 64, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(4736, 530, 128, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(4895, 178, 64, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(4928, 432, 128, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(5151, 529, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(4768, 657, 544, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1088, 178, 128, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1216, 210, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1248, 242, 64, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1312, 274, 64, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1376, 306, 352, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1760, 210, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1824, 242, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1920, 242, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1984, 306, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(736, 562, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(32, 690, 64, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(96, 722, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(352, 722, 128, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(480, 754, 224, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(704, 786, 384, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1090, 816, 320, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1408, 848, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1024, 658, 192, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1344, 690, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1568, 754, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1728, 850, 384, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1728, 626, 192, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1984, 722, 128, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2176, 658, 160, 12, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2176, 786, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2368, 818, 256, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2912, 242, 64, 64, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2977, 274, 64, 64, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3040, 305, 64, 64, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2817, 434, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2976, 466, 32, 64, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3008, 530, 96, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(2911, 946, 160, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(5345, 690, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(5408, 722, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(5472, 754, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(5503, 787, 608, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(5728, 945, 544, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(5696, 658, 192, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(6112, 818, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(6144, 849, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(6176, 880, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(6304, 786, 64, 64, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(6336, 657, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(6176, 338, 32, 190, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(6367, 338, 32, 450, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(6336, 402, 32, 32, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(6143, 530, 224, 32, gameEngine)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // temporary for testing
     gameEngine.addPlatform(new Platform(new BoundingRect(2500, 2004, 440, 55, gameEngine)));

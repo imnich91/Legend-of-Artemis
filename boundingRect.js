@@ -15,6 +15,7 @@ function BoundingRect(x, y, width, height, game) {
     this.game.ctx.rect(this.x - this.camera.xView, this.y - this.camera.yView, this.width, this.height);
     this.game.ctx.stroke();
     this.game.ctx.clearRect(this.x - this.camera.xView, this.y - this.camera.yView, this.width,this.height);
+
    }
 
    this.updateLoc = function(x, y){
