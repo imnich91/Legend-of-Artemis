@@ -215,10 +215,6 @@ OrcBowman.prototype.update = function () {
       this.y = this.startY;
       this.ground = this.startY;
     }
-
-      
-
-
 }
 
 
