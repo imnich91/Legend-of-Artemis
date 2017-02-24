@@ -322,40 +322,6 @@ AM.downloadAll(function () {
     gameEngine.addPlatform(new Platform(new BoundingRect(6143, 530, 224, 32, gameEngine)));
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // temporary for testing
     gameEngine.addPlatform(new Platform(new BoundingRect(2500, 2004, 440, 55, gameEngine)));
 
