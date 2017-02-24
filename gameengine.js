@@ -20,6 +20,7 @@ function GameEngine() {
     this.up = false;
     this.entities = [];
     this.platforms = [];
+    this.movingPlatforms = [];
     this.ctx = null;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
@@ -141,6 +142,10 @@ GameEngine.prototype.addPlatform = function (platform) {
   this.platforms.push(platform);
 }
 
+GameEngine.prototype.addMovingPlatform = function (platform) {
+  this.movingPlatforms.push(platform);
+}
+
 
 GameEngine.prototype.draw = function () {
     this.ctx.clearRect(0, 0, this.surfaceWidth, this.surfaceHeight);
@@ -151,6 +156,11 @@ GameEngine.prototype.draw = function () {
     for (var i = this.entities.length - 1; i >= 0; i--) {
         this.entities[i].draw(this.ctx);
     }
+
+    for (var i = this.movingPlatforms.length - 1; i >= 0; i--) {
+        this.movingPlatforms[i].draw(this.ctx);
+    }
+
 
     this.ctx.restore();
 }
@@ -167,6 +177,12 @@ GameEngine.prototype.update = function () {
         var entity = this.entities[i];
 
         entity.update();
+    }
+
+    for (var i = 0; i < this.movingPlatforms.length; i++) {
+        var platform = this.movingPlatforms[i];
+
+        platform.update();
     }
     //update the camera after the character move/update its position
     this.camera.update();
