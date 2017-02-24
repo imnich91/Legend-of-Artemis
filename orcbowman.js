@@ -25,7 +25,7 @@ function OrcBowman(game, spritesheet) {
   this.startY = this.y;
 
   this.ground = this.y;
-  this.speed = 350;
+  this.speed = 200;
   this.ctx = game.ctx;
   this.game = game;
   this.currDirection = 11;
@@ -55,7 +55,7 @@ OrcBowman.prototype.draw = function () {
     } else if(this.currentPlatform.rightFaceing) {
       this.x += this.game.clockTick * this.currentPlatform.speed;
     }
-    
+
   }
 
   if (this.jumping) {
