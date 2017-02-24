@@ -45,26 +45,6 @@ Animation.prototype.drawFrame = function (tick, ctx, x, y, row, animating) {
 }
 
 
-// Animation.prototype.drawFrame = function (tick, ctx, x, y, row) {
-//     this.elapsedTime += tick;
-//     if (this.isDone()) {
-//         if (this.loop) this.elapsedTime = 0;
-//     }
-//     var frame = this.currentFrame();
-//     var xindex = 0;
-//     var yindex = 0;
-//     this.row = row;
-//     xindex = frame % this.sheetWidth;
-//     yindex = Math.floor(frame / this.sheetWidth);
-
-//     ctx.drawImage(this.spriteSheet,
-//                  xindex * this.frameWidth, yindex * this.frameHeight + (this.row - 1) * this.frameHeight,  // source from sheet
-//                  this.frameWidth, this.frameHeight,
-//                  x, y,
-//                  this.frameWidth * this.scale,
-//                  this.frameHeight * this.scale);
-// }
-
 Animation.prototype.currentFrame = function () {
     return Math.floor(this.elapsedTime / this.frameDuration);
 }
@@ -94,54 +74,100 @@ Animation.prototype.drawSpecificFrame = function (ctx, x, y , row, col) {
                this.frameHeight * this.scale);
 }
 
-// function Background(game, spritesheet) {
-//     this.x = 0;
-//     this.y = 0;
-//     this.spritesheet = spritesheet;
-//     this.game = game;
-//     this.ctx = game.ctx;
-// };
-
-// Background.prototype.draw = function () {
-//     // console.log("width" + this.game.worldWidth + "height" + this.game.worldHeight);
-//     this.ctx.drawImage(this.spritesheet,
-//                    this.x, this.y);
-// };
-
-// Background.prototype.update = function () {
-
-// };
-
-// function tronMainCharacter(game, spritesheet) {
-//     this.animation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 1 );
-//     this.speed = 100;
-//     this.ctx = game.ctx;
-//     this.x = 300;
-//     this.y = 2030;
-//     this.game = game;
-//     this.row = 12;
-//     this.width = 64;
-//     this.height = 64;
-//     this.step = game.STEP;
-//     this.camera = game.camera;
-//     // this.game.camera.follow();
-// }
-
 
 function Platform(boundingRect) {
   this.boundingRect = boundingRect;
   this.isCurrent = false;
 }
 
+function MovingPlatform(game, x, y, boundingRect, spritesheet, range, direction, speed, size) {
+  this.movingAnimation = new Animation(spritesheet, size, 32, 1, 0.1, 1, true, 1);
+  this.boundingRect = boundingRect;
+  this.isCurrent = false;
+  this.spritesheet = spritesheet;
+  this.y = y;
+  this.game = game;
+  this.range = range;
+  this.negRange = 0 - range;
+  this.x = x;
+  this.startX = x;
+  this.startY = y;
+  if(direction) {
+    this.leftFaceing = true;
+    this.rightFaceing = false;
+  } else {
+    this.leftFaceing = false;
+    this.rightFaceing = true;
+  }
+
+  this.ctx = game.ctx;
+  this.camera = game.camera;
+  this.speed = speed;
+  this.boundingRect = boundingRect;
+  this.previousLoc = boundingRect;
+}
+
+MovingPlatform.prototype.draw = function () {
+    // console.log("width" + this.game.worldWidth + "height" + this.game.worldHeight);
+    this.movingAnimation.drawFrame(this.game.clockTick,
+    this.ctx,
+      this.x - this.camera.xView,
+      this.y - this.camera.yView,
+       0, true);
+};
+
+MovingPlatform.prototype.update = function () {
+  this.cX = this.x - this.camera.xView;
+  this.cY = this.y - this.camera.yView;
+  this.previousLoc.updateLoc(this.boundingRect.x, this.boundingRect.y);
+  this.boundingRect.updateLoc(this.x, this.y);
+  if(this.startX - this.x >= this.range) {
+    this.leftFaceing = false;
+    this.rightFaceing = true;
+  }
+  if(this.startX - this.x <= this.negRange) {
+    this.leftFaceing = true;
+    this.rightFaceing = false;
+  }
+  this.move();
+};
+
+MovingPlatform.prototype.getX = function() {
+  return this.x;
+}
+
+MovingPlatform.prototype.move = function() {
+
+  if (this.leftFaceing) {
+      this.moveLeft()
+  } else if (this.rightFaceing) {
+      this.moveRight()
+  }
+}
+
+MovingPlatform.prototype.moveRight = function() {
+    this.x += this.game.clockTick * this.speed;
+}
+
+MovingPlatform.prototype.moveLeft = function() {
+    this.x -= this.game.clockTick * this.speed;
+}
+
+
+
+
 
 // AM.queueDownload("./img/backgrounds/town_background.jpg");
-AM.queueDownload("./img/backgrounds/finished level 1.png");
+AM.queueDownload("./img/backgrounds/level1nofloatingplatforms.png");
 //main character image
 AM.queueDownload("./img/characters/TronWithBow.png")
 AM.queueDownload("./img/extras/chest.png");
 AM.queueDownload("./img/characters/redhead.png");
 AM.queueDownload("./img/characters/skeleton.png");
 AM.queueDownload("./img/arrow_skeleton.png");
+AM.queueDownload("./img/extras/x2platform.png");
+AM.queueDownload("./img/extras/x4platform.png");
+
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
@@ -149,7 +175,7 @@ AM.downloadAll(function () {
 
     var gameEngine = new GameEngine();
     // gameEngine.init(ctx, AM.getAsset("./img/backgrounds/town_background.jpg"));
-    gameEngine.init(ctx, AM.getAsset("./img/backgrounds/finished level 1.png"));
+    gameEngine.init(ctx, AM.getAsset("./img/backgrounds/level1nofloatingplatforms.png"));
 
     var startingPlatform = new Platform(new BoundingRect(0, 2067, 260, 63, gameEngine));
     var redhead1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));
@@ -159,16 +185,37 @@ AM.downloadAll(function () {
     var redhead4SP = new Platform(new BoundingRect(470, 1140, 1827, 23, gameEngine));
     startingPlatform.isCurrent = true;
 
+    //size 2 moving platforms
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 2752, 2006, new BoundingRect(2752, 2006, 64, 32, gameEngine), AM.getAsset("./img/extras/x2platform.png"), 230, true, 100, 64));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 4733, 2066, new BoundingRect(4733, 2066, 64, 32, gameEngine), AM.getAsset("./img/extras/x2platform.png"), 131, true, 100, 64));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 5056, 2002, new BoundingRect(5056, 2002, 64, 32, gameEngine), AM.getAsset("./img/extras/x2platform.png"), 129, false, 110, 64));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 5377, 1936, new BoundingRect(5377, 1936, 64, 32, gameEngine), AM.getAsset("./img/extras/x2platform.png"), 129, true, 100, 64));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 5700, 1554, new BoundingRect(5700, 1554, 64, 32, gameEngine), AM.getAsset("./img/extras/x2platform.png"), 140, true, 100, 64));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 6055, 1650, new BoundingRect(6055, 1650, 64, 32, gameEngine), AM.getAsset("./img/extras/x2platform.png"), 147, false, 100, 64));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 2407, 1362, new BoundingRect(2407, 1362, 64, 32, gameEngine), AM.getAsset("./img/extras/x2platform.png"), 137, false, 100, 64));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 2736, 1426, new BoundingRect(2736, 1426, 64, 32, gameEngine), AM.getAsset("./img/extras/x2platform.png"), 137, true, 100, 64));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 1585, 1426, new BoundingRect(1585, 1426, 64, 32, gameEngine), AM.getAsset("./img/extras/x2platform.png"), 145, true, 100, 64));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 1939, 1426, new BoundingRect(1939, 1426, 64, 32, gameEngine), AM.getAsset("./img/extras/x2platform.png"), 145, false, 100, 64));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 5952, 180, new BoundingRect(5952, 180, 64, 32, gameEngine), AM.getAsset("./img/extras/x2platform.png"), 158, false, 100, 64));
+
+    //size 4 moving platforms
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 719, 1554, new BoundingRect(719, 1554, 128, 32, gameEngine), AM.getAsset("./img/extras/x4platform.png"), 145, true, 100, 128));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 3873, 146, new BoundingRect(3873, 146, 128, 32, gameEngine), AM.getAsset("./img/extras/x4platform.png"), 193, false, 100, 128));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 4544, 146, new BoundingRect(4544, 146, 128, 32, gameEngine), AM.getAsset("./img/extras/x4platform.png"), 224, true, 100, 128));
+    gameEngine.addMovingPlatform(new MovingPlatform(gameEngine, 5201, 178, new BoundingRect(5201, 178, 128, 32, gameEngine), AM.getAsset("./img/extras/x4platform.png"), 241, false, 100, 128));
+
+
+
     gameEngine.addPlatform(startingPlatform);
     gameEngine.addPlatform(redhead1SP); // redhead 1
     gameEngine.addPlatform(redhead2SP); // redhead 2
     gameEngine.addPlatform(redhead3SP);
     gameEngine.addPlatform(redhead4SP);
+
+    gameEngine.addPlatform(new Platform(new BoundingRect(6078, 1458, 322, 32, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(260, 2005, 130, 65, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(1140, 1940, 606, 187, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(1755, 2004, 768, 125, gameEngine)));
-    gameEngine.addPlatform(new Platform(new BoundingRect(1123, 1810, 26, 318, gameEngine)));
-    gameEngine.addPlatform(new Platform(new BoundingRect(1730, 1810, 26, 208, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(5572, 1940, 55, 55, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(5829, 1940, 55, 55, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(6118, 1940, 282, 55, gameEngine)));
@@ -323,7 +370,7 @@ AM.downloadAll(function () {
 
 
     // temporary for testing
-    gameEngine.addPlatform(new Platform(new BoundingRect(2500, 2004, 440, 55, gameEngine)));
+    //gameEngine.addPlatform(new Platform(new BoundingRect(2500, 2004, 440, 55, gameEngine)));
 
 
     var artemis = new  OrcBowman(gameEngine, AM.getAsset("./img/characters/TronWithBow.png"));

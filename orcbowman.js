@@ -34,6 +34,8 @@ function OrcBowman(game, spritesheet) {
   this.falling = false;
   this.newPlatform = false;
   this.currentPlatform = null;
+  this.movingPlatform = null;
+  this.onMoving = false;
 
   //////////////////////////
   this.width = 64;
@@ -47,6 +49,14 @@ function OrcBowman(game, spritesheet) {
 
 OrcBowman.prototype.draw = function () {
   // this.boundingRect.drawRect();
+  if(this.onMoving && !this.jumping && !this.right && !this.left) {
+    if(this.currentPlatform.leftFaceing) {
+      this.x -= this.game.clockTick * this.currentPlatform.speed;
+    } else if(this.currentPlatform.rightFaceing) {
+      this.x += this.game.clockTick * this.currentPlatform.speed;
+    }
+
+  }
 
   if (this.jumping) {
     this.jump();
@@ -190,6 +200,7 @@ OrcBowman.prototype.update = function () {
 
   this.checkPlatformCollisions();
   this.checkEnemyCollisions();
+  this.checkMovingPlatformCollisions();
 
 
       // check left boundary
@@ -297,6 +308,42 @@ OrcBowman.prototype.checkPlatformCollisions = function () {
           this.falling = true;
         }
     }
+}
+
+OrcBowman.prototype.checkMovingPlatformCollisions = function () {
+
+  for (var i = 0; i < this.game.movingPlatforms.length; i ++) {
+    var platform = this.game.movingPlatforms[i];
+
+    if (this.collide(platform)) {
+      if(this.collideBottom(platform) ) {
+        this.y = platform.boundingRect.bottom - this.yAdjust;
+        this.falling = true;
+        this.jumping = false;
+      }
+      else if (this.collideTop(platform)) {
+        this.newPlatform = true;
+        this.currentPlatform = platform;
+        this.onMoving = true;
+      }
+      else if (this.collideLeft(platform)) {
+        this.x = platform.boundingRect.right - this.xAdjust;
+        this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+      }
+      else if (this.collideRight(platform)) {
+        this.x = platform.boundingRect.left - this.xAdjust - this.boundingRect.width;
+        this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+      }
+    }
+      if (this.boundingRect.left > this.currentPlatform.boundingRect.right
+          || this.boundingRect.right < this.currentPlatform.boundingRect.left) {
+            this.currentPlatform.isCurrent = false;
+            this.onMoving = false;
+            this.falling = true;
+      }
+
+    }
+
 }
 
 OrcBowman.prototype.jump = function() {
