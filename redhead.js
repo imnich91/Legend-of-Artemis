@@ -117,12 +117,12 @@ Redhead.prototype.update = function () {
     this.checkArtemisCollision();
 
 
-    if(this.y >= DEATH) {
-        this.x = this.startX;
-        this.y = this.startY - this.yAdjust - this.boundingRect.height;
-        this.ground = this.startY - this.yAdjust - this.boundingRect.height;
-        this.falling = false;
-    }
+    // if(this.y >= DEATH) {
+    //     this.x = this.startX;
+    //     this.y = this.startY - this.yAdjust - this.boundingRect.height;
+    //     this.ground = this.startY - this.yAdjust - this.boundingRect.height;
+    //     this.falling = false;
+    // }
 
     // if (this.game.space) {
     //   if (!this.falling)
@@ -171,6 +171,10 @@ Redhead.prototype.checkArtemisCollision = function() {
     this.walking = true;
     this.newXLocation = this.x;
     this.following = true;
+    if(this.falling) {
+      this.walking = false;
+      this.following = false;
+    }
   } else {
     this.walking = false;
     this.paceing = true;
@@ -358,7 +362,8 @@ Redhead.prototype.jump = function() {
 
         }
 
-  }  else if (this.y >= this.ground) {
+  } 
+   else if (this.y >= this.ground) {
       this.jumping = false;
       this.jumpAnimation.elapsedTime = 0;
       this.paceing = true;

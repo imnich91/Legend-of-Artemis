@@ -185,6 +185,7 @@ AM.downloadAll(function () {
     var redhead2SP = new Platform(new BoundingRect(3045, 2067, 1558, 61, gameEngine));
     var redhead3SP = new Platform(new BoundingRect(4356, 1589, 726, 52, gameEngine));
     var redhead4SP = new Platform(new BoundingRect(470, 1140, 1827, 23, gameEngine));
+    var redhead5SP = new Platform(new BoundingRect(1140, 1940, 606, 187, gameEngine));
     startingPlatform.isCurrent = true;
 
     //size 2 moving platforms
@@ -213,10 +214,11 @@ AM.downloadAll(function () {
     gameEngine.addPlatform(redhead2SP); // redhead 2
     gameEngine.addPlatform(redhead3SP);
     gameEngine.addPlatform(redhead4SP);
+    gameEngine.addPlatform(redhead5SP);
 
     gameEngine.addPlatform(new Platform(new BoundingRect(6078, 1458, 322, 32, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(260, 2005, 130, 65, gameEngine)));
-    gameEngine.addPlatform(new Platform(new BoundingRect(1140, 1940, 606, 187, gameEngine)));
+    // gameEngine.addPlatform(new Platform(new BoundingRect(1140, 1940, 606, 187, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(1755, 2004, 768, 125, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(5572, 1940, 55, 55, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(5829, 1940, 55, 55, gameEngine)));
@@ -379,6 +381,9 @@ AM.downloadAll(function () {
     artemis.currentPlatform = startingPlatform;
     gameEngine.addEntity(artemis);
 
+    
+    
+
     var redhead1 = new Redhead(gameEngine, 630, 1940, AM.getAsset("./img/characters/redhead.png"));
     var redheadAdjust = redhead1.yAdjust + redhead1.boundingRect.height;
     redhead1.y = 1940 - redheadAdjust;
@@ -399,6 +404,11 @@ AM.downloadAll(function () {
     redhead4.y = 1140 - redheadAdjust;
     redhead4.currentPlatform = redhead4SP;
     gameEngine.addEntity(redhead4);
+
+    var redhead5 = new Redhead(gameEngine, 1450, 1940, AM.getAsset("./img/characters/redhead.png"));
+    redhead5.y = 1940 - redheadAdjust;
+    redhead5.currentPlatform = redhead5SP;
+    gameEngine.addEntity(redhead5);
 
     var skeleton = new SkeletonShooter(gameEngine, 650, 1940, AM.getAsset("./img/characters/skeleton.png"));
     skeleton.y = 1940 - redheadAdjust;
