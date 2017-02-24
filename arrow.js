@@ -11,7 +11,7 @@ function arrowObj(game, skeleton, spritesheet, x, y, marker) {
     this.collide = false;
     this.marker = marker;
     this.needToRemove = true;
-    this.speed = 200;
+    this.speed = 430;
     this.row = 19;
     this.game = game;
     this.ctx = game.ctx;
@@ -29,16 +29,6 @@ function arrowObj(game, skeleton, spritesheet, x, y, marker) {
     this.camera = game.camera;
     this.step = game.STEP;
 }
-
-
-// arrowObj.prototype.shootArrow = function() {
-//   if (this.flying) {
-//       //this.animation.drawSpecificFrame(this.ctx, this.x, this.y, this.row, 3)
-//   } else {
-//     this.x = x + 32;
-//     this.y = y -19;
-//   }
-// }
 
 arrowObj.prototype.draw = function () {
 
@@ -80,10 +70,15 @@ arrowObj.prototype.update = function () {
     }
 
     if (this.flyingLeft) {
-      this.boundingRect.x = this.x + this.xAdjust;
+      this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+
     } else {
-      this.boundingRect.x = this.x +this.xAdjust*2.5;
+      this.boundingRect.updateLoc(this.x + this.xAdjust * 2.5, this.y + this.yAdjust);
     }
+
+
+
+
 
     // else if(this.collide) {
     //     this.game.removeTheUnit(this.marker);
