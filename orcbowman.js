@@ -52,7 +52,7 @@ function OrcBowman(game, spritesheet) {
 }
 
 OrcBowman.prototype.draw = function () {
-  // this.boundingRect.drawRect();
+  //this.boundingRect.drawRect();
   if(this.onMoving && !this.jumping && !this.right && !this.left) {
     if(this.currentPlatform.leftFaceing) {
       this.x -= this.game.clockTick * this.currentPlatform.speed;
@@ -214,11 +214,13 @@ OrcBowman.prototype.update = function () {
         this.x = 0 - this.xAdjust;
         // console.log("boundary x : " + this.x);
     }
-    // //check top boundary
-    // if(this.y - this.height/2 < 0) {
-    //     this.y = this.height/2;
-    //     // console.log("top boundary y : " + this.y);
-    // }
+    //check top boundary
+    if(this.y + this.yAdjust < 0) {
+      this.y = -this.yAdjust;
+      this.falling = true;
+      this.jumping = false;
+        // console.log("top boundary y : " + this.y);
+    }
 
     //check right boundary
     if(this.x + this.width - this.xAdjust >  this.game.worldWidth) {
@@ -230,7 +232,10 @@ OrcBowman.prototype.update = function () {
       this.y = this.startY;
       this.ground = this.startY;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> dc6ee0faf7154174ccc63fe11b2bae9a474a74ee
 }
 
 OrcBowman.prototype.collide = function(other) {
@@ -299,7 +304,12 @@ OrcBowman.prototype.withinRange = function() {
 
         }
       }
-    }
+
+    } else if(entity.constructor.name === "arrowObj") {
+        if (this.collide(entity)) {
+          entity.needToRemove = false;
+        }
+      }
   }
 };
 

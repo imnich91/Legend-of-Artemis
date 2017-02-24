@@ -75,6 +75,8 @@ Animation.prototype.drawSpecificFrame = function (ctx, x, y , row, col) {
 }
 
 
+
+// basic class for the platforms
 function Platform(boundingRect) {
   this.boundingRect = boundingRect;
   this.isCurrent = false;
@@ -179,8 +181,7 @@ AM.downloadAll(function () {
     gameEngine.init(ctx, AM.getAsset("./img/backgrounds/level1nofloatingplatforms.png"));
 
     var startingPlatform = new Platform(new BoundingRect(0, 2067, 260, 63, gameEngine));
-    var redhead1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));
-    var skull1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));
+    var redhead1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));    
     var redhead2SP = new Platform(new BoundingRect(3045, 2067, 1558, 61, gameEngine));
     var redhead3SP = new Platform(new BoundingRect(4356, 1589, 726, 52, gameEngine));
     var redhead4SP = new Platform(new BoundingRect(470, 1140, 1827, 23, gameEngine));
@@ -401,18 +402,9 @@ AM.downloadAll(function () {
 
     var skeleton = new SkeletonShooter(gameEngine, 650, 1940, AM.getAsset("./img/characters/skeleton.png"));
     skeleton.y = 1940 - redheadAdjust;
-    skeleton.currentPlatform = skull1SP;
+    skeleton.currentPlatform = redhead1SP;
     gameEngine.addEntity(skeleton);
 
-
-    // gameEngine.addEntity(new GameEngine.Camera(0, 0, gameEngine.surfaceWidth,
-    //                                                  gameEngine.surfaceHeight,
-    //                                                  gameEngine.worldWidth,
-    //                                                  gameEngine.worldHeight,
-    //                                                  AM.getAsset("./img/town_background.jpg")));
-    // gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/town_background.jpg")));
-    // gameEngine.addEntity(new Guy(gameEngine, AM.getAsset("./img/guy.jpg")));
-    // gameEngine.addEntity(new tronMainCharacter(gameEngine, AM.getAsset("./img/characters/TronWithBow.png")));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6300, 1387, 2));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 80, 1482, 2));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 35, 462, 1));
@@ -437,11 +429,6 @@ AM.downloadAll(function () {
 
     gameEngine.follow();
     gameEngine.start();
-
-    // var camera = new GameEngine.Camera(0, 0, gameEngine.surfaceWidth,
-    //                                      gameEngine.surfaceHeight,
-    //                                      gameEngine.worldWidth,
-    //                                      gameEngine.worldHeight);
 
     console.log("All Done!");
 });
