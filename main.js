@@ -141,6 +141,7 @@ AM.queueDownload("./img/characters/TronWithBow.png")
 AM.queueDownload("./img/extras/chest.png");
 AM.queueDownload("./img/characters/redhead.png");
 AM.queueDownload("./img/characters/skeleton.png");
+AM.queueDownload("./img/arrow_skeleton.png");
 
 AM.downloadAll(function () {
     var canvas = document.getElementById("gameWorld");
@@ -152,6 +153,7 @@ AM.downloadAll(function () {
 
     var startingPlatform = new Platform(new BoundingRect(0, 2067, 260, 63, gameEngine));
     var redhead1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));
+    var skull1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));
     var redhead2SP = new Platform(new BoundingRect(3045, 2067, 1558, 61, gameEngine));
     var redhead3SP = new Platform(new BoundingRect(4356, 1589, 726, 52, gameEngine));
     var redhead4SP = new Platform(new BoundingRect(470, 1140, 1827, 23, gameEngine));
@@ -383,7 +385,10 @@ AM.downloadAll(function () {
     redhead4.currentPlatform = redhead4SP;
     gameEngine.addEntity(redhead4);
 
-
+    var skeleton = new SkeletonShooter(gameEngine, 650, 1940, AM.getAsset("./img/characters/skeleton.png"));
+    skeleton.y = 1940 - redheadAdjust;
+    skeleton.currentPlatform = skull1SP;
+    gameEngine.addEntity(skeleton);
 
 
     // gameEngine.addEntity(new GameEngine.Camera(0, 0, gameEngine.surfaceWidth,
@@ -407,7 +412,12 @@ AM.downloadAll(function () {
     // redhead.jumping = false;
     // gameEngine.addEntity(redhead);
 
-
+    myAudio = new Audio('./bgm/DrinkUpThere_sMore.mp3');
+    myAudio.addEventListener('ended', function() {
+      this.currentTime = 0;
+      this.play();
+    }, false);
+    myAudio.play();
 
 
 

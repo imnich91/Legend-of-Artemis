@@ -151,7 +151,7 @@ Redhead.prototype.update = function () {
 }
 
 Redhead.prototype.checkArtemisCollision = function() {
-  
+
   var artemis = this.game.entities[0];
 
   var myMiddle = this.boundingRect.left + (this.boundingRect.width / 2);

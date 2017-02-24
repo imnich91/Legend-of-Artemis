@@ -40,6 +40,9 @@ function OrcBowman(game, spritesheet) {
   this.height = 64;
   this.step = game.STEP;
   this.camera = game.camera;
+
+  this.health = 100;
+  this.mana = 100;
 }
 
 OrcBowman.prototype.draw = function () {
@@ -108,10 +111,12 @@ OrcBowman.prototype.draw = function () {
         this.y - this.camera.yView,
          this.currDirection, false);
     } else if(this.lastPressed === "down") {
-       this.magicAnimation.drawSpecificFrame(this.ctx,
+        this.magicAnimation.drawSpecificFrame(this.ctx,
          this.x - this.camera.xView,
          this.y - this.camera.yView,
          2, 0);
+        document.getElementById('mana').style.width = "50%";
+        document.getElementById('manalabel').innerHTML = "50%";
     } else if(this.lastPressed === "melee" && this.currDirection === "right") {
        this.shootRightAnimation.drawSpecificFrame(this.ctx,
          this.x - this.camera.xView,
