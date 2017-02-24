@@ -80,10 +80,15 @@ arrowObj.prototype.update = function () {
     }
 
     if (this.flyingLeft) {
-      this.boundingRect.x = this.x + this.xAdjust;
+      this.boundingRect.updateLoc(this.x + this.xAdjust, this.y);
+
     } else {
-      this.boundingRect.x = this.x +this.xAdjust*2.5;
+      this.boundingRect.updateLoc(this.x + this.xAdjust * 2.5, this.y);
     }
+
+
+
+
 
     // else if(this.collide) {
     //     this.game.removeTheUnit(this.marker);
