@@ -180,8 +180,7 @@ AM.downloadAll(function () {
     gameEngine.init(ctx, AM.getAsset("./img/backgrounds/level1nofloatingplatforms.png"));
 
     var startingPlatform = new Platform(new BoundingRect(0, 2067, 260, 63, gameEngine));
-    var redhead1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));
-    var skull1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));
+    var redhead1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));    
     var redhead2SP = new Platform(new BoundingRect(3045, 2067, 1558, 61, gameEngine));
     var redhead3SP = new Platform(new BoundingRect(4356, 1589, 726, 52, gameEngine));
     var redhead4SP = new Platform(new BoundingRect(470, 1140, 1827, 23, gameEngine));
@@ -402,7 +401,7 @@ AM.downloadAll(function () {
 
     var skeleton = new SkeletonShooter(gameEngine, 650, 1940, AM.getAsset("./img/characters/skeleton.png"));
     skeleton.y = 1940 - redheadAdjust;
-    skeleton.currentPlatform = skull1SP;
+    skeleton.currentPlatform = redhead1SP;
     gameEngine.addEntity(skeleton);
 
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6300, 1387, 2));
