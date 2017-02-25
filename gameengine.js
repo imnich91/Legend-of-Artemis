@@ -128,6 +128,9 @@ GameEngine.prototype.removeTheUnit = function(marker) {
     //console.log("initial: " + this.entities.length);
     for(i = 1; i < this.entities.length; i++) {
       if(this.entities[i].marker === marker) {
+        if(marker < 45) {
+          console.log("ENTITY: " + marker);
+        }
         this.entities.splice(i, 1);
         break;
       }

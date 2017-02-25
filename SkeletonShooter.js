@@ -115,7 +115,6 @@ SkeletonShooter.prototype.draw = function () {
   }
 
 SkeletonShooter.prototype.update = function () {
-
     if(this.health <= 0) {
       this.game.removeTheUnit(this.marker);
     }

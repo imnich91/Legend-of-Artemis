@@ -171,6 +171,8 @@ AM.queueDownload("./img/extras/x2platform.png");
 AM.queueDownload("./img/extras/x4platform.png");
 AM.queueDownload("./img/characters/ArtemisAttack.png");
 AM.queueDownload("./img/characters/Princess.png");
+AM.queueDownload("./img/characters/dragon_fly_right.png")
+AM.queueDownload("./img/characters/dragon_fly_left.png")
 
 
 
@@ -384,6 +386,9 @@ AM.downloadAll(function () {
     gameEngine.addEntity(artemis);
 
 
+    var dragon = new Dragon(gameEngine, 200, 1760, AM.getAsset("./img/characters/dragon_fly_right.png"), count++);
+    gameEngine.addEntity(dragon);
+
 
     var redhead1 = new Redhead(gameEngine, 630, 1960, AM.getAsset("./img/characters/redhead.png"), count++);
     var redheadAdjust = redhead1.yAdjust + redhead1.boundingRect.height;
@@ -411,8 +416,8 @@ AM.downloadAll(function () {
     redhead6.falling = true;
     gameEngine.addEntity(redhead6);
 
-    var redhead7 = new Redhead(gameEngine, 240, 1370, AM.getAsset("./img/characters/redhead.png"), count++);
-    redhead7.y = 1370 - redheadAdjust;
+    var redhead7 = new Redhead(gameEngine, 240, 1300, AM.getAsset("./img/characters/redhead.png"), count++);
+    redhead7.y = 1300 - redheadAdjust;
     redhead7.falling = true;
     gameEngine.addEntity(redhead7);
 
