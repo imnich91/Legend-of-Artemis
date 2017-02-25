@@ -401,7 +401,7 @@ AM.downloadAll(function () {
     redhead4.y = 1140 - redheadAdjust;
     gameEngine.addEntity(redhead4);
 
-    var redhead5 = new Redhead(gameEngine, 1450, 1940, AM.getAsset("./img/characters/redhead.png", count+= 1));
+    var redhead5 = new Redhead(gameEngine, 1330, 1940, AM.getAsset("./img/characters/redhead.png", count+= 1));
     redhead5.y = 1940 - redheadAdjust;
     gameEngine.addEntity(redhead5);
 
@@ -415,6 +415,36 @@ AM.downloadAll(function () {
     redhead7.falling = true;
     gameEngine.addEntity(redhead7);
 
+    var redhead8 = new Redhead(gameEngine, 1450, 1900, AM.getAsset("./img/characters/redhead.png", count+= 1));
+    redhead8.y = 1900 - redheadAdjust;
+    redhead8.falling = true;
+    gameEngine.addEntity(redhead8);
+
+    var redhead9 = new Redhead(gameEngine, 3329, 2040, AM.getAsset("./img/characters/redhead.png", count+= 1));
+    redhead9.y = 2040 - redheadAdjust;
+    redhead9.falling = true;
+    gameEngine.addEntity(redhead9);
+
+    var redhead10 = new Redhead(gameEngine, 3850, 2040, AM.getAsset("./img/characters/redhead.png", count+= 1));
+    redhead10.y = 2040 - redheadAdjust;
+    redhead10.falling = true;
+    gameEngine.addEntity(redhead10);
+
+    var redhead11 = new Redhead(gameEngine, 4050, 2040, AM.getAsset("./img/characters/redhead.png", count+= 1));
+    redhead11.y = 2040 - redheadAdjust;
+    redhead11.falling = true;
+    gameEngine.addEntity(redhead11);
+
+    var redhead12 = new Redhead(gameEngine, 3050, 1470, AM.getAsset("./img/characters/redhead.png", count+= 1));
+    redhead12.y = 1470 - redheadAdjust;
+    redhead12.falling = true;
+    gameEngine.addEntity(redhead11);
+
+    var redhead13 = new Redhead(gameEngine, 3950, 1470, AM.getAsset("./img/characters/redhead.png", count+= 1));
+    redhead13.y = 1470 - redheadAdjust;
+    redhead13.falling = true;
+    gameEngine.addEntity(redhead1);
+
     var skeleton = new SkeletonShooter(gameEngine, 6277, 1841, AM.getAsset("./img/characters/skeleton.png", count+= 1, true));
     skeleton.y = 1841 - redheadAdjust;
     skeleton.falling = true;
@@ -424,6 +454,21 @@ AM.downloadAll(function () {
     skeleton2.y = 185 - redheadAdjust;
     skeleton2.falling = true;
     gameEngine.addEntity(skeleton2);
+
+    var skeleton3 = new SkeletonShooter(gameEngine, 2380, 1970, AM.getAsset("./img/characters/skeleton.png", count+= 1, true));
+    skeleton3.y = 1970 - redheadAdjust;
+    skeleton3.falling = true;
+    gameEngine.addEntity(skeleton3);
+
+    var skeleton4 = new SkeletonShooter(gameEngine, 4450, 2060, AM.getAsset("./img/characters/skeleton.png", count+= 1, true));
+    skeleton4.y = 2060 - redheadAdjust;
+    skeleton4.falling = true;
+    gameEngine.addEntity(skeleton4);
+
+    var skeleton5 = new SkeletonShooter(gameEngine, 4370, 1550, AM.getAsset("./img/characters/skeleton.png", count+= 1, true));
+    skeleton5.y = 1550 - redheadAdjust;
+    skeleton5.falling = true;
+    gameEngine.addEntity(skeleton5);
 
 
 
