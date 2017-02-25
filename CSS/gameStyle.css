@@ -118,3 +118,11 @@
 	color: white;
 	border-radius: 25px;
 }
+
+#title {
+	height: 50px;
+	width: 150px;
+  text-align: center;
+	font-style: italic;
+	font-weight: bold;
+}

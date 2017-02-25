@@ -22,7 +22,7 @@ Chest.prototype.draw = function() {
 }
 
 Chest.prototype.update = function() {
-  if((this.game.chars["KeyC"] || this.game.chars["KeyL"]) && this.checkArtemisCollision()) {
+  if((this.game.chars["Digit3"] || this.game.chars["KeyL"]) && this.checkArtemisCollision()) {
     this.open = true;
   }
   if (this.animation.isDone()) {
