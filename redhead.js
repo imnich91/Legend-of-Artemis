@@ -171,6 +171,7 @@ Redhead.prototype.checkArtemisCollision = function() {
     this.walking = true;
     this.newXLocation = this.x;
     this.following = true;
+
     if(this.falling) {
       this.walking = false;
       this.following = false;

@@ -50,11 +50,9 @@ GameEngine.prototype.init = function (ctx, backgroundImage) {
                                   backgroundImage);
     this.timer = new Timer();
     this.startInput();
-    console.log('game initialized');
 }
 
 GameEngine.prototype.start = function () {
-    console.log("starting game");
     var that = this;
     (function gameLoop() {
         that.loop();
@@ -98,7 +96,6 @@ GameEngine.prototype.startInput = function () {
         else if (e.code === "ArrowRight") that.right = true;
         else if (e.code === "ArrowLeft") that.left = true;
         else if (e.code === "KeyS") that.s = true;
-        console.log(e.code);
         e.preventDefault();
 
         // console.log("Key Down Event - Char " + e.code + " Code " + e.keyCode);
@@ -139,7 +136,6 @@ GameEngine.prototype.removeTheUnit = function(marker) {
 }
 
 GameEngine.prototype.addEntity = function (entity) {
-    console.log('added entity');
     this.entities.push(entity);
 }
 
