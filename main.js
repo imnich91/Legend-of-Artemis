@@ -415,10 +415,15 @@ AM.downloadAll(function () {
     redhead7.falling = true;
     gameEngine.addEntity(redhead7);
 
-    var skeleton = new SkeletonShooter(gameEngine, 650, 1920, AM.getAsset("./img/characters/skeleton.png", count+= 1, true));
-    skeleton.y = 1920 - redheadAdjust;
+    var skeleton = new SkeletonShooter(gameEngine, 6277, 1841, AM.getAsset("./img/characters/skeleton.png", count+= 1, true));
+    skeleton.y = 1841 - redheadAdjust;
     skeleton.falling = true;
     gameEngine.addEntity(skeleton);
+
+    var skeleton2 = new SkeletonShooter(gameEngine, 250, 185, AM.getAsset("./img/characters/skeleton.png", count+= 1, true));
+    skeleton2.y = 185 - redheadAdjust;
+    skeleton2.falling = true;
+    gameEngine.addEntity(skeleton2);
 
 
 

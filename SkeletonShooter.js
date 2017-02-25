@@ -35,6 +35,7 @@ function SkeletonShooter(game, x, y, spritesheet, marker, stationary) {
     this.shooting = false;
     this.rightFaceing = false;
     this.leftFaceing = true;
+    this.falling = true;
     this.paceing = false;
     this.walking = false;
     this.newPlatform = false;
@@ -167,7 +168,7 @@ SkeletonShooter.prototype.checkArtemisCollision = function() {
     this.walking = false;
     if(!this.stationary) {
       this.paceing = true;
-    }      
+    }
     this.following = false;
   }
 };
