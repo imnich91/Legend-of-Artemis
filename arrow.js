@@ -1,46 +1,83 @@
-function arrowObj(game, spritesheet, x, y, marker) {
+function arrowObj(game, skeleton, spritesheet, x, y, marker) {
     this.animation = new Animation(spritesheet, 64, 64, 1, 0.10, 1, true, 1);
-    this.x = x + 26;
-    this.startingX = x + 29;
+
+    this.x = x + 15;
     this.y = y - 6.5;
+    this.xAdjust = 8;
+    this.yAdjust = 41;
+    this.boundingRect = new BoundingRect(this.x + this.xAdjust, this.y + this.yAdjust, 35, 5, game);
+    this.skeleton = skeleton;
     this.radius = 10;
     this.collide = false;
     this.marker = marker;
     this.needToRemove = true;
-    this.speed = 200;
+    this.speed = 430;
     this.row = 19;
     this.game = game;
     this.ctx = game.ctx;
     this.frame = 4;
     this.flying = true;
-}
+    this.flyingRight = false;
+    this.flyingLeft = false;
 
+    if (this.skeleton.rightFaceing) {
+      this.flyingRight = true;
+    } else {
+      this.flyingLeft = true;
+    }
 
-arrowObj.prototype.shootArrow = function() {
-  if (this.flying) {
-      this.animation.drawSpecificFrame(this.ctx, this.x, this.y, this.row, 3)
-  } else {
-    this.x = x + 32;
-    this.y = y -19;
-  }
+    this.camera = game.camera;
+    this.step = game.STEP;
 }
 
 arrowObj.prototype.draw = function () {
-    if (this.flying) {
-        this.animation.drawSpecificFrame(this.ctx, this.x, this.y, this.row, 3)
-    } else {
-
+    if(!this.needToRemove) {
+      this.game.removeTheUnit(this.marker);
+    }else {
+      if (this.flying) {
+        if (this.flyingLeft) {
+            this.animation.drawSpecificFrame(this.ctx, this.x - this.camera.xView, this.y-this.camera.yView, 17, 3);
+        } else { // right faceing
+            this.animation.drawSpecificFrame(this.ctx, this.x - this.camera.xView, this.y - this.camera.yView, 19, 3);
+        }
+      }
     }
+
+
 }
 
 arrowObj.prototype.update = function () {
-    this.x += this.game.clockTick * this.speed;
-    if(this.x - this.startingX >= 500 && this.needToRemove) {
-        this.game.removeTheUnit(this.marker);
-        this.needToRemove = false;
-    } else if(this.collide) {
-        this.game.removeTheUnit(this.marker);
+
+    if (this.flyingRight) {
+      this.x += this.game.clockTick * this.speed;
+    } else {
+      this.x -= this.game.clockTick * this.speed;
+    }
+
+    // flies off screen left side
+    if(this.x + this.boundingRect.width < 0 && this.needToRemove) {
         this.needToRemove = false;
     }
-    if (this.x > 800) this.x = -230;
+
+    // flies off screen right side
+    if(this.x > this.game.worldWidth && this.needToRemove) {
+        this.needToRemove = false;
+    }
+
+    if (this.flyingLeft) {
+      this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+
+    } else {
+      this.boundingRect.updateLoc(this.x + this.xAdjust * 2.5, this.y + this.yAdjust);
+    }
+
+
+
+
+
+    // else if(this.collide) {
+    //     this.game.removeTheUnit(this.marker);
+    //     this.needToRemove = false;
+    // }
+    // if (this.x > 800) this.x = -230;
 }

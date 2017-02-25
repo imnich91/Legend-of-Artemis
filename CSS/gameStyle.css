@@ -52,7 +52,7 @@
 	width: 50%;
 }
 
-#label {
+#healthlabel {
 	text-align: center;
 	line-height: 20px;
 	color: white;
@@ -94,4 +94,27 @@
 	text-align: center;
 	line-height: 25px;
 	color: white;
+}
+
+#gameStartMessage {
+	z-index: 2;
+
+	position: absolute;
+	height: 50px;
+	width: 150px;
+	z-index: 2;
+	/*background-color: rgba(56, 94, 97, .5);*/
+	background-color: #385E61;
+	border-style: outset;
+	text-align: center;
+	border-width: 10px;
+	border-color: #7B8788;
+	padding: 50px;
+	font-style: italic;
+	font-weight: bold;
+
+	top: 200px;
+	left: 300px;
+	color: white;
+	border-radius: 25px;
 }

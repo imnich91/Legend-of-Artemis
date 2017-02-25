@@ -58,6 +58,13 @@ GameEngine.prototype.start = function () {
         that.loop();
         requestAnimFrame(gameLoop, that.ctx.canvas);
     })();
+
+            //pop up a instruction message for 3 second when the game start
+    setTimeout(function(){
+        var parent = document.getElementById("gamecontainer");
+        var child = document.getElementById("gameStartMessage");
+        parent.removeChild(child);
+    }, 3000);
 }
 
 GameEngine.prototype.startInput = function () {
@@ -121,13 +128,11 @@ GameEngine.prototype.removeTheUnit = function(marker) {
     //console.log(index);
     var target = marker;
     //console.log("initial: " + this.entities.length);
-    for(i = 2; i < this.entities.length; i++) {
+    for(i = 1; i < this.entities.length; i++) {
       if(this.entities[i].marker === target) {
         this.entities.splice(i, 1);
       }
     }
-    //console.log("updated: " + this.entities.length);
-    this.update(this.entities.length);
 }
 
 GameEngine.prototype.addEntity = function (entity) {
@@ -167,11 +172,9 @@ GameEngine.prototype.follow = function() {
 }
 
 GameEngine.prototype.update = function () {
-    var entitiesCount = this.entities.length;
 
-    for (var i = 0; i < entitiesCount; i++) {
+    for (var i = 0; i < this.entities.length; i++) {
         var entity = this.entities[i];
-
         entity.update();
     }
 
