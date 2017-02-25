@@ -573,7 +573,7 @@ AM.downloadAll(function () {
     // redhead.jumping = false;
     // gameEngine.addEntity(redhead);
 
-    myAudio = new Audio('./bgm/DrinkUpThere_sMore.mp3');
+    myAudio = new Audio('./bgm/DrinkUpThere_smore.mp3');
     myAudio.addEventListener('ended', function() {
       this.currentTime = 0;
       this.play();
