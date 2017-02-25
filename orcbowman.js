@@ -8,8 +8,8 @@ function OrcBowman(game, spritesheet, marker) {
   this.magicAnimation = new Animation(spritesheet, 64, 64, 6.5, 0.1, 6.5, false, 1);
   this.attackRightAnimation = new Animation(AM.getAsset("./img/characters/ArtemisAttack.png"),192, 189, 5.5, 0.08, 5.5, false, 1);
   this.attackLeftAnimation = new Animation(AM.getAsset("./img/characters/ArtemisAttack.png"), 192, 182, 5.5, 0.08, 5.5, false, 1);
-  this.shootRightAnimation = new Animation(spritesheet, 64, 64, 12.5, 0.1, 12.5, false, 1);
-  this.shootLeftAnimation = new Animation(spritesheet, 64, 64, 12.5, 0.1, 12.5, false, 1);
+  this.shootRightAnimation = new Animation(spritesheet, 64, 64, 12.5, 0.08, 12.5, false, 1);
+  this.shootLeftAnimation = new Animation(spritesheet, 64, 64, 12.5, 0.08, 12.5, false, 1);
   this.upAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1);
   this.jumpAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1);
   this.jumpAnimation = new Animation(spritesheet, 64, 64, 8, 0.1, 8, false, 1);

@@ -16,7 +16,6 @@ function Redhead(game, x, y, spritesheet, marker) {
     this.y = y;
 
     this.marker = marker;
-    console.log("marker__________________" + marker)
 
     this.startX = x;
     this.startY = y;
@@ -322,7 +321,6 @@ Redhead.prototype.fall = function() {
     }
 } else {
     var newGround = DEATH;
-    var newGround = DEATH;
     if (this.y >= newGround) {
       this.game.removeTheUnit(this.marker);
     }
@@ -383,16 +381,8 @@ Redhead.prototype.jump = function() {
         var newGround = DEATH;
 
         if (this.y >= newGround) {
-          this.ground = newGround;
-          this.jumping = false;
-          this.jumpAnimation.elapsedTime = 0;
-          this.paceing = true;
-          this.y = this.ground;
-          this.newPlatform = false;
-          this.falling = false;
-
+          this.game.removeTheUnit(this.marker);
         }
-
   }
    else if (this.y >= this.ground) {
       this.jumping = false;
