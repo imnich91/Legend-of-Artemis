@@ -205,7 +205,7 @@ Redhead.prototype.checkPlatformCollisions = function() {
       else if (this.collideTop(platform)) {
         this.newPlatform = true;
         this.currentPlatform = platform;
-
+        this.falling = false;
       }
       else if (this.collideLeft(platform)) {
         this.x = platform.boundingRect.right - this.xAdjust;
@@ -230,7 +230,7 @@ Redhead.prototype.checkPlatformCollisions = function() {
         }
       }
   }
-  if(this.currentPlatform != null) {
+  if(this.currentPlatform !== null) {
     if (this.boundingRect.left > this.currentPlatform.boundingRect.right
         || this.boundingRect.right < this.currentPlatform.boundingRect.left) {
           this.currentPlatform.isCurrent = false;
