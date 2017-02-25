@@ -82,6 +82,7 @@ arrowObj.prototype.update = function () {
     // if (this.x > 800) this.x = -230;
 }
 
+
 function artermisArrow(game, artermis, spritesheet, x, y, marker) {
     this.animation = new Animation(spritesheet, 64, 64, 1, 0.10, 1, true, 1);
 

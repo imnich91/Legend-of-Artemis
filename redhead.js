@@ -123,7 +123,7 @@ Redhead.prototype.update = function () {
 
     this.checkPlatformCollisions();
     this.checkArtemisCollision();
-
+    this.checkArtemisArrowCollision();
 
     // if(this.y >= DEATH) {
     //     this.x = this.startX;
@@ -156,6 +156,19 @@ Redhead.prototype.update = function () {
     // }
 
 
+}
+
+Redhead.prototype.checkArtemisArrowCollision = function() {
+  for (var i = 0; i < this.game.entities.length; i ++) {
+    var entity = this.game.entities[i];
+    if(entity.constructor.name === "artermisArrow") {
+      if (this.collide(entity)) {
+        this.health -= 20;
+        entity.needToRemove = false;
+        console.log(this.health)
+      }
+    }
+  }
 }
 
 Redhead.prototype.checkArtemisCollision = function() {

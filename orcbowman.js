@@ -423,6 +423,8 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
   }
 };
 
+
+
 OrcBowman.prototype.withinRange = function() {
 
   for (var i = 0; i < this.game.entities.length; i ++) {

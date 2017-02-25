@@ -144,6 +144,19 @@ SkeletonShooter.prototype.update = function () {
     // }
 }
 
+// SkeletonShooter.prototype.checkArtemisArrowCollision = function() {
+//   for (var i = 0; i < this.game.entities.length; i ++) {
+//     var entity = this.game.entities[i];
+//     if(entity.constructor.name === "artermisArrow") {
+//       if (this.collide(entity)) {
+//         this.health -= 20;
+//         entity.needToRemove = false;
+//         console.log(this.health)
+//       }
+//     }
+//   }
+// }
+
 SkeletonShooter.prototype.checkArtemisCollision = function() {
 
   var artemis = this.game.entities[0];
