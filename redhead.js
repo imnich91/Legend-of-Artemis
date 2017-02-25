@@ -16,6 +16,7 @@ function Redhead(game, x, y, spritesheet, marker) {
     this.y = y;
 
     this.marker = marker;
+    console.log("marker__________________" + marker)
 
     this.startX = x;
     this.startY = y;
@@ -165,7 +166,6 @@ Redhead.prototype.checkArtemisArrowCollision = function() {
       if (this.collide(entity)) {
         this.health -= 20;
         entity.needToRemove = false;
-        console.log(this.health)
       }
     }
   }

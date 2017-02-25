@@ -125,12 +125,11 @@ GameEngine.prototype.startInput = function () {
 }
 
 GameEngine.prototype.removeTheUnit = function(marker) {
-    //console.log(index);
-    var target = marker;
     //console.log("initial: " + this.entities.length);
     for(i = 1; i < this.entities.length; i++) {
-      if(this.entities[i].marker === target) {
+      if(this.entities[i].marker === marker) {
         this.entities.splice(i, 1);
+        break;
       }
     }
 }

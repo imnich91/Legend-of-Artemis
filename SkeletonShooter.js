@@ -3,7 +3,7 @@ var DEATH = 2500;
 var SHOOTDISTANCE = 300;
 
 
-function SkeletonShooter(game, x, y, spritesheet, marker, stationary) {
+function SkeletonShooter(game, x, y, spritesheet, marker) {
     this.animation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 1);
     this.shootAnimation = new Animation(spritesheet, 64, 64, 13, 0.10, 13, false, 1);
     this.jumpAnimation = new Animation(spritesheet, 64, 64, 8, 0.1, 8, false, 1);
@@ -14,7 +14,6 @@ function SkeletonShooter(game, x, y, spritesheet, marker, stationary) {
     this.previousLoc = new BoundingRect(x + this.xAdjust, y + this.yAdjust, 22, 46, game);
     this.x = x;
     this.y = y;
-    this.stationary = stationary;
     this.marker = marker;
 
     this.startX = x;
@@ -22,11 +21,8 @@ function SkeletonShooter(game, x, y, spritesheet, marker, stationary) {
 
     this.ground = y;
     this.newXLocation = x;
-    if(!stationary) {
-      this.speed = 100;
-    } else {
-      this.speed = 0;
-    }
+    this.speed = 100;
+
 
     this.pacingDistance = 40;
     this.game = game;
@@ -55,16 +51,14 @@ function SkeletonShooter(game, x, y, spritesheet, marker, stationary) {
   }
 
 SkeletonShooter.prototype.resetWalkingSpeed = function() {
-    if(!this.stationary) {
-      this.speed = 100;
-    }
+    this.speed = 100;
 
   }
 
 SkeletonShooter.prototype.resetPacingSpeed = function() {
-    if(!this.stationary) {
-      this.speed = 50;
-    }
+
+    this.speed = 50;
+
 }
 
 
@@ -122,9 +116,9 @@ SkeletonShooter.prototype.draw = function () {
 
 SkeletonShooter.prototype.update = function () {
 
-  if(this.health <= 0) {
-    this.game.removeTheUnit(this.marker);
-  }
+    if(this.health <= 0) {
+      this.game.removeTheUnit(this.marker);
+    }
 
     this.cX = this.x - this.camera.xView;
     this.cY = this.y - this.camera.yView;
@@ -179,9 +173,7 @@ SkeletonShooter.prototype.checkArtemisCollision = function() {
     this.shooting = true;
   } else {
     this.walking = false;
-    if(!this.stationary) {
-      this.paceing = true;
-    }
+    this.paceing = true;
     this.following = false;
   }
 };
@@ -295,9 +287,7 @@ SkeletonShooter.prototype.fall = function() {
       this.ground = newGround;
       this.jumping = false;
       this.jumpAnimation.elapsedTime = 0;
-      if(!this.stationary) {
-        this.paceing = true;
-      }
+      this.paceing = true;
       this.y = this.ground;
       this.newPlatform = false;
       this.currentPlatform.isCurrent = true;
@@ -307,9 +297,7 @@ SkeletonShooter.prototype.fall = function() {
     var newGround = DEATH;
     if (this.y >= newGround) {
       this.jumpAnimation.elapsedTime = 0;
-      if(!this.stationary) {
-        this.paceing = true;
-      }
+      this.paceing = true;
       this.y = newGround;
       this.falling = false;
       this.jumping = false;
@@ -414,10 +402,7 @@ SkeletonShooter.prototype.moveRight = function() {
       // this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 11);
       this.animation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 11, true);
       this.walking = false;
-
-      if(!this.stationary) {
-        this.paceing = true;
-      }
+      this.paceing = true;
     }
   }
 
@@ -428,9 +413,7 @@ SkeletonShooter.prototype.moveLeft = function() {
     // this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 9);
     this.animation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 9, true)
     this.walking = false;
-    if(!this.stationary) {
-      this.paceing = true;
-    }
+    this.paceing = true;
 
   }
 }

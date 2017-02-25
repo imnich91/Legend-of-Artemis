@@ -117,6 +117,7 @@ function artermisArrow(game, artermis, spritesheet, x, y, marker) {
 
 artermisArrow.prototype.draw = function () {
     if(!this.needToRemove) {
+      console.log("artemis arrow");
       this.game.removeTheUnit(this.marker);
     }else {
       if (this.flying) {

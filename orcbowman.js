@@ -3,7 +3,7 @@ var DEATH = 2500;
 var WALKINGOFFPLATFORM = 0;
 var JUMPHEIGHT = 220;
 
-function OrcBowman(game, spritesheet) {
+function OrcBowman(game, spritesheet, marker) {
   this.walkAnimation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 1);
   this.magicAnimation = new Animation(spritesheet, 64, 64, 6.5, 0.1, 6.5, false, 1);
   this.attackRightAnimation = new Animation(AM.getAsset("./img/characters/ArtemisAttack.png"),192, 189, 5.5, 0.08, 5.5, false, 1);
@@ -13,6 +13,7 @@ function OrcBowman(game, spritesheet) {
   this.upAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1);
   this.jumpAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1);
   this.jumpAnimation = new Animation(spritesheet, 64, 64, 8, 0.1, 8, false, 1);
+  this.marker = marker;
 
   this.xAdjust = 21;
   this.yAdjust = 13;
@@ -395,7 +396,6 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
             entity.x -= 7;
             entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
           }
-          console.log(entity.health)
           this.swordBox = null;
         }
       }
@@ -412,7 +412,6 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
     } else if(entity.constructor.name === "arrowObj") {
       if (this.collide(entity)) {
         this.health -= 10;
-        console.log(this.health)
       }
     } else if(entity.constructor.name === "Chest") {
       if(this.collide(entity) && entity.open) {
