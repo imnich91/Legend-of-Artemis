@@ -130,13 +130,34 @@ OrcBowman.prototype.draw = function () {
         this.x - this.camera.xView,
         this.y - this.camera.yView,
          19, true);
+         if(this.shootRightAnimation.currentFrame() == 9 && !this.shooted) {
+           console.log("Shooted");
+           var marker = new Date().getUTCMilliseconds(); //assign a unique ID number for each arrow
+           var arrow = new artermisArrow(this.game, this, AM.getAsset("./img/arrow_skeleton.png"), this.x, this.y, marker);
+           this.game.addEntity(arrow);
+           this.shooted = true;
+           myAudio = new Audio('./se/bowFire.mp3');
+           myAudio.play();
+         } else if(this.shootRightAnimation.currentFrame() > 10) {
+           this.shooted = false;
+         }
     } else {
       this.shootLeftAnimation.drawFrame(this.game.clockTick, this.ctx,
         this.x - this.camera.xView,
         this.y - this.camera.yView,
          17, true);
+         if(this.shootLeftAnimation.currentFrame() == 9 && !this.shooted) {
+           var marker = new Date().getUTCMilliseconds(); //assign a unique ID number for each arrow
+           var arrow = new artermisArrow(this.game, this, AM.getAsset("./img/arrow_skeleton.png"), this.x, this.y, marker);
+           this.game.addEntity(arrow);
+           this.shooted = true;
+           myAudio = new Audio('./se/bowFire.mp3');
+           myAudio.play();
+         } else if(this.shootLeftAnimation.currentFrame() > 10) {
+           this.shooted = false;
+         }
     }
-  }else if(!this.animating){
+  } else if(!this.animating){
     if(this.lastPressed === "right" || this.lastPressed === "melee") {
       this.walkAnimation.drawFrame(0, this.ctx,
         this.x - this.camera.xView,
