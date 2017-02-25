@@ -40,6 +40,7 @@ function OrcBowman(game, spritesheet) {
   this.currentPlatform = null;
   this.movingPlatform = null;
   this.onMoving = false;
+  this.decreaseMana = false;
 
   //////////////////////////
   this.width = 64;
@@ -70,7 +71,7 @@ OrcBowman.prototype.draw = function () {
     this.fall();
   }
 
-  if(this.right && this.lastPressed === "right") {
+  if(this.right) {
     if (!this.jumping){
       this.walkAnimation.drawFrame(this.game.clockTick,
       this.ctx,
@@ -82,7 +83,7 @@ OrcBowman.prototype.draw = function () {
 
     this.right = false;
     this.animating = false;
-  } else if(this.left && this.lastPressed === "left" ) {
+  } else if(this.left) {
     if (!this.jumping){
       this.walkAnimation.drawFrame(this.game.clockTick,
           this.ctx,
@@ -94,13 +95,13 @@ OrcBowman.prototype.draw = function () {
 
     this.left = false;
     this.animating = false;
-  } else if(this.down && this.lastPressed === "down") {
+  } else if(this.down) {
       this.magicAnimation.drawFrame(this.game.clockTick,
       this.ctx,
         this.x - this.camera.xView,
         this.y - this.camera.yView,
          2, true);
-  } else if(this.melee && this.lastPressed === "melee") {
+  } else if(this.melee) {
     if(this.currDirection === 11) {
       if(this.attackRightAnimation.currentFrame() === 4) {
         this.swordBox = new BoundingRect(this.x + 55 , this.y + 20, 50, 20, this.game);
@@ -140,8 +141,6 @@ OrcBowman.prototype.draw = function () {
          this.x - this.camera.xView,
          this.y - this.camera.yView,
          2, 0);
-        document.getElementById('mana').style.width = "50%";
-        document.getElementById('manalabel').innerHTML = "50%";
     } else if(this.lastPressed === "melee" && this.currDirection === "right") {
        this.attackRightAnimation.drawSpecificFrame(this.ctx,
          this.x - this.camera.xView,
@@ -164,9 +163,13 @@ OrcBowman.prototype.draw = function () {
 OrcBowman.prototype.update = function () {
 
   var health = this.health + "%";
+  var mana = this.mana + "%";
 
   document.getElementById('health').style.width = health;
   document.getElementById('healthlabel').innerHTML = health;
+  document.getElementById('mana').style.width = mana;
+  document.getElementById('manalabel').innerHTML = mana;
+
 
   if (this.health <= 0) {
     this.x = this.startX;
@@ -210,6 +213,8 @@ OrcBowman.prototype.update = function () {
       this.magicAnimation.elapsedTime = 0;
       this.down = false;
       this.animating = false;
+      this.mana -= 25;
+      mana = this.mana + "%";
   }
   if (this.attackRightAnimation.isDone()) {
       this.attackRightAnimation.elapsedTime = 0;
@@ -255,6 +260,7 @@ OrcBowman.prototype.update = function () {
       this.y = this.startY;
       this.ground = this.startY;
       this.health = 100;
+      this.mana = 100;
     }
 }
 
@@ -356,6 +362,11 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
       if (this.collide(entity)) {
         this.health -= 10;
         console.log(this.health)
+      }
+    } else if(entity.constructor.name === "Chest") {
+      if(this.collide(entity) && entity.open) {
+        this.health = 100;
+        this.mana = 100;
       }
     }
   }

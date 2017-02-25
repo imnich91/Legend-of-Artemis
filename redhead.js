@@ -33,7 +33,7 @@ function Redhead(game, x, y, spritesheet, marker) {
     this.paceing = true;
     this.walking = false;
     this.newPlatform = false;
-    this.falling = false;
+    this.falling = true;
     this.currentPlatform = null;
     this.step = game.STEP;
     this.camera = game.camera;
@@ -165,7 +165,7 @@ Redhead.prototype.checkArtemisCollision = function() {
   var myMiddle = this.boundingRect.left + (this.boundingRect.width / 2);
   var hisMiddle = artemis.boundingRect.left + (artemis.boundingRect.width / 2);
 
-  if (Math.abs(myMiddle - hisMiddle) < this.boundingRect.width + 14) {
+  if (Math.abs(myMiddle - hisMiddle) < this.boundingRect.width + 14 ) {
     this.spearing = true;
   } else if (Math.abs(myMiddle - hisMiddle) <= FOLLOWDISTANCE) {
     if (myMiddle - hisMiddle > 0) {
@@ -230,12 +230,13 @@ Redhead.prototype.checkPlatformCollisions = function() {
         }
       }
   }
-
-  if (this.boundingRect.left > this.currentPlatform.boundingRect.right
-      || this.boundingRect.right < this.currentPlatform.boundingRect.left) {
-        this.currentPlatform.isCurrent = false;
-        this.falling = true;
-      }
+  if(this.currentPlatform != null) {
+    if (this.boundingRect.left > this.currentPlatform.boundingRect.right
+        || this.boundingRect.right < this.currentPlatform.boundingRect.left) {
+          this.currentPlatform.isCurrent = false;
+          this.falling = true;
+        }
+    }
   }
 }
 
