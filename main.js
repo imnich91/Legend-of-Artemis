@@ -181,7 +181,7 @@ AM.downloadAll(function () {
     gameEngine.init(ctx, AM.getAsset("./img/backgrounds/level1nofloatingplatforms.png"));
 
     var startingPlatform = new Platform(new BoundingRect(0, 2067, 260, 63, gameEngine));
-    var redhead1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));    
+    var redhead1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));
     var redhead2SP = new Platform(new BoundingRect(3045, 2067, 1558, 61, gameEngine));
     var redhead3SP = new Platform(new BoundingRect(4356, 1589, 726, 52, gameEngine));
     var redhead4SP = new Platform(new BoundingRect(470, 1140, 1827, 23, gameEngine));
@@ -376,41 +376,41 @@ AM.downloadAll(function () {
     // temporary for testing
     //gameEngine.addPlatform(new Platform(new BoundingRect(2500, 2004, 440, 55, gameEngine)));
 
-
+    var count = 1;
     var artemis = new  OrcBowman(gameEngine, AM.getAsset("./img/characters/Tron.png"));
     artemis.currentPlatform = startingPlatform;
     gameEngine.addEntity(artemis);
 
-    
-    
 
-    var redhead1 = new Redhead(gameEngine, 630, 1940, AM.getAsset("./img/characters/redhead.png"));
+
+
+    var redhead1 = new Redhead(gameEngine, 630, 1940, AM.getAsset("./img/characters/redhead.png"), count+= 1);
     var redheadAdjust = redhead1.yAdjust + redhead1.boundingRect.height;
     redhead1.y = 1940 - redheadAdjust;
     redhead1.currentPlatform = redhead1SP;
     gameEngine.addEntity(redhead1);
 
-    var redhead2 = new Redhead(gameEngine, 3950, 2067, AM.getAsset("./img/characters/redhead.png"));
+    var redhead2 = new Redhead(gameEngine, 3950, 2067, AM.getAsset("./img/characters/redhead.png"), count+= 1);
     redhead2.y = 2067 - redheadAdjust;
     redhead2.currentPlatform = redhead2SP;
     gameEngine.addEntity(redhead2);
 
-    var redhead3 = new Redhead(gameEngine, 4730, 1589, AM.getAsset("./img/characters/redhead.png"));
+    var redhead3 = new Redhead(gameEngine, 4730, 1589, AM.getAsset("./img/characters/redhead.png"), count+= 1);
     redhead3.y = 1589 - redheadAdjust;
     redhead3.currentPlatform = redhead3SP;
     gameEngine.addEntity(redhead3);
 
-    var redhead4 = new Redhead(gameEngine, 1350, 1140, AM.getAsset("./img/characters/redhead.png"));
+    var redhead4 = new Redhead(gameEngine, 1350, 1140, AM.getAsset("./img/characters/redhead.png", count+= 1));
     redhead4.y = 1140 - redheadAdjust;
     redhead4.currentPlatform = redhead4SP;
     gameEngine.addEntity(redhead4);
 
-    var redhead5 = new Redhead(gameEngine, 1450, 1940, AM.getAsset("./img/characters/redhead.png"));
+    var redhead5 = new Redhead(gameEngine, 1450, 1940, AM.getAsset("./img/characters/redhead.png", count+= 1));
     redhead5.y = 1940 - redheadAdjust;
     redhead5.currentPlatform = redhead5SP;
     gameEngine.addEntity(redhead5);
 
-    var skeleton = new SkeletonShooter(gameEngine, 650, 1940, AM.getAsset("./img/characters/skeleton.png"));
+    var skeleton = new SkeletonShooter(gameEngine, 650, 1940, AM.getAsset("./img/characters/skeleton.png", count+= 1));
     skeleton.y = 1940 - redheadAdjust;
     skeleton.currentPlatform = redhead1SP;
     gameEngine.addEntity(skeleton);
@@ -419,7 +419,6 @@ AM.downloadAll(function () {
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 80, 1482, 2));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 35, 462, 1));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
-    gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 770, 1905, 1));
 
 
     // gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));

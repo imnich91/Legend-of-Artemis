@@ -3,7 +3,7 @@ var DEATH = 2500;
 var FOLLOWDISTANCE = 260;
 
 
-function Redhead(game, x, y, spritesheet) {
+function Redhead(game, x, y, spritesheet, marker) {
     this.animation = new Animation(spritesheet, 64, 64, 9, 0.1, 9, true, 1);
     this.spearAnimation = new Animation(spritesheet, 64, 64, 8, 0.08, 7, false, 1);
     this.jumpAnimation = new Animation(spritesheet, 64, 64, 8, 0.1, 8, false, 1);
@@ -14,6 +14,8 @@ function Redhead(game, x, y, spritesheet) {
     this.previousLoc = new BoundingRect(x + this.xAdjust, y + this.yAdjust, 22, 46, game);
     this.x = x;
     this.y = y;
+
+    this.marker = marker;
 
     this.startX = x;
     this.startY = y;
@@ -36,6 +38,8 @@ function Redhead(game, x, y, spritesheet) {
     this.step = game.STEP;
     this.camera = game.camera;
     this.following = false;
+    this.spearBox = null;
+    this.health = 100;
 
     this.width = 64;
     this.height = 64;
@@ -112,6 +116,10 @@ Redhead.prototype.update = function () {
 
     this.previousLoc.updateLoc(this.boundingRect.x, this.boundingRect.y);
     this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
+
+    if(this.health <= 0) {
+      this.game.removeTheUnit(this.marker);
+    }
 
     this.checkPlatformCollisions();
     this.checkArtemisCollision();
@@ -234,10 +242,21 @@ Redhead.prototype.checkPlatformCollisions = function() {
 Redhead.prototype.spear = function() {
 
   if (this.rightFaceing) {
+
+    if(this.spearAnimation.currentFrame() === 5) {
+      this.spearBox = new BoundingRect(this.x + 40, this.y + 42, 20, 5, this.game);
+    }else {
+      this.spearBox = null;
+    }
     // this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 7);
     this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 7, true);
 
   } else {
+    if(this.spearAnimation.currentFrame() === 5) {
+      this.spearBox = new BoundingRect(this.x , this.y + 42, 20, 5, this.game);
+    }else {
+      this.spearBox = null;
+    }
     // this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 5);
     this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 5, true);
   }
@@ -363,7 +382,7 @@ Redhead.prototype.jump = function() {
 
         }
 
-  } 
+  }
    else if (this.y >= this.ground) {
       this.jumping = false;
       this.jumpAnimation.elapsedTime = 0;

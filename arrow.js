@@ -31,16 +31,8 @@ function arrowObj(game, skeleton, spritesheet, x, y, marker) {
 }
 
 arrowObj.prototype.draw = function () {
-    if (this.flying) {
-        this.animation.drawSpecificFrame(this.ctx, this.x, this.y, this.row, 3)
-    } else {
-
-    //this.boundingRect.drawRect();
-
     if(!this.needToRemove) {
       this.game.removeTheUnit(this.marker);
-
-
     }else {
       if (this.flying) {
         if (this.flyingLeft) {
