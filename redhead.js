@@ -322,12 +322,9 @@ Redhead.prototype.fall = function() {
     }
 } else {
     var newGround = DEATH;
+    var newGround = DEATH;
     if (this.y >= newGround) {
-      this.jumpAnimation.elapsedTime = 0;
-      this.paceing = true;
-      this.y = newGround;
-      this.falling = false;
-      this.jumping = false;
+      this.game.removeTheUnit(this.marker);
     }
   }
 }
