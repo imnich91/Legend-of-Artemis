@@ -213,7 +213,9 @@ OrcBowman.prototype.update = function () {
       this.magicAnimation.elapsedTime = 0;
       this.down = false;
       this.animating = false;
-      this.mana -= 25;
+      if(this.mana > 0) {
+        this.mana -= 25;
+      }
       mana = this.mana + "%";
   }
   if (this.attackRightAnimation.isDone()) {
