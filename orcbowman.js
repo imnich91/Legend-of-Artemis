@@ -27,7 +27,7 @@ function OrcBowman(game, spritesheet) {
 
   this.startX = this.x;
   this.startY = this.y;
-
+  this.bow = false;
   this.ground = this.y;
   this.speed = 350;
   this.ctx = game.ctx;
@@ -124,7 +124,19 @@ OrcBowman.prototype.draw = function () {
         this.y - this.camera.yView - this.yAttackAdjust,
          1, true);
     }
-  } else if(!this.animating){
+  } else if(this.bow) {
+    if(this.currDirection === 11) {
+      this.shootRightAnimation.drawFrame(this.game.clockTick, this.ctx,
+        this.x - this.camera.xView,
+        this.y - this.camera.yView,
+         19, true);
+    } else {
+      this.shootLeftAnimation.drawFrame(this.game.clockTick, this.ctx,
+        this.x - this.camera.xView,
+        this.y - this.camera.yView,
+         17, true);
+    }
+  }else if(!this.animating){
     if(this.lastPressed === "right" || this.lastPressed === "melee") {
       this.walkAnimation.drawFrame(0, this.ctx,
         this.x - this.camera.xView,
@@ -207,6 +219,10 @@ OrcBowman.prototype.update = function () {
     this.up = true;
     this.lastPressed = "up";
     this.animating = false;
+  } else if(this.game.chars["KeyX"] || this.game.chars["KeyK"]) {
+    this.lastPressed = "bow"
+    this.bow = true;
+    this.animating = true;
   }
 
   if (this.magicAnimation.isDone()) {
@@ -227,6 +243,16 @@ OrcBowman.prototype.update = function () {
       this.attackLeftAnimation.elapsedTime = 0;
       this.melee = false;
       this.animating = false;
+  }
+  if(this.shootRightAnimation.isDone()) {
+    this.shootRightAnimation.elapsedTime = 0;
+    this.bow = false;
+    this.animating = false;
+  }
+  if(this.shootLeftAnimation.isDone()) {
+    this.shootLeftAnimation.elapsedTime = 0;
+    this.bow = false;
+    this.animating = false;
   }
 
   this.previousLoc.updateLoc(this.boundingRect.x, this.boundingRect.y);
@@ -383,11 +409,13 @@ OrcBowman.prototype.withinRange = function() {
       if (this.x - entity.x > 0 && Math.abs(this.x - entity.x) <= 50) {
         if(this.down && this.magicAnimation.currentFrame() === 5) {
           entity.x -= 100;
+          entity.health -= 10;
           entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
         }
       } else if(this.x - entity.x < 0 && Math.abs(this.x - entity.x) <= 50) {
         if(this.down && this.magicAnimation.currentFrame() === 5) {
           entity.x += 100;
+          entity.health -= 10;
           entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
 
         }

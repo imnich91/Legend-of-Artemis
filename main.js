@@ -162,7 +162,7 @@ MovingPlatform.prototype.moveLeft = function() {
 // AM.queueDownload("./img/backgrounds/town_background.jpg");
 AM.queueDownload("./img/backgrounds/level1nofloatingplatforms.png");
 //main character image
-AM.queueDownload("./img/characters/Tron.png")
+AM.queueDownload("./img/characters/TronWithBow.png")
 AM.queueDownload("./img/extras/chest.png");
 AM.queueDownload("./img/characters/redhead.png");
 AM.queueDownload("./img/characters/skeleton.png");
@@ -377,7 +377,7 @@ AM.downloadAll(function () {
     //gameEngine.addPlatform(new Platform(new BoundingRect(2500, 2004, 440, 55, gameEngine)));
 
     var count = 1;
-    var artemis = new  OrcBowman(gameEngine, AM.getAsset("./img/characters/Tron.png"));
+    var artemis = new  OrcBowman(gameEngine, AM.getAsset("./img/characters/TronWithBow.png"));
     artemis.currentPlatform = startingPlatform;
     gameEngine.addEntity(artemis);
 
