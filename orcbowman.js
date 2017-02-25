@@ -208,10 +208,12 @@ OrcBowman.prototype.update = function () {
     this.animating = true;
     this.x -= this.game.clockTick * this.speed;
   } else if(this.game.chars["KeyS"] || this.game.chars["ArrowDown"]) {
-    this.lastPressed = "down";
-    this.down = true;
-    this.animating = true;
-  } else if(this.game.chars["KeyZ"] || this.game.chars["KeyJ"]) {
+    if(this.mana > 0) {
+      this.lastPressed = "down";
+      this.down = true;
+      this.animating = true;
+    }
+  } else if(this.game.chars["Digit1"] || this.game.chars["KeyJ"]) {
     this.lastPressed = "melee";
     this.melee = true;
     this.animating = true;
@@ -219,7 +221,7 @@ OrcBowman.prototype.update = function () {
     this.up = true;
     this.lastPressed = "up";
     this.animating = false;
-  } else if(this.game.chars["KeyX"] || this.game.chars["KeyK"]) {
+  } else if(this.game.chars["Digit2"] || this.game.chars["KeyK"]) {
     this.lastPressed = "bow"
     this.bow = true;
     this.animating = true;

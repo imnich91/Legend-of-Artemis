@@ -170,6 +170,8 @@ AM.queueDownload("./img/arrow_skeleton.png");
 AM.queueDownload("./img/extras/x2platform.png");
 AM.queueDownload("./img/extras/x4platform.png");
 AM.queueDownload("./img/characters/ArtemisAttack.png");
+AM.queueDownload("./img/characters/Princess.png");
+
 
 
 AM.downloadAll(function () {
@@ -555,12 +557,14 @@ AM.downloadAll(function () {
     gameEngine.addEntity(skeleton8);
 
 
+    gameEngine.addEntity(new princess(gameEngine, AM.getAsset("./img/characters/Princess.png")));
 
 
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6300, 1387, 2));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 80, 1482, 2));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 35, 462, 1));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
+
 
 
     // gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
