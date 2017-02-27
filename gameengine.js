@@ -59,12 +59,13 @@ GameEngine.prototype.start = function () {
         requestAnimFrame(gameLoop, that.ctx.canvas);
     })();
 
-            //pop up a instruction message for 3 second when the game start
+    // pop up a instruction message for 3 second when the game start
     setTimeout(function(){
         var parent = document.getElementById("gamecontainer");
         var child = document.getElementById("gameStartMessage");
         parent.removeChild(child);
     }, 3000);
+
 }
 
 GameEngine.prototype.startInput = function () {

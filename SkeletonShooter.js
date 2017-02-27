@@ -92,7 +92,7 @@ SkeletonShooter.prototype.collideBottom = function(other) {
 
 SkeletonShooter.prototype.draw = function () {
 
-   // this.boundingRect.drawRect();
+    // this.boundingRect.drawRect();
 
   if (this.shooting) {
     this.shoot();

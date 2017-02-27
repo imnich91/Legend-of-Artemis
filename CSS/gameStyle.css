@@ -133,3 +133,16 @@
 	width: 400px;
 	height: 700px;
 }
+
+#gameEnding {
+	z-index: 3;
+	position: absolute;
+	width: 800px;
+	height: 600px;
+	background-color: #385E61;
+	text-align: center;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 40px;
+	color: gold;
+}

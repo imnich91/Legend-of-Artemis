@@ -418,7 +418,18 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
         this.health = 100;
         this.mana = 100;
       }
-    }
+    }else if(entity.constructor.name === "princess") {
+        if(this.collide(entity)) {
+          var parent = document.getElementById("gamecontainer");
+          var child = document.createElement("div");
+          child.id = "gameEnding"
+          child.className = "game ending"
+          child.innerHTML = "<br><br><br>Congratulation!!!!<br> Artemis finally saved his lovely princess!!!" +
+                            "<br>They got married and have a happy life!!!" +
+                            "<br>\n\n\n Thank you for playing~~~~";
+          parent.appendChild(child);
+        }
+      }
   }
 };
 

@@ -87,7 +87,7 @@ Redhead.prototype.collideBottom = function(other) {
 
 Redhead.prototype.draw = function () {
 
-   // this.boundingRect.drawRect();
+    //this.boundingRect.drawRect();
 
   if (this.spearing) {
     this.spear();
