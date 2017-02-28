@@ -45,6 +45,7 @@ function Redhead(game, x, y, spritesheet, marker) {
     this.height = 64;
     this.cX = (this.x-this.width/2) - this.camera.xView;
     this.cY = (this. y-this.height/2) - this.camera.yView;
+    this.yRangeDetection = 250;
 
   }
 
@@ -177,9 +178,14 @@ Redhead.prototype.checkArtemisCollision = function() {
   var myMiddle = this.boundingRect.left + (this.boundingRect.width / 2);
   var hisMiddle = artemis.boundingRect.left + (artemis.boundingRect.width / 2);
 
-  if (Math.abs(myMiddle - hisMiddle) < this.boundingRect.width + 14 ) {
+  var myHeightMiddle = this.boundingRect.top + (this.boundingRect.height/2);
+  var hisHeightMiddle = artemis.boundingRect.top + (this.boundingRect.height/2);
+
+  if (Math.abs(myMiddle - hisMiddle) < this.boundingRect.width + 14 &&
+     Math.abs(myHeightMiddle - hisHeightMiddle) < this.yRangeDetection ) {
     this.spearing = true;
-  } else if (Math.abs(myMiddle - hisMiddle) <= FOLLOWDISTANCE) {
+  } else if (Math.abs(myMiddle - hisMiddle) <= FOLLOWDISTANCE &&
+    Math.abs(myHeightMiddle - hisHeightMiddle) < this.yRangeDetection) {
     if (myMiddle - hisMiddle > 0) {
       this.leftFaceing = true;
       this.rightFaceing = false;

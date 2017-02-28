@@ -47,6 +47,7 @@ function SkeletonShooter(game, x, y, spritesheet, marker) {
     this.height = 64;
     this.cX = (this.x-this.width/2) - this.camera.xView;
     this.cY = (this. y-this.height/2) - this.camera.yView;
+    this.yRangeDetection = 250;
 
   }
 
@@ -170,7 +171,11 @@ SkeletonShooter.prototype.checkArtemisCollision = function() {
   var myMiddle = this.boundingRect.left + (this.boundingRect.width / 2);
   var hisMiddle = artemis.boundingRect.left + (artemis.boundingRect.width / 2);
 
-  if (Math.abs(myMiddle - hisMiddle) <= SHOOTDISTANCE) {
+  var myHeightMiddle = this.boundingRect.top + (this.boundingRect.height/2);
+  var hisHeightMiddle = artemis.boundingRect.top + (this.boundingRect.height/2);
+
+  if (Math.abs(myMiddle - hisMiddle) <= SHOOTDISTANCE &&
+     Math.abs(myHeightMiddle - hisHeightMiddle) < this.yRangeDetection) {
     if (myMiddle - hisMiddle > 0) {
       this.leftFaceing = true;
       this.rightFaceing = false;
