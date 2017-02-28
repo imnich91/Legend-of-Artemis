@@ -1,5 +1,3 @@
-var GRAVITY = 20;
-var DEATH = 2500;
 var FOLLOWDISTANCE = 260;
 
 
@@ -88,7 +86,7 @@ Redhead.prototype.collideBottom = function(other) {
 
 Redhead.prototype.draw = function () {
 
-    //this.boundingRect.drawRect();
+    // this.boundingRect.drawRect();
 
   if (this.spearing) {
     this.spear();
@@ -199,7 +197,6 @@ Redhead.prototype.checkArtemisCollision = function() {
     this.following = true;
 
     if(this.falling) {
-      this.walking = false;
       this.following = false;
     }
   } else {
@@ -288,6 +285,8 @@ Redhead.prototype.spear = function() {
 
 Redhead.prototype.fall = function() {
 
+  console.log("im still walking " + this.walking);
+
   this.paceing = false;
   var currframe = this.animation.currentFrame();
 
@@ -365,7 +364,7 @@ Redhead.prototype.jump = function() {
 
   if (this.newPlatform) {
     var newGround = this.currentPlatform.boundingRect.y - this.boundingRect.height - this.yAdjust;
-    
+
     if (this.y >= newGround) {
       this.ground = newGround;
       this.jumping = false;
@@ -412,19 +411,19 @@ Redhead.prototype.pace = function() {
 Redhead.prototype.moveRight = function() {
     this.x += this.game.clockTick * this.speed;
 
-    //if (!this.jumping) {
+    if (!this.jumping) {
       this.animation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 11, true);
       this.walking = false;
       this.paceing = true;
-  //  }
+   }
   }
 
 Redhead.prototype.moveLeft = function() {
   this.x -= this.game.clockTick * this.speed;
 
-  //if (!this.jumping) {
+  if (!this.jumping) {
     this.animation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 9, true)
     this.walking = false;
     this.paceing = true;
-//  }
+ }
 }

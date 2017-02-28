@@ -1,5 +1,3 @@
-var GRAVITY = 20;
-var DEATH = 2500;
 var SHOOTDISTANCE = 300;
 
 

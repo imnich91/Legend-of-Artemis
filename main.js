@@ -185,11 +185,6 @@ AM.downloadAll(function () {
     gameEngine.init(ctx, AM.getAsset("./img/backgrounds/level1nofloatingplatforms.png"));
 
     var startingPlatform = new Platform(new BoundingRect(0, 2067, 260, 63, gameEngine));
-    var redhead1SP = new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine));
-    var redhead2SP = new Platform(new BoundingRect(3045, 2067, 1558, 61, gameEngine));
-    var redhead3SP = new Platform(new BoundingRect(4356, 1589, 726, 52, gameEngine));
-    var redhead4SP = new Platform(new BoundingRect(470, 1140, 1827, 23, gameEngine));
-    var redhead5SP = new Platform(new BoundingRect(1140, 1940, 606, 187, gameEngine));
     startingPlatform.isCurrent = true;
 
     //size 2 moving platforms
@@ -214,15 +209,13 @@ AM.downloadAll(function () {
 
 
     gameEngine.addPlatform(startingPlatform);
-    gameEngine.addPlatform(redhead1SP); // redhead 1
-    gameEngine.addPlatform(redhead2SP); // redhead 2
-    gameEngine.addPlatform(redhead3SP);
-    gameEngine.addPlatform(redhead4SP);
-    gameEngine.addPlatform(redhead5SP);
-
+    gameEngine.addPlatform(new Platform(new BoundingRect(388, 1940, 503, 187, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(3045, 2067, 1558, 61, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(4356, 1589, 726, 52, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(470, 1140, 1827, 23, gameEngine)));
+    gameEngine.addPlatform(new Platform(new BoundingRect(1140, 1940, 606, 187, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(6078, 1458, 322, 32, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(260, 2005, 130, 65, gameEngine)));
-    // gameEngine.addPlatform(new Platform(new BoundingRect(1140, 1940, 606, 187, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(1755, 2004, 768, 125, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(5572, 1940, 55, 55, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(5829, 1940, 55, 55, gameEngine)));
@@ -376,23 +369,18 @@ AM.downloadAll(function () {
     gameEngine.addPlatform(new Platform(new BoundingRect(6336, 402, 32, 32, gameEngine)));
     gameEngine.addPlatform(new Platform(new BoundingRect(6143, 530, 224, 32, gameEngine)));
 
-
-    // temporary for testing
-    //gameEngine.addPlatform(new Platform(new BoundingRect(2500, 2004, 440, 55, gameEngine)));
-
     var count = 1;
     var artemis = new  OrcBowman(gameEngine, AM.getAsset("./img/characters/TronWithBow.png"), count++);
     artemis.currentPlatform = startingPlatform;
     gameEngine.addEntity(artemis);
 
-
     var dragon = new Dragon(gameEngine, 200, 1760, AM.getAsset("./img/characters/dragon_fly_right.png"), count++);
     gameEngine.addEntity(dragon);
 
 
-    var redhead1 = new Redhead(gameEngine, 630, 1960, AM.getAsset("./img/characters/redhead.png"), count++);
-    var redheadAdjust = redhead1.yAdjust + redhead1.boundingRect.height;
-    redhead1.y = 1920 - redheadAdjust;
+    var redhead1 = new Redhead(gameEngine, 630, 1940, AM.getAsset("./img/characters/redhead.png"), count++);
+    var redheadAdjust = redhead1.yAdjust + redhead1.boundingRect.height + 20;
+    redhead1.y = 1940 - redheadAdjust;
     gameEngine.addEntity(redhead1);
 
     var redhead2 = new Redhead(gameEngine, 3950, 2067, AM.getAsset("./img/characters/redhead.png"), count++);

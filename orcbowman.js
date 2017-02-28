@@ -1,4 +1,4 @@
-var GRAVITY = 20;
+var GRAVITY = 60;
 var DEATH = 2500;
 var WALKINGOFFPLATFORM = 0;
 var JUMPHEIGHT = 220;
@@ -290,16 +290,13 @@ OrcBowman.prototype.update = function () {
 
       // check left boundary
     if(this.x + this.xAdjust < 0) {
-        // console.log("before boundary x : " + this.x);
         this.x = 0 - this.xAdjust;
-        // console.log("boundary x : " + this.x);
     }
     //check top boundary
     if(this.y + this.yAdjust < 0) {
       this.y = -this.yAdjust;
       this.falling = true;
       this.jumping = false;
-        // console.log("top boundary y : " + this.y);
     }
 
     //check right boundary
@@ -600,7 +597,7 @@ OrcBowman.prototype.fall = function() {
     this.y = this.y-3;
     WALKINGOFFPLATFORM ++;
   } else {
-    this.y += GRAVITY * this.jumpAnimation.elapsedTime;
+   this.y += GRAVITY * this.jumpAnimation.elapsedTime;
   }
 
   this.jumpAnimation.elapsedTime += this.game.clockTick;
