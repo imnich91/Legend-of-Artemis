@@ -1,4 +1,4 @@
-var GRAVITY = 60;
+var GRAVITY = 20;
 var DEATH = 2500;
 var WALKINGOFFPLATFORM = 0;
 var JUMPHEIGHT = 220;
@@ -596,7 +596,7 @@ OrcBowman.prototype.fall = function() {
     this.y = this.y-3;
     WALKINGOFFPLATFORM ++;
   } else {
-   this.y += GRAVITY * this.jumpAnimation.elapsedTime;
+   this.y += GRAVITY * this.jumpAnimation.elapsedTime;   
   }
 
   this.jumpAnimation.elapsedTime += this.game.clockTick;
