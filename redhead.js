@@ -20,7 +20,7 @@ function Redhead(game, x, y, spritesheet, marker) {
     this.startX = x;
     this.startY = y;
 
-    this.ground = y;
+    this.ground = null;
     this.newXLocation = x;
     this.speed = 100;
     this.pacingDistance = 40;
@@ -223,7 +223,6 @@ Redhead.prototype.checkPlatformCollisions = function() {
       else if (this.collideTop(platform)) {
         this.newPlatform = true;
         this.currentPlatform = platform;
-        this.falling = false;
       }
       else if (this.collideLeft(platform)) {
         this.x = platform.boundingRect.right - this.xAdjust;
@@ -296,7 +295,6 @@ Redhead.prototype.fall = function() {
     if (this.spearing){
       this.spear()
     } else {
-      // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 11, currframe);
       this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 11, currframe);
     }
 
@@ -304,7 +302,6 @@ Redhead.prototype.fall = function() {
       if (this.spearing) {
         this.spear()
       } else {
-        // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 9, currframe);
         this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 9, currframe);
       }
   }
@@ -333,7 +330,6 @@ Redhead.prototype.fall = function() {
   }
 }
 
-
 Redhead.prototype.jump = function() {
 
   this.jumpAnimation.elapsedTime += this.game.clockTick;
@@ -344,7 +340,6 @@ Redhead.prototype.jump = function() {
     if (this.spearing){
       this.spear()
     } else {
-      // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 11, currframe);
       this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 11, currframe);
     }
 
@@ -352,7 +347,6 @@ Redhead.prototype.jump = function() {
       if (this.spearing) {
         this.spear()
       } else {
-        // this.animation.drawSpecificFrame(this.ctx, this.x, this.y, 9, currframe);
         this.animation.drawSpecificFrame(this.ctx, this.cX, this.cY, 9, currframe);
       }
   }
@@ -371,7 +365,7 @@ Redhead.prototype.jump = function() {
 
   if (this.newPlatform) {
     var newGround = this.currentPlatform.boundingRect.y - this.boundingRect.height - this.yAdjust;
-
+    
     if (this.y >= newGround) {
       this.ground = newGround;
       this.jumping = false;
@@ -396,7 +390,6 @@ Redhead.prototype.jump = function() {
       this.paceing = true;
       this.y = this.ground;
   }
-
 }
 
 Redhead.prototype.pace = function() {
@@ -419,22 +412,19 @@ Redhead.prototype.pace = function() {
 Redhead.prototype.moveRight = function() {
     this.x += this.game.clockTick * this.speed;
 
-    if (!this.jumping) {
-      // this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 11);
+    //if (!this.jumping) {
       this.animation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 11, true);
       this.walking = false;
       this.paceing = true;
-    }
+  //  }
   }
 
 Redhead.prototype.moveLeft = function() {
   this.x -= this.game.clockTick * this.speed;
 
-  if (!this.jumping) {
-    // this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 9);
+  //if (!this.jumping) {
     this.animation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 9, true)
     this.walking = false;
     this.paceing = true;
-
-  }
+//  }
 }
