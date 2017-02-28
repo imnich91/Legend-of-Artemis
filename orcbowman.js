@@ -62,7 +62,6 @@ OrcBowman.prototype.draw = function () {
     } else if(this.currentPlatform.rightFaceing) {
       this.x += this.game.clockTick * this.currentPlatform.speed;
     }
-
   }
 
   if (this.jumping) {

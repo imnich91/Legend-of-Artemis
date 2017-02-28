@@ -283,9 +283,7 @@ Redhead.prototype.spear = function() {
     }
 }
 
-Redhead.prototype.fall = function() {
-
-  console.log("im still walking " + this.walking);
+Redhead.prototype.fall = function() {  
 
   this.paceing = false;
   var currframe = this.animation.currentFrame();

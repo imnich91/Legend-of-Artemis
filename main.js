@@ -106,7 +106,6 @@ function MovingPlatform(game, x, y, boundingRect, spritesheet, range, direction,
   this.camera = game.camera;
   this.speed = speed;
   this.boundingRect = boundingRect;
-  this.previousLoc = boundingRect;
 }
 
 MovingPlatform.prototype.draw = function () {
@@ -121,7 +120,6 @@ MovingPlatform.prototype.draw = function () {
 MovingPlatform.prototype.update = function () {
   this.cX = this.x - this.camera.xView;
   this.cY = this.y - this.camera.yView;
-  this.previousLoc.updateLoc(this.boundingRect.x, this.boundingRect.y);
   this.boundingRect.updateLoc(this.x, this.y);
   if(this.startX - this.x >= this.range) {
     this.leftFaceing = false;
