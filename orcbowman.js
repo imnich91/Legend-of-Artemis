@@ -303,6 +303,12 @@ OrcBowman.prototype.update = function () {
         this.x = this.game.worldWidth - this.width + this.xAdjust;
     }
 
+    if (this.boundingRect.bottom < 1042 && !this.jumping){
+      JUMPHEIGHT = 165;
+    } else if (this.boundingRect.bottom > 1042 && !this.jumping){
+      JUMPHEIGHT = 220;
+    }
+
     if (this.y >= DEATH) {
       this.x = this.startX;
       this.y = this.startY;
@@ -596,7 +602,7 @@ OrcBowman.prototype.fall = function() {
     this.y = this.y-3;
     WALKINGOFFPLATFORM ++;
   } else {
-   this.y += GRAVITY * this.jumpAnimation.elapsedTime;   
+   this.y += GRAVITY * this.jumpAnimation.elapsedTime;
   }
 
   this.jumpAnimation.elapsedTime += this.game.clockTick;
