@@ -17,8 +17,7 @@ function arrowObj(game, skeleton, spritesheet, x, y, marker) {
     this.ctx = game.ctx;
     this.frame = 4;
     this.flying = true;
-    this.flyingRight = false;
-    
+    this.flyingRight = false;    
     this.flyingLeft = false;
 
     if (this.skeleton.rightFaceing) {
