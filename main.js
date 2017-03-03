@@ -566,6 +566,14 @@ AM.downloadAll(function () {
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
 
 
+    for (var i = 0; i < gameEngine.platforms.length; i ++) {
+
+
+
+
+
+    }
+
 
     // gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
     // var redhead = new Redhead(gameEngine, 720, 1877,  AM.getAsset("./img/characters/redhead.png"), ctx);

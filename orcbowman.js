@@ -14,6 +14,7 @@ function OrcBowman(game, spritesheet, marker) {
   this.jumpAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1);
   this.jumpAnimation = new Animation(spritesheet, 64, 64, 8, 0.1, 8, false, 1);
   this.marker = marker;
+  this.money = 0;
 
   this.xAdjust = 21;
   this.yAdjust = 13;
@@ -432,6 +433,8 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
     }else if (entity.constructor.name === "Coin") {
       if (this.collide(entity)) {
         entity.needToRemove = false;
+        this.money += 10; // increment money
+        console.log(this.money);
       }
     } else if(entity.constructor.name === "princess") {
         if(this.collide(entity)) {
