@@ -96,6 +96,44 @@
 	color: white;
 }
 
+#xpImg {
+	position: absolute;
+	top: 83px;
+	right: 175px;
+	height: 30px;
+	width: 30px;
+	z-index: 2;
+}
+
+.xpbar {
+	z-index: 2;
+	position: absolute;
+	background-color: #1a1a1a;
+	height: 25px;
+	padding: 2px;
+	width: 150px;
+	top: 83px;
+	right: 16px;
+	border-radius: 5px;
+	box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+}
+
+#xp {
+	display: inline-block;
+	height: 100%;
+	border-radius: 5px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+	transition: width .4s ease-in-out;
+	background-color: #C9B916;
+	width: 100%;
+}
+
+#xplabel {
+	text-align: center;
+	line-height: 25px;
+	color: white;
+}
+
 #gameStartMessage {
 	z-index: 2;
 
