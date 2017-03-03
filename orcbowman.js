@@ -399,12 +399,12 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
       }
       if(this.swordBox !== null) {
         if (this.collideSword(entity)) {
-          entity.health -= 5;
+          entity.health -= 15;
           if(entity.x > this.x) {
-            entity.x += 7;
+            entity.x += 15;
             entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
           } else if(entity.x < this.x) {
-            entity.x -= 7;
+            entity.x -= 15;
             entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
           }
           this.swordBox = null;
@@ -429,7 +429,11 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
         this.health = 100;
         this.mana = 100;
       }
-    }else if(entity.constructor.name === "princess") {
+    }else if (entity.constructor.name === "Coin") {
+      if (this.collide(entity)) {
+        entity.needToRemove = false;
+      }
+    } else if(entity.constructor.name === "princess") {
         if(this.collide(entity)) {
           var parent = document.getElementById("gamecontainer");
           var child = document.createElement("div");

@@ -17,7 +17,7 @@ function arrowObj(game, skeleton, spritesheet, x, y, marker) {
     this.ctx = game.ctx;
     this.frame = 4;
     this.flying = true;
-    this.flyingRight = false;    
+    this.flyingRight = false;
     this.flyingLeft = false;
 
     if (this.skeleton.rightFaceing) {
@@ -70,16 +70,6 @@ arrowObj.prototype.update = function () {
     } else {
       this.boundingRect.updateLoc(this.x + this.xAdjust * 2.5, this.y + this.yAdjust);
     }
-
-
-
-
-
-    // else if(this.collide) {
-    //     this.game.removeTheUnit(this.marker);
-    //     this.needToRemove = false;
-    // }
-    // if (this.x > 800) this.x = -230;
 }
 
 

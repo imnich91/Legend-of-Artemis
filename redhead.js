@@ -118,6 +118,13 @@ Redhead.prototype.update = function () {
 
     if(this.health <= 0) {
       this.game.removeTheUnit(this.marker);
+      var marker = new Date().getUTCMilliseconds();
+      var x = this.boundingRect.left + (this.boundingRect.width/2);
+      var numcoins = getRand(3,7);
+
+      for (var i = 0; i < numcoins; i++) {
+        this.game.addEntity(new Coin(this.game, AM.getAsset("./img/extras/coin.png"), x, this.y - i*20, marker));
+      }
     }
 
     this.checkPlatformCollisions();
@@ -283,7 +290,7 @@ Redhead.prototype.spear = function() {
     }
 }
 
-Redhead.prototype.fall = function() {  
+Redhead.prototype.fall = function() {
 
   this.paceing = false;
   var currframe = this.animation.currentFrame();

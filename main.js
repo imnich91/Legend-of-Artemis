@@ -1,5 +1,11 @@
 var AM = new AssetManager();
 
+function getRand(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+
+
 function Animation(spriteSheet, frameWidth, frameHeight, sheetWidth, frameDuration, frames, loop, scale) {
     this.spriteSheet = spriteSheet;
     this.frameWidth = frameWidth;
@@ -160,7 +166,7 @@ MovingPlatform.prototype.moveLeft = function() {
 // AM.queueDownload("./img/backgrounds/town_background.jpg");
 AM.queueDownload("./img/backgrounds/level1nofloatingplatforms.png");
 //main character image
-AM.queueDownload("./img/characters/TronWithBow.png")
+AM.queueDownload("./img/characters/TronWithBow.png");
 AM.queueDownload("./img/extras/chest.png");
 AM.queueDownload("./img/characters/redhead.png");
 AM.queueDownload("./img/characters/skeleton.png");
@@ -169,8 +175,9 @@ AM.queueDownload("./img/extras/x2platform.png");
 AM.queueDownload("./img/extras/x4platform.png");
 AM.queueDownload("./img/characters/ArtemisAttack.png");
 AM.queueDownload("./img/characters/Princess.png");
-AM.queueDownload("./img/characters/dragon_fly_right.png")
-AM.queueDownload("./img/characters/dragon_fly_left.png")
+AM.queueDownload("./img/characters/dragon_fly_right.png");
+AM.queueDownload("./img/characters/dragon_fly_left.png");
+AM.queueDownload("./img/extras/coin.png");
 
 
 
@@ -546,6 +553,8 @@ AM.downloadAll(function () {
     skeleton8.y = 610 - redheadAdjust;
     skeleton8.falling = true;
     gameEngine.addEntity(skeleton8);
+
+
 
 
     gameEngine.addEntity(new princess(gameEngine, AM.getAsset("./img/characters/Princess.png"), count++));
