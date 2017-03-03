@@ -38,6 +38,7 @@ function Redhead(game, x, y, spritesheet, marker) {
     this.following = false;
     this.spearBox = null;
     this.health = 100;
+    this.attacking = false;
 
     this.width = 64;
     this.height = 64;
@@ -265,9 +266,13 @@ Redhead.prototype.spear = function() {
 
   if (this.rightFaceing) {
 
-    if(this.spearAnimation.currentFrame() === 5) {
+    if(this.spearAnimation.currentFrame() === 5 && !this.attacking) {
       this.spearBox = new BoundingRect(this.x + 40, this.y + 42, 20, 5, this.game);
-    }else {
+      this.attacking = true;
+      myAudio = new Audio('./se/spearThrust.flac');
+      myAudio.play();
+    } else if(this.spearAnimation.currentFrame() >= 6) {
+      this.attacking = false;
       this.spearBox = null;
     }
     // this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 7);
@@ -276,7 +281,11 @@ Redhead.prototype.spear = function() {
   } else {
     if(this.spearAnimation.currentFrame() === 5) {
       this.spearBox = new BoundingRect(this.x , this.y + 42, 20, 5, this.game);
-    }else {
+      this.attacking = true;
+      myAudio = new Audio('./se/spearThrust.flac');
+      myAudio.play();
+    } else if(this.spearAnimation.currentFrame() >= 6) {
+      this.attacking = false;
       this.spearBox = null;
     }
     // this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 5);
