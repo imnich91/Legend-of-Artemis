@@ -42,6 +42,7 @@ function OrcBowman(game, spritesheet, marker) {
   this.movingPlatform = null;
   this.onMoving = false;
   this.decreaseMana = false;
+  this.attacking = false;
 
   //////////////////////////
   this.width = 64;
@@ -103,9 +104,13 @@ OrcBowman.prototype.draw = function () {
          2, true);
   } else if(this.melee) {
     if(this.currDirection === 11) {
-      if(this.attackRightAnimation.currentFrame() === 4) {
+      if(this.attackRightAnimation.currentFrame() === 4 && !this.attacking) {
         this.swordBox = new BoundingRect(this.x + 55 , this.y + 20, 50, 20, this.game);
-      } else {
+        this.attacking = true;
+        myAudio = new Audio('./se/swordSwing.flac');
+        myAudio.play();
+      } else if(this.attackRightAnimation.currentFrame() >= 5) {
+        this.attacking = false;
         this.swordBox = null;
       }
       this.attackRightAnimation.drawFrame(this.game.clockTick,
@@ -114,9 +119,13 @@ OrcBowman.prototype.draw = function () {
         this.y - this.camera.yView - this.yAttackAdjust,
          3, true);
     } else {
-      if(this.attackLeftAnimation.currentFrame() === 4) {
+      if(this.attackLeftAnimation.currentFrame() === 4&& !this.attacking) {
         this.swordBox = new BoundingRect(this.x- 40 , this.y + 20, 50, 20, this.game);
-      } else {
+        this.attacking = true;
+        myAudio = new Audio('./se/swordSwing.flac');
+        myAudio.play();
+      } else if(this.attackLeftAnimation.currentFrame() >= 5) {
+        this.attacking = false;
         this.swordBox = null;
       }
       this.attackLeftAnimation.drawFrame(this.game.clockTick, this.ctx,
