@@ -38,6 +38,7 @@ function Redhead(game, x, y, spritesheet, marker) {
     this.following = false;
     this.spearBox = null;
     this.health = 100;
+    this.attacking = false;
 
     this.width = 64;
     this.height = 64;
@@ -118,6 +119,13 @@ Redhead.prototype.update = function () {
 
     if(this.health <= 0) {
       this.game.removeTheUnit(this.marker);
+      var marker = new Date().getUTCMilliseconds();
+      var x = this.boundingRect.left + (this.boundingRect.width/2);
+      var numcoins = getRand(3,7);
+
+      for (var i = 0; i < numcoins; i++) {
+        this.game.addEntity(new Coin(this.game, AM.getAsset("./img/extras/coin.png"), x, this.y - i*20, marker));
+      }
     }
 
     this.checkPlatformCollisions();
@@ -258,18 +266,26 @@ Redhead.prototype.spear = function() {
 
   if (this.rightFaceing) {
 
-    if(this.spearAnimation.currentFrame() === 5) {
+    if(this.spearAnimation.currentFrame() === 5 && !this.attacking) {
       this.spearBox = new BoundingRect(this.x + 40, this.y + 42, 20, 5, this.game);
-    }else {
+      this.attacking = true;
+      myAudio = new Audio('./se/spearThrusting.flac');
+      myAudio.play();
+    } else if(this.spearAnimation.currentFrame() >= 6) {
+      this.attacking = false;
       this.spearBox = null;
     }
     // this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 7);
     this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 7, true);
 
   } else {
-    if(this.spearAnimation.currentFrame() === 5) {
+    if(this.spearAnimation.currentFrame() === 5 && !this.attacking) {
       this.spearBox = new BoundingRect(this.x , this.y + 42, 20, 5, this.game);
-    }else {
+      this.attacking = true;
+      myAudio = new Audio('./se/spearThrusting.flac');
+      myAudio.play();
+    } else if(this.spearAnimation.currentFrame() >= 6) {
+      this.attacking = false;
       this.spearBox = null;
     }
     // this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 5);
@@ -283,7 +299,7 @@ Redhead.prototype.spear = function() {
     }
 }
 
-Redhead.prototype.fall = function() {  
+Redhead.prototype.fall = function() {
 
   this.paceing = false;
   var currframe = this.animation.currentFrame();

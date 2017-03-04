@@ -169,11 +169,11 @@
 		sHeight = context.canvas.height;
 
 		// if cropped image is smaller than canvas we need to change the source dimensions
-		if(this.image.width - sx < sWidth){
+		if(this.image.width - sx <= sWidth){
 			// console.log("width1" + sWidth + "height1" + sHeight);
 			sWidth = this.image.width - sx;
 		}
-		if(this.image.height - sy < sHeight){
+		if(this.image.height - sy <= sHeight){
 			// console.log("width2" + sWidth + "height2" + sHeight);
 
 			sHeight = this.image.height - sy; 

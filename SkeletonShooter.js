@@ -116,6 +116,12 @@ SkeletonShooter.prototype.draw = function () {
 SkeletonShooter.prototype.update = function () {
     if(this.health <= 0) {
       this.game.removeTheUnit(this.marker);
+      var marker = new Date().getUTCMilliseconds();
+      var x = this.boundingRect.left + (this.boundingRect.width/2);
+      var numcoins = getRand(5,10);
+      for (var i = 0; i < numcoins; i++) {
+        this.game.addEntity(new Coin(this.game, AM.getAsset("./img/extras/coin.png"), x, this.y - i*20, marker));
+      }
     }
 
     this.cX = this.x - this.camera.xView;
