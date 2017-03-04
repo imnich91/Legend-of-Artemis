@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Game Project Shell</title>
-    <link rel="stylesheet" type="text/css" href="./CSS/gameStyle.css">
+    <link rel="stylesheet" type="text/css" href="./CSS/UIStyle.css">
     <script type="text/javascript" src="./gameengine.js"></script>
     <script type="text/javascript" src="./assetmanager.js"></script>
     <script type="text/javascript" src="./camerasystem.js"></script>
@@ -16,6 +16,7 @@
     <script type="text/javascript" src="./chest.js"></script>
     <script type="text/javascript" src="./redhead.js"></script>
     <script type="text/javascript" src="./Dragon.js"></script>
+    <script type="text/javascript" src="./coin.js"></script>
 
     <script type="text/javascript" src="./main.js"></script>
 </head>
@@ -36,6 +37,17 @@
                 <div id="manalabel">100%</div>
             </div>
         </div>
+        <img src="./img/extras/XP-icon.png" id="xpImg" alt="xp">
+        <img src="./img/extras/level.png" id="level" alt="level">
+        <div id="levelnumber">1</div>
+        <img src="./img/extras/coinIcon.png" id="coinImg" alt="coin">
+        <img src="./img/extras/coinbar.png" id="coinbar" alt="coinbar">
+        <div id="coinnumber">0</div>
+        <div class ="xpbar">
+            <div id="xp">
+                <div id="xplabel">100%</div>
+            </div>
+        </div>
         <div id="gameStartMessage">
             Kill monsters!!!<br>Save the princess!!!
         </div>
@@ -48,7 +60,7 @@
             <h3>Key K/Num 2:&nbsp;&nbsp; attack with bow</h3>
             <h3>Key L/Num 3:&nbsp;&nbsp; open chest</h3>
         </div>
+        <img src="./img/extras/unactivate bow.png" id="bow_icon" alt="bow_icon">
     </div>
-
 </body>
 </html>
