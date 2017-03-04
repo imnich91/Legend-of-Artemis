@@ -126,6 +126,7 @@ Redhead.prototype.update = function () {
       for (var i = 0; i < numcoins; i++) {
         this.game.addEntity(new Coin(this.game, AM.getAsset("./img/extras/coin.png"), x, this.y - i*20, marker));
       }
+      this.game.entities[0].increaseXP();
     }
 
     this.checkPlatformCollisions();

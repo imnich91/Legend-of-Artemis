@@ -252,3 +252,21 @@ body {
 	width: 25px;
 	z-index: 2;
 }
+
+#bow_money_error {
+	z-index: 2;
+	position: absolute;
+	background-color: #FC4126;
+	color: white;
+	font-weight: bold;
+	padding-top: 5px;
+	height: 45.2px;
+	width: 55px;
+	top: 120px;
+	left: 30px;
+	border-radius: 20px;
+	text-align: center;
+	box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+  	transition: transform 0.8s;
+}
+
