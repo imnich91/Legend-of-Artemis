@@ -31,7 +31,7 @@ function Dragon(game,x, y, spritesheet, marker) {
   this.camera = game.camera;
   this.speed = 150;
 
-  this.health = 1000;
+  this.health = 2000;
   this.yRangeDetection = 250;
 
 }

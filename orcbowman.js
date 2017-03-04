@@ -251,8 +251,8 @@ OrcBowman.prototype.draw = function () {
 
 OrcBowman.prototype.update = function () {
 
-  var health = this.health/this.level + "%";
-  var mana = this.mana/this.level + "%";
+  var health = Math.floor(this.health/this.level) + "%";
+  var mana = Math.floor(this.mana/this.level) + "%";
   var xp = this.xp + "%";
   document.getElementById('health').style.width = health;
   document.getElementById('healthlabel').innerHTML = health;
@@ -482,14 +482,14 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
         entity.constructor.name === "Dragon") {
       if(entity.constructor.name === "Redhead" && entity.spearBox !== null) {
           if (this.collideSpear(entity)) {
-            this.health -= 4;
+            this.health -= 10;
             //console.log(this.health)
             entity.spearBox = null;
           }
       }
       if(entity.constructor.name === "Dragon" && entity.attackBox !== null) {
         if(this.collideHead(entity)) {
-          this.health -= 20;
+          this.health -= 50;
           entity.attackBox = null;
         }
       }
