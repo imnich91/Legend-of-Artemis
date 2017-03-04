@@ -383,7 +383,7 @@ AM.downloadAll(function () {
     artemis.currentPlatform = startingPlatform;
     gameEngine.addEntity(artemis);
 
-    var dragon = new Dragon(gameEngine, 200, 1760, AM.getAsset("./img/characters/dragon_fly_right.png"), count++);
+    var dragon = new Dragon(gameEngine, 300, 1860, AM.getAsset("./img/characters/dragon_fly_right.png"), count++);
     gameEngine.addEntity(dragon);
 
 

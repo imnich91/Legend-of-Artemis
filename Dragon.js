@@ -1,8 +1,7 @@
+var DRAGONFOLLOW = 500;
 function Dragon(game,x, y, spritesheet, marker) {
   this.flyingRightAnimation = new Animation(spritesheet, 80, 80, 3.5, 0.15, 3.5, true, 2);
   this.flyingLeftAnimation = new Animation(AM.getAsset("./img/characters/dragon_fly_left.png"), 80, 80, 3.5, 0.15, 3.5, true, 2);
-  this.lookRightAnimation = new Animation(AM.getAsset("./img/characters/dragon_lookright.png"), 80, 80, 1, 0.15, 1, true, 2);
-  this.lookLeftAnimation = new Animation(AM.getAsset("./img/characters/dragon_lookleft.png"), 80, 80, 1, 0.15, 1, true, 2);
   this.attackRightAnimation = new Animation(AM.getAsset("./img/characters/dragon_attack_right.png"), 80, 80, 2.5, 0.2, 2.5, true, 2);
   this.attackLeftAnimation = new Animation(AM.getAsset("./img/characters/dragon_attack_left.png"), 80, 80, 2.5, 0.2, 2.5, true, 2);
 
@@ -10,8 +9,7 @@ function Dragon(game,x, y, spritesheet, marker) {
 
   this.xAdjust = 24;
   this.yAdjust = 50;
-  this.boundingRect = new BoundingRect(x + this.xAdjust, y + this.yAdjust, 120, 80, game);
-  this.previousLoc = new BoundingRect(x + this.xAdjust, y + this.yAdjust, 120, 80, game);
+  this.boundingRect = new BoundingRect(x + this.xAdjust, y + this.yAdjust, 100, 80, game);
   this.marker = marker;
 
   this.spritesheet = spritesheet;
@@ -22,38 +20,26 @@ function Dragon(game,x, y, spritesheet, marker) {
   this.ctx = game.ctx;
   this.game = game;
   this.animating = false;
-  this.attacking = false
-  this.flying = false;
-  this.standing = true;
+  this.attacking = false;
+  this.flying = true;
   this.rightFaceing = true;
-  this.rightFaceing = false;
+  this.leftFaceing = false;
+
+  this.name = "Dragon";
 
 
   this.camera = game.camera;
   this.speed = 150;
 
-  this.health = 100;
-  this.yRangeDetection = 500;
+  this.health = 1000;
+  this.yRangeDetection = 250;
 
 }
 
 Dragon.prototype.draw = function() {
-  if(this.standing) {
-    if(this.rightFaceing) {
-      this.lookRightAnimation.drawFrame(this.game.clockTick,
-          this.ctx,
-          this.x - this.camera.xView,
-          this.y - this.camera.yView
-          , 0, false);
-    } else{
-      this.lookLeftAnimation.drawFrame(this.game.clockTick,
-          this.ctx,
-          this.x - this.camera.xView,
-          this.y - this.camera.yView
-          , 0, false);
-    }
 
-  } else if(this.flying) {
+  // this.boundingRect.drawRect();
+  if(this.flying) {
     if(this.rightFaceing) {
       this.flyingRightAnimation.drawFrame(this.game.clockTick,
           this.ctx,
@@ -85,16 +71,43 @@ Dragon.prototype.draw = function() {
 }
 
 Dragon.prototype.update = function () {
-  if(this.x >= this.startX + 400 && this.flying && !this.following) {
+  // console.log("this.flying ", this.flying);
+  // console.log("rigth faceing " ,this.rightFaceing);
+
+  if(this.rightFaceing) {
+    this.xAdjust = 44;
+  } else if(this.leftFaceing) {
+    this.xAdjust = 14
+  }else {
     this.xAdjust = 24;
-    this.y = this.startY;
+  }
+
+  if(this.x >= this.startX + 400 && this.flying && !this.following) {
+    if(this.y >= this.startY) {
+      this.y -= this.game.clockTick * this.speed;
+    } else{
+      this.y += this.game.clockTick * this.speed;
+    }
+    this.xAdjust = 24;
     this.rightFaceing = false;
     this.leftFaceing = true;
-  } else if(this.x <= this.startX && this.flying && ! this.following){
+  } else if(this.x < this.startX && this.flying && !this.following){
+    if(this.y <= this.startY) {
+      this.y -= this.game.clockTick * this.speed;
+    } else{
+      this.y += this.game.clockTick * this.speed;
+    }
     this.xAdjust = 24;
     this.leftFaceing = false;
     this.rightFaceing = true;
-    this.y = this.startY;
+  }
+
+  if(this.flying && this.following) {
+    if(this.y <= this.game.entities[0].y - 70) {
+      this.y += this.game.clockTick * this.speed;
+    } else if(this.y >= this.game.entities[0].y - 60){
+      this.y -= this.game.clockTick * this.speed;
+    }
   }
 
   if(this.rightFaceing && this.flying) {
@@ -106,7 +119,6 @@ Dragon.prototype.update = function () {
   this.cX = this.x - this.camera.xView;
   this.cY = this.y - this.camera.yView;
 
-  this.previousLoc.updateLoc(this.boundingRect.x, this.boundingRect.y);
   this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
 
   if(this.health <= 0) {
@@ -125,25 +137,25 @@ Dragon.prototype.checkArtemisCollision = function() {
   var hisMiddle = artemis.boundingRect.left + (artemis.boundingRect.width / 2);
 
   var myHeightMiddle = this.boundingRect.top + (this.boundingRect.height/2);
-  var hisHeightMiddle = artemis.boundingRect.top + (this.boundingRect.height/2);
+  var hisHeightMiddle = artemis.boundingRect.top + (artemis.boundingRect.height/2);
+  // (Math.abs(myHeightMiddle - hisHeightMiddle) >= artemis.y - artemis.y && Math.abs(myHeightMiddle - hisHeightMiddle) < artemis.boundingRect.bottom - artemis.y)) {
 
-  if (Math.abs(myMiddle - hisMiddle) < this.boundingRect.width + 14 &&
-     Math.abs(myHeightMiddle - hisHeightMiddle) < this.yRangeDetection ) {
+  if (Math.abs(myMiddle - hisMiddle) < this.boundingRect.width &&
+     (myHeightMiddle > artemis.y && myHeightMiddle < artemis.boundingRect.bottom)) {
      this.attacking = true;
      this.flying = false;
-  } else if (Math.abs(myMiddle - hisMiddle) <= FOLLOWDISTANCE &&
+  } else if (Math.abs(myMiddle - hisMiddle) <= DRAGONFOLLOW &&
     Math.abs(myHeightMiddle - hisHeightMiddle) < this.yRangeDetection) {
-    if (myMiddle - hisMiddle > 0) {
+
+
+     if (this.boundingRect.left - artemis.boundingRect.right > 0) {
       this.leftFaceing = true;
       this.flying = true
       this.rightFaceing = false;
-      this.standing = false;
-    } else {
+    } else if (this.boundingRect.right - artemis.boundingRect.left < 0){
       this.flying = true;
       this.rightFaceing = true;
       this.leftFaceing = false;
-      this.standing = false;
-
     }
     this.newXLocation = this.x;
     this.following = true;
