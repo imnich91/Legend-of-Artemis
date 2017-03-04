@@ -1,3 +1,7 @@
+body {
+	background-color: black;
+}
+
 #gamecontainer {
 	position: relative;
 	width: 800px;
@@ -8,7 +12,7 @@
 	position: absolute;
 	/*z-index: 1;*/
 	border: 1px solid brown;
-	background: lightskyblue
+	background: black;
 }
 
 #hplabel {
@@ -170,6 +174,7 @@
 	left: 880px;
 	width: 400px;
 	height: 700px;
+	color: white;
 }
 
 #gameEnding {
@@ -261,7 +266,7 @@
 	left: 30px;
 	border-radius: 20px;
 	text-align: center;
-	/*box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;*/
+	box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
   	transition: transform 0.8s;
 }
 

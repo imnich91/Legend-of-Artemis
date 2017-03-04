@@ -178,7 +178,11 @@ AM.queueDownload("./img/characters/Princess.png");
 AM.queueDownload("./img/characters/dragon_fly_right.png");
 AM.queueDownload("./img/characters/dragon_fly_left.png");
 AM.queueDownload("./img/extras/coin.png");
-
+AM.queueDownload("./img/characters/dragon_attack_right.png");
+AM.queueDownload("./img/characters/dragon_attack_left.png");
+AM.queueDownload("./img/characters/dragon_lookleft.png");
+AM.queueDownload("./img/characters/dragon_lookright.png");
+AM.queueDownload("./img/extras/character_shield.png");
 
 
 AM.downloadAll(function () {
@@ -564,13 +568,14 @@ AM.downloadAll(function () {
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 80, 1482, 2));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 35, 462, 1));
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
+    gameEngine.addEntity(new music(gameEngine));
 
 
 
-
-
+var count = 0;
     // random generate some coins!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     for (var i = 0; i < 100; i ++) {
+
       var x = getRand(0, gameEngine.worldWidth);
       var y = getRand(0, 2036);
       var marker = new Date().getUTCMilliseconds();
@@ -578,6 +583,7 @@ AM.downloadAll(function () {
       var coin = new Coin(gameEngine, AM.getAsset("./img/extras/coin.png"), x, y, marker);
       for (var j = 0; j < gameEngine.platforms.length; j++) {
         var p = gameEngine.platforms[j];
+
         if (coin.collide(p)) {
           collided = true;
           break;
@@ -585,23 +591,16 @@ AM.downloadAll(function () {
       }
       if (!collided)
         gameEngine.addEntity(coin);
+
     }
 
+    //music(false);
 
     // gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
     // var redhead = new Redhead(gameEngine, 720, 1877,  AM.getAsset("./img/characters/redhead.png"), ctx);
     // redhead.paceing = true;
     // redhead.jumping = false;
     // gameEngine.addEntity(redhead);
-
-    myAudio = new Audio('./bgm/DrinkUpThere_smore.mp3');
-    myAudio.addEventListener('ended', function() {
-      this.currentTime = 0;
-      this.play();
-    }, false);
-    myAudio.play();
-
-
 
     gameEngine.follow();
     gameEngine.start();
