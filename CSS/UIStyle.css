@@ -1,3 +1,7 @@
+body {
+	background-color: black;
+}
+
 #gamecontainer {
 	position: relative;
 	width: 800px;
@@ -8,7 +12,7 @@
 	position: absolute;
 	/*z-index: 1;*/
 	border: 1px solid brown;
-	background: lightskyblue
+	background: black;
 }
 
 #hplabel {
@@ -125,7 +129,7 @@
 	box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
 	transition: width .4s ease-in-out;
 	background-color: #C9B916;
-	width: 100%;
+	width: 0%;
 }
 
 #xplabel {
@@ -170,6 +174,7 @@
 	left: 880px;
 	width: 400px;
 	height: 700px;
+	color: white;
 }
 
 #gameEnding {
@@ -229,7 +234,7 @@
 #coinnumber {
 	position: absolute;
 	top: 116px;
-	right: 120px;
+	right: 127px;
 	height: 25px;
 	width: 10px;
 	z-index: 3;
@@ -247,4 +252,3 @@
 	width: 25px;
 	z-index: 2;
 }
-
