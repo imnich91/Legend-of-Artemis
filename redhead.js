@@ -171,7 +171,7 @@ Redhead.prototype.checkArtemisArrowCollision = function() {
     var entity = this.game.entities[i];
     if(entity.constructor.name === "artermisArrow") {
       if (this.collide(entity)) {
-        this.health -= 20;
+        this.health -= 20 * this.game.entities[0].level;
         entity.needToRemove = false;
       }
     }
