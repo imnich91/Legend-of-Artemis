@@ -495,7 +495,7 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
       }
       if(this.swordBox !== null) {
         if (this.collideSword(entity)) {
-          entity.health -= 15 * this.level ;
+          entity.health -= 8 * this.level ;
           if(entity.x > this.x) {
             entity.x += 15;
             entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
@@ -564,17 +564,17 @@ OrcBowman.prototype.withinRange = function() {
   for (var i = 0; i < this.game.entities.length; i ++) {
     var entity = this.game.entities[i];
 
-    if(entity.constructor.name === "Redhead" || entity.constructor.name === "SkeletonShooter") {
+    if(entity.constructor.name === "Redhead" || entity.constructor.name === "SkeletonShooter" || entity.constructor.name === "Dragon") {
       if (this.x - entity.x > 0 && Math.abs(this.x - entity.x) <= 50) {
         if(this.down && this.magicAnimation.currentFrame() === 5) {
           entity.x -= 100;
-          entity.health -= 10;
+          entity.health -= 10 * this.level;
           entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
         }
       } else if(this.x - entity.x < 0 && Math.abs(this.x - entity.x) <= 50) {
         if(this.down && this.magicAnimation.currentFrame() === 5) {
           entity.x += 100;
-          entity.health -= 10;
+          entity.health -= 10 * this.level;
           entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
 
         }
