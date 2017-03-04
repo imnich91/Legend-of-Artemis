@@ -209,8 +209,9 @@ music.prototype.update = function () {
     this.myAudio.muted = true;
     this.music = false;
   } else if(this.game.chars['KeyM'] && !this.music) {
+    console.log("Out");
     this.myAudio.muted = false;
-    this.music = false;
+    this.music = true;
   }
 }
 music.prototype.draw = function () {
