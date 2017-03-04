@@ -56,6 +56,8 @@ function OrcBowman(game, spritesheet, marker) {
 
   this.health = 100;
   this.mana = 100;
+  this.maxhealth = this.health;
+  this.maxmana = this.mana;
   this.level = 1;
   this.xp = 0;
   this.activiateBow = false;
@@ -67,12 +69,16 @@ OrcBowman.prototype.increaseXP = function () {
       this.updateLevel();
     } else if(this.level === 2) {
       this.xp += 15;
+      this.updateLevel();
     } else if(this.level === 3) {
       this.xp += 10;
+      this.updateLevel();
     } else if(this.level === 4) {
       this.xp += 5;
+      this.updateLevel();
     } else if(this.level === 5) {
       this.xp += 5;
+      this.updateLevel();
     }
 }
 
@@ -81,7 +87,9 @@ OrcBowman.prototype.updateLevel = function() {
       this.xp = 0;
       this.level++;
       this.health += 100;
-      this.mana += 50;
+      this.mana += 100;
+      this.maxhealth += 100;
+      this.maxmana += 100;
     }
 }
 
@@ -244,7 +252,7 @@ OrcBowman.prototype.draw = function () {
 OrcBowman.prototype.update = function () {
 
   var health = this.health/this.level + "%";
-  var mana = this.mana + "%";
+  var mana = this.mana/this.level + "%";
   var xp = this.xp + "%";
   document.getElementById('health').style.width = health;
   document.getElementById('healthlabel').innerHTML = health;
@@ -521,8 +529,8 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
       }
     } else if(entity.constructor.name === "Chest") {
       if(this.collide(entity) && entity.open) {
-        this.health = 100;
-        this.mana = 100;
+        this.health = this.maxhealth;
+        this.mana = this.maxmana;
       }
     }else if (entity.constructor.name === "Coin") {
       if (this.collide(entity)) {
