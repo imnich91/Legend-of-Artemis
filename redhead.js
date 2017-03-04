@@ -269,7 +269,7 @@ Redhead.prototype.spear = function() {
     if(this.spearAnimation.currentFrame() === 5 && !this.attacking) {
       this.spearBox = new BoundingRect(this.x + 40, this.y + 42, 20, 5, this.game);
       this.attacking = true;
-      myAudio = new Audio('./se/spearThrust.flac');
+      myAudio = new Audio('./se/spearThrusting.flac');
       myAudio.play();
     } else if(this.spearAnimation.currentFrame() >= 6) {
       this.attacking = false;
@@ -282,7 +282,7 @@ Redhead.prototype.spear = function() {
     if(this.spearAnimation.currentFrame() === 5 && !this.attacking) {
       this.spearBox = new BoundingRect(this.x , this.y + 42, 20, 5, this.game);
       this.attacking = true;
-      myAudio = new Audio('./se/spearThrust.flac');
+      myAudio = new Audio('./se/spearThrusting.flac');
       myAudio.play();
     } else if(this.spearAnimation.currentFrame() >= 6) {
       this.attacking = false;
