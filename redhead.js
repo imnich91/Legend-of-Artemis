@@ -49,7 +49,7 @@ function Redhead(game, x, y, spritesheet, marker) {
   }
 
 Redhead.prototype.resetWalkingSpeed = function() {
-    this.speed = 100;
+    this.speed = 300;
   }
 
 Redhead.prototype.resetPacingSpeed = function() {
@@ -204,6 +204,9 @@ Redhead.prototype.checkArtemisCollision = function() {
     this.walking = true;
     this.newXLocation = this.x;
     this.following = true;
+    if(artemis.jumping) {
+      this.jumping = true;
+    }
 
     if(this.falling) {
       this.following = false;
