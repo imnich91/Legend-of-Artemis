@@ -1,7 +1,7 @@
 var AM = new AssetManager();
 
 function getRand(min, max) {
-    return Math.random() * (max - min) + min;
+    return Math.floor(Math.random() * (max - min) + min);
 }
 
 
@@ -566,12 +566,25 @@ AM.downloadAll(function () {
     gameEngine.addEntity(new Chest(gameEngine, AM.getAsset("./img/extras/chest.png"), 6320, 493, 1));
 
 
-    for (var i = 0; i < gameEngine.platforms.length; i ++) {
 
 
 
-
-
+    // random generate some coins!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    for (var i = 0; i < 100; i ++) {
+      var x = getRand(0, gameEngine.worldWidth);
+      var y = getRand(0, 2036);
+      var marker = new Date().getUTCMilliseconds();
+      var collided = false;
+      var coin = new Coin(gameEngine, AM.getAsset("./img/extras/coin.png"), x, y, marker);
+      for (var j = 0; j < gameEngine.platforms.length; j++) {
+        var p = gameEngine.platforms[j];
+        if (coin.collide(p)) {
+          collided = true;
+          break;
+        }
+      }
+      if (!collided)
+        gameEngine.addEntity(coin);
     }
 
 

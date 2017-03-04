@@ -6,7 +6,7 @@ function Coin(game, spritesheet, x, y, marker) {
     this.yAdjust = 8;
     this.boundingRect = new BoundingRect(this.x + this.xAdjust, this.y + this.yAdjust, 16, 16, game);
 
-    this.collide = false;
+
     this.marker = marker;
     this.needToRemove = true;
     this.game = game;
@@ -30,8 +30,11 @@ Coin.prototype.draw = function() {
 
 Coin.prototype.update = function() {
 
+}
 
-
-
-
+Coin.prototype.collide = function(other) {
+  return this.boundingRect.left < other.boundingRect.right // left side collision
+  && this.boundingRect.right  > other.boundingRect.left // right side collision
+  && this.boundingRect.bottom > other.boundingRect.top //
+  && this.boundingRect.top < other.boundingRect.bottom;
 }

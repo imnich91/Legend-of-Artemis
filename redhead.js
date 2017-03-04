@@ -279,7 +279,7 @@ Redhead.prototype.spear = function() {
     this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 7, true);
 
   } else {
-    if(this.spearAnimation.currentFrame() === 5) {
+    if(this.spearAnimation.currentFrame() === 5 && !this.attacking) {
       this.spearBox = new BoundingRect(this.x , this.y + 42, 20, 5, this.game);
       this.attacking = true;
       myAudio = new Audio('./se/spearThrust.flac');
