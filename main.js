@@ -178,7 +178,11 @@ AM.queueDownload("./img/characters/Princess.png");
 AM.queueDownload("./img/characters/dragon_fly_right.png");
 AM.queueDownload("./img/characters/dragon_fly_left.png");
 AM.queueDownload("./img/extras/coin.png");
-
+AM.queueDownload("./img/characters/dragon_attack_right.png");
+AM.queueDownload("./img/characters/dragon_attack_left.png");
+AM.queueDownload("./img/characters/dragon_lookleft.png");
+AM.queueDownload("./img/characters/dragon_lookright.png");
+AM.queueDownload("./img/extras/character_shield.png");
 
 
 AM.downloadAll(function () {
@@ -594,7 +598,7 @@ AM.downloadAll(function () {
     // redhead.jumping = false;
     // gameEngine.addEntity(redhead);
 
-    myAudio = new Audio('./bgm/DrinkUpThere_smore.mp3');
+    myAudio = new Audio('./bgm/TheNightingale.mp3');
     myAudio.addEventListener('ended', function() {
       this.currentTime = 0;
       this.play();

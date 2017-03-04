@@ -13,6 +13,7 @@ function OrcBowman(game, spritesheet, marker) {
   this.upAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1);
   this.jumpAnimation = new Animation(spritesheet, 64, 64, 1, 0.1, 1, false, 1);
   this.jumpAnimation = new Animation(spritesheet, 64, 64, 8, 0.1, 8, false, 1);
+  this.shieldAnimation = new Animation(AM.getAsset("./img/extras/character_shield.png"), 215, 215, 5.5, .1, 5.5, false, 1);
   this.marker = marker;
   this.money = 0;
 
@@ -201,6 +202,13 @@ OrcBowman.prototype.draw = function () {
          this.currDirection, false);
     }
   }
+  if(this.shield) {
+    this.shieldAnimation.drawFrame(this.game.clockTick,
+    this.ctx,
+      this.x - this.camera.xView,
+      this.y - this.camera.yView,
+       0, true);
+  }
 }
 
 OrcBowman.prototype.update = function () {
@@ -242,6 +250,7 @@ OrcBowman.prototype.update = function () {
     if(this.mana > 0) {
       this.lastPressed = "down";
       this.down = true;
+      this.shield = true;
       this.animating = true;
     }
   } else if(this.game.chars["Digit1"] || this.game.chars["KeyJ"]) {
@@ -267,11 +276,19 @@ OrcBowman.prototype.update = function () {
       }
       mana = this.mana + "%";
   }
+
   if (this.attackRightAnimation.isDone()) {
       this.attackRightAnimation.elapsedTime = 0;
       this.melee = false;
       this.animating = false;
   }
+
+  if (this.shieldAnimation.isDone()) {
+      this.shieldAnimation.elapsedTime = 0;
+      this.shield = false;
+      this.animating = false;
+  }
+
   if (this.attackLeftAnimation.isDone()) {
       this.attackLeftAnimation.elapsedTime = 0;
       this.melee = false;
