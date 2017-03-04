@@ -434,7 +434,8 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
       if (this.collide(entity)) {
         entity.needToRemove = false;
         this.money += 10; // increment money
-        console.log(this.money);
+        var coinNumber = document.getElementById('coinnumber');
+        coinNumber.innerHTML = this.money;
       }
     } else if(entity.constructor.name === "princess") {
         if(this.collide(entity)) {
