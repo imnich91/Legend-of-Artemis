@@ -568,9 +568,10 @@ AM.downloadAll(function () {
 
 
 
-
+var count = 0;
     // random generate some coins!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     for (var i = 0; i < 100; i ++) {
+
       var x = getRand(0, gameEngine.worldWidth);
       var y = getRand(0, 2036);
       var marker = new Date().getUTCMilliseconds();
@@ -578,6 +579,7 @@ AM.downloadAll(function () {
       var coin = new Coin(gameEngine, AM.getAsset("./img/extras/coin.png"), x, y, marker);
       for (var j = 0; j < gameEngine.platforms.length; j++) {
         var p = gameEngine.platforms[j];
+
         if (coin.collide(p)) {
           collided = true;
           break;
@@ -585,6 +587,7 @@ AM.downloadAll(function () {
       }
       if (!collided)
         gameEngine.addEntity(coin);
+
     }
 
 
