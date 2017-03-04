@@ -31,6 +31,8 @@ function GameEngine() {
     this.INTERVAL = 1000/this.FPS; //milliseconds
     this.STEP = this.INTERVAL/1000 //seconds
 
+    this.music = true;
+
 }
 
 
@@ -188,6 +190,30 @@ GameEngine.prototype.update = function () {
     }
     //update the camera after the character move/update its position
     this.camera.update();
+  }
+
+function music(game) {
+  this.game = game;
+  this.music = true;
+  this.myAudio = new Audio('./bgm/DrinkUpThere_smore.mp3');
+  this.myAudio.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+  }, false);
+  this.myAudio.play();
+}
+
+music.prototype.update = function () {
+  if(this.game.chars['KeyM'] && this.music) {
+    console.log("Check");
+    this.myAudio.muted = true;
+    this.music = false;
+  } else if(this.game.chars['KeyM'] && !this.music) {
+    this.myAudio.muted = false;
+    this.music = false;
+  }
+}
+music.prototype.draw = function () {
 }
 
 GameEngine.prototype.loop = function () {
