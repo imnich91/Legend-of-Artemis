@@ -503,7 +503,10 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
             entity.x -= 15 * this.level;
             entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
           }
-          this.swordBox = null;
+          if(i === this.game.entities-1) {
+            this.swordBox = null;
+
+          }
         }
       }
       if (this.collide(entity)) {
