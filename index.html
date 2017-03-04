@@ -1,66 +1,71 @@
-﻿
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Game Project Shell</title>
-    <link rel="stylesheet" type="text/css" href="./CSS/UIStyle.css">
-    <script type="text/javascript" src="./gameengine.js"></script>
-    <script type="text/javascript" src="./assetmanager.js"></script>
-    <script type="text/javascript" src="./camerasystem.js"></script>
-    <script type="text/javascript" src="./boundingRect.js"></script>
-    <script type="text/javascript" src="./orcbowman.js"></script>
-    <script type="text/javascript" src="./SkeletonShooter.js"></script>
-    <script type="text/javascript" src="./arrow.js"></script>
-    <script type="text/javascript" src="./princess.js"></script>
-    <script type="text/javascript" src="./chest.js"></script>
-    <script type="text/javascript" src="./redhead.js"></script>
-    <script type="text/javascript" src="./Dragon.js"></script>
-    <script type="text/javascript" src="./coin.js"></script>
+  <style>
+    body {
+      background-image: url("./img/backgrounds/home.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      height: 750px;
+    }
 
-    <script type="text/javascript" src="./main.js"></script>
+    #button {
+
+      color: white;
+      width: 250px;
+      height: 100px;
+      border-radius: 25px;
+      border-style: solid;
+      border-color: black;
+      background-color: rgb(166,0,24);
+      opacity: .9;
+      position: absolute;
+      top:450px;
+      left:650px;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 100px;
+      font-size: 35px;
+      font-weight: 800;
+      font-family:serif;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .hide {
+      visibility: hidden;
+    }
+
+    .unhide {
+      visibility: visible;
+    }
+
+  </style>
+
+
 </head>
+
 <body>
-    <div id="gamecontainer">
-        <canvas id="gameWorld" tabindex="1" width="800" height="600">
-        </canvas>
-        <img src="./img/extras/heart.png" id="heart" alt="heart">
-        <!-- <div id="hplabel">HP</div> -->
-        <div class ="healthbar">
-            <div id="health">
-                <div id="healthlabel">100%</div>
-            </div>
-        </div>
-        <img src="./img/extras/energy.png" id="magic" alt="heart">
-        <div class ="magicbar">
-            <div id="mana">
-                <div id="manalabel">100%</div>
-            </div>
-        </div>
-        <img src="./img/extras/XP-icon.png" id="xpImg" alt="xp">
-        <img src="./img/extras/level.png" id="level" alt="level">
-        <div id="levelnumber">1</div>
-        <img src="./img/extras/coinIcon.png" id="coinImg" alt="coin">
-        <img src="./img/extras/coinbar.png" id="coinbar" alt="coinbar">
-        <div id="coinnumber">0</div>
-        <div class ="xpbar">
-            <div id="xp">
-                <div id="xplabel">100%</div>
-            </div>
-        </div>
-        <div id="gameStartMessage">
-            Kill monsters!!!<br>Save the princess!!!
-        </div>
-        <div id="gameControl">
-            <h1>&nbsp;&nbsp;&nbsp;Game Control</h1>
-            <h3>Arrow Left/Key A: &nbsp;&nbsp; move left</h3>
-            <h3>Arrow Right/Key D: &nbsp;&nbsp; move right</h3>
-            <h3>Arrow Down/Key S: &nbsp;&nbsp; Magic attack</h3>
-            <h3>Key J/Num 1:&nbsp;&nbsp; attack with sword</h3>
-            <h3>Key K/Num 2:&nbsp;&nbsp; attack with bow</h3>
-            <h3>Key L/Num 3:&nbsp;&nbsp; open chest</h3>
-        </div>
-        <img src="./img/extras/unactivate bow.png" id="bow_icon" alt="bow_icon">
-    </div>
+
+    <!-- <a href="https://imnich91.github.io/Legend-of-Artemis/home.html"> -->
+      <a href="home.html">
+
+
+      <div id = 'button'><span id = 'play' class = 'undhide'>PLAY GAME</span>
+      </div>
+    </a>
+
 </body>
+
+<script>
+
+  var play = document.getElementById('play');
+
+  setInterval(function() {
+        play.style.visibility = (play.style.visibility == 'hidden' ? '' : 'hidden');
+    }, 500);
+</script>
 </html>
