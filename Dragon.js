@@ -26,8 +26,8 @@ function Dragon(game,x, y, spritesheet, marker) {
   this.leftFaceing = false;
 
   this.name = "Dragon";
-
-
+  this.attackBox = null;
+  this.lunging = false;
   this.camera = game.camera;
   this.speed = 150;
 
@@ -54,19 +54,7 @@ Dragon.prototype.draw = function() {
         , 0, true);
     }
   }else if(this.attacking) {
-    if(this.rightFaceing) {
-      this.attackRightAnimation.drawFrame(this.game.clockTick,
-          this.ctx,
-          this.x - this.camera.xView,
-          this.y - this.camera.yView
-          , 0, true);
-    } else {
-        this.attackLeftAnimation.drawFrame(this.game.clockTick,
-        this.ctx,
-        this.x - this.camera.xView,
-        this.y - this.camera.yView
-        , 0, true);
-    }
+      this.attack();
   }
 }
 
@@ -129,6 +117,53 @@ Dragon.prototype.update = function () {
 
 }
 
+Dragon.prototype.attack = function() {
+
+  if (this.rightFaceing) {
+
+    if(this.attackRightAnimation.currentFrame() === 1 && !this.lunging) {
+      this.attackBox = new BoundingRect(this.x + 130, this.y + 75, 40, 40, this.game);
+      this.lunging = true;
+
+      // myAudio = new Audio('./se/spearThrusting.flac');
+      // myAudio.play();
+    } else if(this.attackRightAnimation.currentFrame() >1) {
+      this.lunging = false;
+      this.attackBox = null;
+    }
+    // this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 7);
+    this.attackRightAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 0, true);
+
+  } else {
+    if(this.attackLeftAnimation.currentFrame() === 1 && !this.lunging) {
+      this.attackBox = new BoundingRect(this.x - 15 , this.y + 75, 40, 40, this.game);
+      this.lunging = true;
+
+      // myAudio = new Audio('./se/spearThrusting.flac');
+      // myAudio.play();
+    } else if(this.attackLeftAnimation.currentFrame() > 1) {
+      this.lunging = false;
+      this.attackBox = null;
+    }
+    // this.spearAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 5);
+    this.attackLeftAnimation.drawFrame(this.game.clockTick, this.ctx, this.cX, this.cY, 0, true);
+  }
+
+    // if(this.rightFaceing) {
+    //   if (this.attackRightAnimation.isDone()) {
+    //     this.lunging = false;
+    //     this.attackRightAnimation.elapsedTime = 0;
+    //   }
+    // } else {
+    //   if (this.attackLeftAnimation.isDone()) {
+    //     this.lunging = false;
+    //     this.attackLeftAnimation.elapsedTime = 0;
+    //   }
+    // }
+}
+
+
+
 Dragon.prototype.checkArtemisCollision = function() {
 
   var artemis = this.game.entities[0];
@@ -140,7 +175,7 @@ Dragon.prototype.checkArtemisCollision = function() {
   var hisHeightMiddle = artemis.boundingRect.top + (artemis.boundingRect.height/2);
   // (Math.abs(myHeightMiddle - hisHeightMiddle) >= artemis.y - artemis.y && Math.abs(myHeightMiddle - hisHeightMiddle) < artemis.boundingRect.bottom - artemis.y)) {
 
-  if (Math.abs(myMiddle - hisMiddle) < this.boundingRect.width &&
+  if (Math.abs(myMiddle - hisMiddle) < this.boundingRect.width/2 &&
      (myHeightMiddle > artemis.y && myHeightMiddle < artemis.boundingRect.bottom)) {
      this.attacking = true;
      this.flying = false;

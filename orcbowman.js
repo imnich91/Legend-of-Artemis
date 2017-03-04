@@ -80,6 +80,8 @@ OrcBowman.prototype.updateLevel = function() {
     if(this.xp >= 100) {
       this.xp = 0;
       this.level++;
+      this.health += 100;
+      this.mana += 50;
     }
 }
 
@@ -241,7 +243,7 @@ OrcBowman.prototype.draw = function () {
 
 OrcBowman.prototype.update = function () {
 
-  var health = this.health + "%";
+  var health = this.health/this.level + "%";
   var mana = this.mana + "%";
   var xp = this.xp + "%";
   document.getElementById('health').style.width = health;
@@ -317,7 +319,7 @@ OrcBowman.prototype.update = function () {
       }, 1000);
     }
 
-    
+
   }
 
   if (this.magicAnimation.isDone()) {
@@ -412,6 +414,13 @@ OrcBowman.prototype.collideSpear = function(other) {
   && this.boundingRect.top < other.spearBox.bottom;
 }
 
+OrcBowman.prototype.collideHead = function(other) {
+  return this.boundingRect.left < other.attackBox.right // left side collision
+  && this.boundingRect.right  > other.attackBox.left // right side collision
+  && this.boundingRect.bottom > other.attackBox.top //
+  && this.boundingRect.top < other.attackBox.bottom;
+}
+
 
 OrcBowman.prototype.collideSword = function(other) {
   if(this.swordBox !== null) {
@@ -419,12 +428,6 @@ OrcBowman.prototype.collideSword = function(other) {
     && this.swordBox.right  > other.boundingRect.left // right side collision
     && this.swordBox.bottom > other.boundingRect.top //
     && this.swordBox.top < other.boundingRect.bottom) {
-      if(other.constructor.name === "Dragon") {
-        console.log("hit dragon");
-      }
-      if(other.constructor.name === "Redhead") {
-        console.log("red");
-      }
       return true;
     }
   }
@@ -476,14 +479,20 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
             entity.spearBox = null;
           }
       }
+      if(entity.constructor.name === "Dragon" && entity.attackBox !== null) {
+        if(this.collideHead(entity)) {
+          this.health -= 20;
+          entity.attackBox = null;
+        }
+      }
       if(this.swordBox !== null) {
         if (this.collideSword(entity)) {
-          entity.health -= 15 * this.damageMultiplier;
+          entity.health -= 15 * this.level ;
           if(entity.x > this.x) {
             entity.x += 15;
             entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
           } else if(entity.x < this.x) {
-            entity.x -= 15;
+            entity.x -= 15 * this.level;
             entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
           }
           this.swordBox = null;

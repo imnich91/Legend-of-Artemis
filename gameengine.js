@@ -195,7 +195,7 @@ GameEngine.prototype.update = function () {
 function music(game) {
   this.game = game;
   this.music = true;
-  this.myAudio = new Audio('./bgm/DrinkUpThere_smore.mp3');
+  this.myAudio = new Audio('./bgm/TheNightingale.mp3');
   this.myAudio.addEventListener('ended', function() {
     this.currentTime = 0;
     this.play();
