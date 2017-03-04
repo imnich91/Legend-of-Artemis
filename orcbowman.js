@@ -53,7 +53,33 @@ function OrcBowman(game, spritesheet, marker) {
 
   this.health = 100;
   this.mana = 100;
+  this.level = 1;
+  this.xp = 0;
+  this.activiateBow = false;
 }
+
+OrcBowman.prototype.increaseXP = function () {
+    if(this.level === 1) {
+      this.xp += 20;
+      this.updateLevel();
+    } else if(this.level === 2) {
+      this.xp += 15;
+    } else if(this.level === 3) {
+      this.xp += 10;
+    } else if(this.level === 4) {
+      this.xp += 5;
+    } else if(this.level === 5) {
+      this.xp += 5;
+    }
+}
+
+OrcBowman.prototype.updateLevel = function() {
+    if(this.xp >= 100) {
+      this.xp = 0;
+      this.level++;
+    }
+}
+
 
 OrcBowman.prototype.draw = function () {
 
@@ -207,11 +233,14 @@ OrcBowman.prototype.update = function () {
 
   var health = this.health + "%";
   var mana = this.mana + "%";
-
+  var xp = this.xp + "%";
   document.getElementById('health').style.width = health;
   document.getElementById('healthlabel').innerHTML = health;
   document.getElementById('mana').style.width = mana;
   document.getElementById('manalabel').innerHTML = mana;
+  document.getElementById("xplabel").innerHTML = xp;
+  document.getElementById("xp").style.width = xp;
+  document.getElementById("levelnumber").innerHTML = this.level;
 
 
   if (this.health <= 0) {
@@ -253,9 +282,31 @@ OrcBowman.prototype.update = function () {
     this.lastPressed = "up";
     this.animating = false;
   } else if(this.game.chars["Digit2"] || this.game.chars["KeyK"]) {
-    this.lastPressed = "bow"
-    this.bow = true;
-    this.animating = true;
+    if(this.money >= 500 && this.activiateBow === false ) {
+      this.lastPressed = "bow";
+      this.money -= 500;
+      this.activiateBow = true;
+      this.bow = true;
+      document.getElementById("bow_icon").src = "./img/extras/activate bow.png"
+      document.getElementById("coinnumber").innerHTML = this.money;
+      this.animating = true;
+    } else if (this.activiateBow) {
+      this.lastPressed = "bow";
+      this.bow = true;
+      this.animating = true;
+    } else {
+      var parent = document.getElementById("gamecontainer");
+      var bow_money_error = document.createElement("div");
+      bow_money_error.id = "bow_money_error";
+      bow_money_error.innerHTML = "500<br>coin";
+      parent.appendChild(bow_money_error);
+
+      setTimeout(function(){
+          parent.removeChild(bow_money_error);
+      }, 1000);
+    }
+
+    
   }
 
   if (this.magicAnimation.isDone()) {
