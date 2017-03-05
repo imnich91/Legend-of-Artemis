@@ -204,7 +204,7 @@ Redhead.prototype.checkArtemisCollision = function() {
     this.walking = true;
     this.newXLocation = this.x;
     this.following = true;
-    if(artemis.jumping) {
+    if(artemis.jumping && artemis.y < this.y - 100) {
       this.jumping = true;
     }
 

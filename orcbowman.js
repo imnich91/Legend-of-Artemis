@@ -302,7 +302,17 @@ OrcBowman.prototype.update = function () {
     this.up = true;
     this.lastPressed = "up";
     this.animating = false;
-  } else if(this.game.chars["Digit2"] || this.game.chars["KeyK"]) {
+  } else if(this.game.chars["Digit7"]) {
+    this.speed = 200
+    for(var i = 1; i < this.game.entities.length; i++) {
+      this.game.entities[i].speed = 0;
+    }
+  } else if(this.game.chars["Digit8"]) {
+    this.speed = 350
+    for(var i = 1; i < this.game.entities.length; i++) {
+      this.game.entities[i].speed = 300;
+    }
+  }else if(this.game.chars["Digit2"] || this.game.chars["KeyK"]) {
     if(this.money >= 500 && this.activiateBow === false ) {
       this.lastPressed = "bow";
       this.money -= 500;
