@@ -114,7 +114,7 @@ Dragon.prototype.update = function () {
   }
 
   this.checkArtemisCollision();
-  this.checkArtemisArrowCollision();
+  // this.checkArtemisArrowCollision();
 }
 
 Dragon.prototype.attack = function() {
@@ -161,17 +161,17 @@ Dragon.prototype.attack = function() {
     //   }
     // }
 }
-Dragon.prototype.checkArtemisArrowCollision = function() {
-  for (var i = 0; i < this.game.entities.length; i ++) {
-    var entity = this.game.entities[i];
-    if(entity.constructor.name === "artermisArrow") {
-      if (this.collide(entity)) {
-        this.health -= 20 * this.game.entities[0].level;
-        entity.needToRemove = false;
-      }
-    }
-  }
-}
+// Dragon.prototype.checkArtemisArrowCollision = function() {
+//   for (var i = 0; i < this.game.entities.length; i ++) {
+//     var entity = this.game.entities[i];
+//     if(entity.constructor.name === "artermisArrow") {
+//       if (this.collide(entity)) {
+//         this.health -= 20 * this.game.entities[0].level;
+//         entity.needToRemove = false;
+//       }
+//     }
+//   }
+// }
 
 
 Dragon.prototype.checkArtemisCollision = function() {
