@@ -5,8 +5,6 @@ function Dragon(game,x, y, spritesheet, marker) {
   this.attackRightAnimation = new Animation(AM.getAsset("./img/characters/dragon_attack_right.png"), 80, 80, 2.5, 0.2, 2.5, true, 2);
   this.attackLeftAnimation = new Animation(AM.getAsset("./img/characters/dragon_attack_left.png"), 80, 80, 2.5, 0.2, 2.5, true, 2);
 
-
-
   this.xAdjust = 24;
   this.yAdjust = 50;
   this.boundingRect = new BoundingRect(x + this.xAdjust, y + this.yAdjust, 100, 80, game);
@@ -24,6 +22,9 @@ function Dragon(game,x, y, spritesheet, marker) {
   this.flying = true;
   this.rightFaceing = true;
   this.leftFaceing = false;
+
+  this.shootedRight = false;
+  this.shootedLeft = false;
 
   this.name = "Dragon";
   this.attackBox = null;
@@ -115,7 +116,56 @@ Dragon.prototype.update = function () {
 
   this.checkArtemisCollision();
   // this.checkArtemisArrowCollision();
+
+
+
+  this.shootFireball();
 }
+
+
+
+Dragon.prototype.shootFireball = function() {
+  var artemis = this.game.entities[0];
+
+//&& !this.shooted
+  if(this.rightFaceing) {
+    //adding the arrow obj
+    if(this.flyingRightAnimation.currentFrame() === 0 && !this.shootedRight ) {
+      var marker = new Date().getUTCMilliseconds(); //assign a unique ID number for each arrow
+      var fireball = new Fireball(this.game, this, AM.getAsset("./img/extras/dragon_fireball.png"), this.x+130, this.y, marker);
+      this.game.addEntity(fireball);
+      this.shootedRight = true;
+      myAudio = new Audio('./se/bowFire.mp3')
+      myAudio.play();
+
+    }
+    if(this.flyingRightAnimation.currentFrame() > 0) {
+      this.shootedRight = false;
+    }
+  } else {
+    //adding the arrow obj
+    if(this.flyingLeftAnimation.currentFrame() === 0 && !this.shootedLeft ) {
+      var marker = new Date().getUTCMilliseconds(); //assign a unique ID number for each arrow
+      // if (this.rightFaceing) {
+        //var fireball = new Fireball(this.game, this, AM.getAsset("./img/extras/dragon_fireball.png"), this.x+130, this.y, marker);
+      // }else {
+         var fireball = new Fireball(this.game, this, AM.getAsset("./img/extras/dragon_fireball.png"), this.x, this.y, marker);
+      // }
+
+      this.game.addEntity(fireball);
+      this.shootedLeft = true;
+      myAudio = new Audio('./se/bowFire.mp3')
+      myAudio.play();
+
+    }
+    if(this.flyingLeftAnimation.currentFrame() !== 0) {
+      this.shootedLeft = false;
+    }
+  }
+
+}
+
+
 
 Dragon.prototype.attack = function() {
 

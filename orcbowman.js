@@ -529,6 +529,12 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
     } else if(entity.constructor.name === "arrowObj") {
       if (this.collide(entity)) {
         this.health -= 10;
+        entity.needToRemove = false;
+      }
+    } else if(entity.constructor.name === "Fireball") {
+      if (this.collide(entity)) {
+        this.health -= 10;
+        entity.needToRemove = false;
       }
     } else if(entity.constructor.name === "Chest") {
       if(this.collide(entity) && entity.open) {
@@ -580,11 +586,7 @@ OrcBowman.prototype.withinRange = function() {
         }
       }
 
-    } else if(entity.constructor.name === "arrowObj") {
-        if (this.collide(entity)) {
-          entity.needToRemove = false;
-        }
-      }
+    }
   }
 };
 
