@@ -201,6 +201,7 @@ function music(game) {
     this.play();
   }, false);
   this.myAudio.play();
+  this.miniCD = 1;
 }
 
 music.prototype.update = function () {
@@ -209,19 +210,23 @@ music.prototype.update = function () {
     var that = this.myAudio ; // you store the reference to a `this` in `that` variable,
                  // so you could use it in a callback function. You have
                  // to do that because it has its own `this` defined
-    setTimeout(function() {
-        that.muted = true;
-    },1000);
-    this.music = false;
+    this.miniCD -= this.game.clockTick;
+    if (this.miniCD < 0) {
+      this.miniCD = 1;
+      that.muted = true;
+      this.music = false;
+    }
   } else if(this.game.chars['KeyM'] && !this.music) {
     console.log("Out");
     var that = this.myAudio ; // you store the reference to a `this` in `that` variable,
                  // so you could use it in a callback function. You have
                  // to do that because it has its own `this` defined
-    setTimeout(function() {
-        that.muted = false;
-    },1000);
-    this.music = true;
+     this.miniCD -= this.game.clockTick;
+     if (this.miniCD < 0) {
+       this.miniCD = 1;
+       that.muted = true;
+       this.music = false;
+     }
   }
 }
 music.prototype.draw = function () {

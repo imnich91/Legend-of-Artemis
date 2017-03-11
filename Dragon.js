@@ -133,10 +133,11 @@ Dragon.prototype.shootFireball = function() {
       if(this.fireCD < 0) {
         this.fireCD = 1;
         this.game.addEntity(fireball);
+        myAudio = new Audio('./se/fireBallB.mp3')
+        myAudio.play();
       }
       this.shootedRight = true;
-      myAudio = new Audio('./se/bowFire.mp3')
-      myAudio.play();
+
 
     }
     if(this.flyingRightAnimation.currentFrame() > 0) {
@@ -151,10 +152,10 @@ Dragon.prototype.shootFireball = function() {
       if(this.fireCD < 0) {
         this.fireCD = 1;
         this.game.addEntity(fireball);
+        myAudio = new Audio('./se/fireBallB.mp3')
+        myAudio.play();
       }
       this.shootedLeft = true;
-      myAudio = new Audio('./se/bowFire.mp3')
-      myAudio.play();
 
     }
     if(this.flyingLeftAnimation.currentFrame() !== 0) {
@@ -174,8 +175,8 @@ Dragon.prototype.attack = function() {
       this.attackBox = new BoundingRect(this.x + 130, this.y + 75, 40, 40, this.game);
       this.lunging = true;
 
-      // myAudio = new Audio('./se/spearThrusting.flac');
-      // myAudio.play();
+      myAudio = new Audio('./se/bite.mp3');
+      myAudio.play();
     } else if(this.attackRightAnimation.currentFrame() >1) {
       this.lunging = false;
       this.attackBox = null;
@@ -188,8 +189,8 @@ Dragon.prototype.attack = function() {
       this.attackBox = new BoundingRect(this.x - 15 , this.y + 75, 40, 40, this.game);
       this.lunging = true;
 
-      // myAudio = new Audio('./se/spearThrusting.flac');
-      // myAudio.play();
+      myAudio = new Audio('./se/bite.mp3');
+      myAudio.play();
     } else if(this.attackLeftAnimation.currentFrame() > 1) {
       this.lunging = false;
       this.attackBox = null;
