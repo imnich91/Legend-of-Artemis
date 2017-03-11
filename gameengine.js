@@ -200,6 +200,7 @@ function music(game) {
     this.currentTime = 0;
     this.play();
   }, false);
+  this.myAudio.volume = 0.2;
   this.myAudio.play();
   this.miniCD = 1;
 }

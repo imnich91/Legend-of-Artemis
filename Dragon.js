@@ -176,6 +176,7 @@ Dragon.prototype.attack = function() {
       this.lunging = true;
 
       myAudio = new Audio('./se/bite.mp3');
+      myAudio.volume = 2;
       myAudio.play();
     } else if(this.attackRightAnimation.currentFrame() >1) {
       this.lunging = false;
