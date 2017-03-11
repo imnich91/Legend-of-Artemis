@@ -133,8 +133,8 @@ Dragon.prototype.shootFireball = function() {
       if(this.fireCD < 0) {
         this.fireCD = 1;
         this.game.addEntity(fireball);
-        myAudio = new Audio('./se/fireBallB.mp3')
-        myAudio.play();
+        //myAudio = new Audio('./se/fireBallB.mp3')
+        //myAudio.play();
       }
       this.shootedRight = true;
 
@@ -152,8 +152,8 @@ Dragon.prototype.shootFireball = function() {
       if(this.fireCD < 0) {
         this.fireCD = 1;
         this.game.addEntity(fireball);
-        myAudio = new Audio('./se/fireBallB.mp3')
-        myAudio.play();
+        //myAudio = new Audio('./se/fireBallB.mp3')
+        //myAudio.play();
       }
       this.shootedLeft = true;
 
