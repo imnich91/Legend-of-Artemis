@@ -384,12 +384,12 @@ AM.downloadAll(function () {
     artemis.currentPlatform = startingPlatform;
     gameEngine.addEntity(artemis);
 
-    // var dragon = new Dragon(gameEngine, 400, 0, AM.getAsset("./img/characters/dragon_fly_right.png"), count++);
-    // gameEngine.addEntity(dragon);
-
-    //test
-    var dragon = new Dragon(gameEngine, 400, 1900, AM.getAsset("./img/characters/dragon_fly_right.png"), count++);
+    var dragon = new Dragon(gameEngine, 400, 0, AM.getAsset("./img/characters/dragon_fly_right.png"), count++);
     gameEngine.addEntity(dragon);
+
+    // //test
+    // var dragon = new Dragon(gameEngine, 400, 1900, AM.getAsset("./img/characters/dragon_fly_right.png"), count++);
+    // gameEngine.addEntity(dragon);
 
 
     var redhead1 = new Redhead(gameEngine, 630, 1940, AM.getAsset("./img/characters/redhead.png"), count++);

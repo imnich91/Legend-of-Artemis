@@ -473,6 +473,7 @@ OrcBowman.prototype.collideBottom = function(other) {
 }
 
 OrcBowman.prototype.checkEnemyCollisions = function() {
+  var dragonFound = false;
 
   for (var i = 0; i < this.game.entities.length; i ++) {
     var entity = this.game.entities[i];
@@ -487,6 +488,8 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
             entity.spearBox = null;
           }
       }
+      if (entity.constructor.name === "Dragon")
+        dragonFound = true;
       if(entity.constructor.name === "Dragon" && entity.attackBox !== null) {
         if(this.collideHead(entity)) {
           this.health -= 50;
@@ -519,12 +522,6 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
             this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
 
         }
-        // else if (this.collideBottom(entity) && entity.constructor.name === "Dragon") {
-        //     this.y = entity.boundingRect.bottom - this.yAdjust;
-        //     this.falling = true;
-        //     this.jumping = false;
-        //     this.boundingRect.updateLoc(this.x + this.xAdjust, this.y + this.yAdjust);
-        // }
       }
     } else if(entity.constructor.name === "arrowObj") {
       if (this.collide(entity)) {
@@ -552,7 +549,8 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
         coinNumber.innerHTML = this.money;
       }
     } else if(entity.constructor.name === "princess") {
-        if(this.collide(entity)) {
+
+        if(this.collide(entity) && !dragonFound) {
           var parent = document.getElementById("gamecontainer");
           var child = document.createElement("div");
           child.id = "gameEnding"
@@ -566,21 +564,45 @@ OrcBowman.prototype.checkEnemyCollisions = function() {
   }
 };
 
+OrcBowman.prototype.changeFireballLocation = function(entity) {
 
+  if(entity.constructor.name === "Fireball" && this.down) {
+    var myMid = this.boundingRect.top + (this.boundingRect.height/2);
+    var fMid = entity.boundingRect.top + (entity.boundingRect.height/2);
+    var distance = Math.abs(myMid - fMid);
+    var push = false;
+
+    if (distance < 30) push = true;
+    if(entity.flyingLeft && push) {
+      entity.flyingLeft = false;
+      entity.flyingRight = true;
+    } else if (entity.flyingRight && push) {
+      entity.flyingLeft = true;
+      entity.flyingRight = false;
+    }
+  }
+}
 
 OrcBowman.prototype.withinRange = function() {
 
   for (var i = 0; i < this.game.entities.length; i ++) {
     var entity = this.game.entities[i];
 
-    if(entity.constructor.name === "Redhead" || entity.constructor.name === "SkeletonShooter" || entity.constructor.name === "Dragon") {
+    if(entity.constructor.name === "Redhead" || entity.constructor.name === "SkeletonShooter" ||
+     entity.constructor.name === "Dragon" || entity.constructor.name === "Fireball") {
       if (this.x - entity.x > 0 && Math.abs(this.x - entity.x) <= 50) {
+
+        this.changeFireballLocation(entity);
+
         if(this.down && this.magicAnimation.currentFrame() === 5) {
-          entity.x -= 100;
-          entity.health -= 10 * this.level;
-          entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
+            entity.x -= 100;
+            entity.health -= 10 * this.level;
+            entity.boundingRect.updateLoc(entity.x + entity.xAdjust, entity.y + entity.yAdjust)
         }
       } else if(this.x - entity.x < 0 && Math.abs(this.x - entity.x) <= 50) {
+
+        this.changeFireballLocation(entity);
+
         if(this.down && this.magicAnimation.currentFrame() === 5) {
           entity.x += 100;
           entity.health -= 10 * this.level;
@@ -588,7 +610,6 @@ OrcBowman.prototype.withinRange = function() {
 
         }
       }
-
     }
   }
 };
