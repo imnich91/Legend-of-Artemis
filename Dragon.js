@@ -17,6 +17,7 @@ function Dragon(game,x, y, spritesheet, marker) {
   this.startY = this.y;
   this.ctx = game.ctx;
   this.game = game;
+  this.fireCD = 1;
   this.animating = false;
   this.attacking = false;
   this.flying = true;
@@ -116,13 +117,8 @@ Dragon.prototype.update = function () {
 
   this.checkArtemisCollision();
   // this.checkArtemisArrowCollision();
-
-
-
   this.shootFireball();
 }
-
-
 
 Dragon.prototype.shootFireball = function() {
   var artemis = this.game.entities[0];
@@ -133,7 +129,11 @@ Dragon.prototype.shootFireball = function() {
     if(this.flyingRightAnimation.currentFrame() === 0 && !this.shootedRight ) {
       var marker = new Date().getUTCMilliseconds(); //assign a unique ID number for each arrow
       var fireball = new Fireball(this.game, this, AM.getAsset("./img/extras/dragon_fireball.png"), this.x+130, this.y, marker);
-      this.game.addEntity(fireball);
+      this.fireCD--;
+      if(this.fireCD < 0) {
+        this.fireCD = 1;
+        this.game.addEntity(fireball);
+      }
       this.shootedRight = true;
       myAudio = new Audio('./se/bowFire.mp3')
       myAudio.play();
@@ -146,13 +146,12 @@ Dragon.prototype.shootFireball = function() {
     //adding the arrow obj
     if(this.flyingLeftAnimation.currentFrame() === 0 && !this.shootedLeft ) {
       var marker = new Date().getUTCMilliseconds(); //assign a unique ID number for each arrow
-      // if (this.rightFaceing) {
-        //var fireball = new Fireball(this.game, this, AM.getAsset("./img/extras/dragon_fireball.png"), this.x+130, this.y, marker);
-      // }else {
-         var fireball = new Fireball(this.game, this, AM.getAsset("./img/extras/dragon_fireball.png"), this.x, this.y, marker);
-      // }
-
-      this.game.addEntity(fireball);
+      var fireball = new Fireball(this.game, this, AM.getAsset("./img/extras/dragon_fireball.png"), this.x, this.y, marker);
+      this.fireCD--;
+      if(this.fireCD < 0) {
+        this.fireCD = 1;
+        this.game.addEntity(fireball);
+      }
       this.shootedLeft = true;
       myAudio = new Audio('./se/bowFire.mp3')
       myAudio.play();
