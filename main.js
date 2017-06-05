@@ -183,6 +183,7 @@ AM.queueDownload("./img/characters/dragon_attack_left.png");
 AM.queueDownload("./img/characters/dragon_lookleft.png");
 AM.queueDownload("./img/characters/dragon_lookright.png");
 AM.queueDownload("./img/extras/character_shield.png");
+AM.queueDownload("./img/extras/dragon_fireball.png");
 
 
 AM.downloadAll(function () {
@@ -385,6 +386,10 @@ AM.downloadAll(function () {
 
     var dragon = new Dragon(gameEngine, 400, 0, AM.getAsset("./img/characters/dragon_fly_right.png"), count++);
     gameEngine.addEntity(dragon);
+
+    // //test
+    // var dragon = new Dragon(gameEngine, 400, 1900, AM.getAsset("./img/characters/dragon_fly_right.png"), count++);
+    // gameEngine.addEntity(dragon);
 
 
     var redhead1 = new Redhead(gameEngine, 630, 1940, AM.getAsset("./img/characters/redhead.png"), count++);
